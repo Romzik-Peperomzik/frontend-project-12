@@ -9,7 +9,6 @@ const App = () => (
     <div className="d-flex flex-column h-100">
       <nav className="shadow-sm">
         <Link className="App-link" to="/">Home</Link>
-        <Link className="App-link" to="/login">Login</Link>
       </nav>
       <Routes>
         <Route path="/" element={<Homepage />} />
