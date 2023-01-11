@@ -12,6 +12,6 @@ parserOptions:
   sourceType: module
 plugins:
   - react
-rules: {
+rules: 
   react/function-component-definition: 0
-}
+  no-console: 0
