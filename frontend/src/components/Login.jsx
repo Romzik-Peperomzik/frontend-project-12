@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
+import routes from '../routes';
 
 const validationSchema = Yup.object({
   username: Yup.string()
@@ -19,7 +20,7 @@ const Login = () => (
     onSubmit={(values) => {
       console.log(values);
       const { username, password } = values;
-      axios.post('/api/v1/login', { username, password }).then((response) => {
+      axios.post(routes.loginPath(), { username, password }).then((response) => {
         console.log(response.data); // => { token: ..., username: 'admin' }
       });
     }}
