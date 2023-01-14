@@ -7,9 +7,11 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
-import Login from './Login';
-import Homepage from './Homepage';
-import Notfoundpage from './Notfoundpage';
+import { Button, Navbar } from 'react-bootstrap';
+
+import HomePage from './HomePage';
+import LoginPage from './LoginPage';
+import NotFoundPage from './NotFoundPage';
 import AuthContext from '../contexts/index';
 
 const AuthProvider = ({ children }) => {
@@ -31,17 +33,19 @@ const AuthProvider = ({ children }) => {
 const App = () => (
   <AuthProvider>
     <BrowserRouter>
-      <div className="h-100" id="chat">
-        <div className="d-flex flex-column h-100">
-          <nav className="shadow-sm">
-            <Link className="App-link" to="/">Home</Link>
-          </nav>
-          <Routes>
-            <Route path="/" element={<Homepage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="*" element={<Notfoundpage />} />
-          </Routes>
-        </div>
+      <Navbar bg="light" expand="lg">
+        <Navbar.Brand as={Link} to="/">Hexlet</Navbar.Brand>
+        <Button as={Link} to="/homepage">Homepage</Button>
+        <Button as={Link} to="/login" style={{ marginLeft: '10px' }}>Login</Button>
+      </Navbar>
+
+      <div className="contaier">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/homepage" element={<HomePage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
       </div>
     </BrowserRouter>
   </AuthProvider>
