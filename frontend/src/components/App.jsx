@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom';
 import { Button, Navbar } from 'react-bootstrap';
 
+import ChatPage from './ChatPage';
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import NotFoundPage from './NotFoundPage';
@@ -41,7 +42,7 @@ const App = () => (
 
       <div className="contaier">
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<ChatPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/homepage" element={<HomePage />} />
           <Route path="*" element={<NotFoundPage />} />
