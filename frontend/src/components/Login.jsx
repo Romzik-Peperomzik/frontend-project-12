@@ -1,9 +1,10 @@
+import axios from 'axios';
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object({
-  nickname: Yup.string()
+  username: Yup.string()
     .max(15, 'Must be 15 characters or less')
     .required('Required'),
   password: Yup.string()
@@ -13,16 +14,20 @@ const validationSchema = Yup.object({
 
 const Login = () => (
   <Formik
-    initialValues={{ nickname: '', password: '' }}
+    initialValues={{ username: '', password: '' }}
     validationSchema={validationSchema}
     onSubmit={(values) => {
       console.log(values);
+      const { username, password } = values;
+      axios.post('/api/v1/login', { username, password }).then((response) => {
+        console.log(response.data); // => { token: ..., username: 'admin' }
+      });
     }}
   >
     {({ errors, touched }) => (
       <Form>
-        <Field name="nickname" />
-        {touched.nickname && errors.nickname && <div>{errors.nickname}</div>}
+        <Field name="username" />
+        {touched.username && errors.username && <div>{errors.username}</div>}
         <Field name="password" />
         {touched.password && errors.password && <div>{errors.password}</div>}
 
