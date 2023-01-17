@@ -7,7 +7,7 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
-import { Button, Navbar } from 'react-bootstrap';
+import { Button, Navbar, Container } from 'react-bootstrap';
 
 import ChatPage from './ChatPage';
 import HomePage from './HomePage';
@@ -34,20 +34,18 @@ const AuthProvider = ({ children }) => {
 const App = () => (
   <AuthProvider>
     <BrowserRouter>
-      <Navbar bg="light" expand="lg">
-        <Navbar.Brand as={Link} to="/">Hexlet</Navbar.Brand>
-        <Button as={Link} to="/homepage">Homepage</Button>
-        <Button as={Link} to="/login" style={{ marginLeft: '10px' }}>Login</Button>
+      <Navbar bg="white" className="shadow-sm">
+        <Container>
+          <Navbar.Brand as={Link} to="/">Hexlet Chat</Navbar.Brand>
+          <Button as={Link} to="/login">Login</Button>
+        </Container>
       </Navbar>
-
-      <div className="contaier">
-        <Routes>
-          <Route path="/" element={<ChatPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/homepage" element={<HomePage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<ChatPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/homepage" element={<HomePage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </BrowserRouter>
   </AuthProvider>
 );

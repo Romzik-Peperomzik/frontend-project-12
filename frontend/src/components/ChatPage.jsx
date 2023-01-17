@@ -1,16 +1,16 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Container, Row, Col } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 import useAuth from '../hooks/index';
 import routes from '../routes';
 
-import { addMessages } from '../slices/messagesSlice'; // addMessage,
-import { addChannels, setCurrentChannelId } from '../slices/channelsSlice'; // addChannel,
+import { addMessages } from '../slices/messagesSlice';
+import { addChannels, setCurrentChannelId } from '../slices/channelsSlice';
+import Channels from './Channels';
+import Messages from './Messages';
 
 const getAuthHeader = () => {
   const userId = JSON.parse(localStorage.getItem('userId'));
@@ -27,6 +27,7 @@ const ChatPage = () => {
 
   useEffect(() => {
     async function fetchData() {
+      if (!auth.loggedIn) return;
       const res = await axios.get(routes.usersPath(), { headers: getAuthHeader() });
       const { channels, messages, currentChannelId } = res.data;
       dispatch(addMessages({ messages }));
@@ -38,21 +39,24 @@ const ChatPage = () => {
   }, []);
 
   return (
-    <div>
+    <>
       {!auth.loggedIn && (
         <Navigate to="/login" />
       )}
 
       {chatData && (
-        // <p>{JSON.stringify(chatData)}</p>
-        <Container fluid="md">
-          <Row>
-            <Col sm={2}>{123}</Col>
-            <Col lg={10}>{456}</Col>
+        <Container className="my-4 overflow-hidden rounded shadow">
+          <Row className="bg-white vh-100">
+            <Col xs={4} md={2} className="pt-5 px-0 border-end bg-light">
+              <Channels />
+            </Col>
+            <Col xs={8} md={10} className="p-0">
+              <Messages />
+            </Col>
           </Row>
         </Container>
       )}
-    </div>
+    </>
   );
 };
 
