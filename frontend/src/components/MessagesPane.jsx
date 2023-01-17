@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Messages = () => {
+const MessagesPane = () => {
   const foo = 'Введите сообщение';
   return (
     <>
@@ -11,4 +11,4 @@ const Messages = () => {
   );
 };
 
-export default Messages;
+export default MessagesPane;

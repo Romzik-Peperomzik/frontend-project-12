@@ -9,8 +9,8 @@ import routes from '../routes';
 
 import { addMessages } from '../slices/messagesSlice';
 import { addChannels, setCurrentChannelId } from '../slices/channelsSlice';
-import Channels from './Channels';
-import Messages from './Messages';
+import ChannelsPane from './ChannelsPane';
+import MessagesPane from './MessagesPane';
 
 const getAuthHeader = () => {
   const userId = JSON.parse(localStorage.getItem('userId'));
@@ -48,10 +48,10 @@ const ChatPage = () => {
         <Container className="my-4 overflow-hidden rounded shadow">
           <Row className="bg-white vh-100">
             <Col xs={4} md={2} className="pt-5 px-0 border-end bg-light">
-              <Channels />
+              <ChannelsPane />
             </Col>
             <Col xs={8} md={10} className="p-0">
-              <Messages />
+              <MessagesPane />
             </Col>
           </Row>
         </Container>

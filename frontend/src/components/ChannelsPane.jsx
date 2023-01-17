@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import Channel from './Channel';
 
-const Channels = () => {
+const ChannelsPane = () => {
   const channelsList = useSelector((state) => state.channelsReducer.channels);
   return (
     <>
@@ -32,4 +32,4 @@ const Channels = () => {
   );
 };
 
-export default Channels;
+export default ChannelsPane;
