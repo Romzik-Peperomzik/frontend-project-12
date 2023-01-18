@@ -48,7 +48,10 @@ const ChatPage = () => {
         <Container className="my-4 overflow-hidden rounded shadow">
           <Row className="bg-white vh-100">
             <Col xs={4} md={2} className="pt-5 px-0 border-end bg-light">
-              <ChannelsPane />
+              <ChannelsPane>
+                <ChannelsPane.Header />
+                <ChannelsPane.Navigation />
+              </ChannelsPane>
             </Col>
             <Col xs={8} md={10} className="p-0">
               <MessagesPane>
