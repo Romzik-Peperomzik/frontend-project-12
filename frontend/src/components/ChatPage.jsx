@@ -23,7 +23,7 @@ const getAuthHeader = () => {
 const ChatPage = () => {
   const auth = useAuth();
   const dispatch = useDispatch();
-  const [chatData, setChatData] = useState('');
+  const [chatData, setChatData] = useState(''); // TODO: Не нужно?
 
   useEffect(() => {
     async function fetchData() {
@@ -51,7 +51,11 @@ const ChatPage = () => {
               <ChannelsPane />
             </Col>
             <Col xs={8} md={10} className="p-0">
-              <MessagesPane />
+              <MessagesPane>
+                <MessagesPane.Header />
+                <MessagesPane.Body />
+                <MessagesPane.InputForm />
+              </MessagesPane>
             </Col>
           </Row>
         </Container>
