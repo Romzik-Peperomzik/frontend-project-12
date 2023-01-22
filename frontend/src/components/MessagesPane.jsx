@@ -1,11 +1,23 @@
 import React, { useState } from 'react';
-import { Button, InputGroup, Form } from 'react-bootstrap';
+import {
+  Button,
+  Image,
+  InputGroup,
+  Form,
+} from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
-const Header = () => { // { children } TODO: Нужно?
+import useSocketApi from '../hooks/useSocketApi';
+import useAuth from '../hooks/useAuth';
+import { channelsSelectors } from '../slices/channelsSlice';
+import { messagesSelectors } from '../slices/messagesSlice';
+import svgArrow from '../assets/arrow.svg';
+
+const Header = () => {
+  const channels = useSelector(channelsSelectors.selectAll);
   const channelName = useSelector((state) => {
-    const { currentChannelId } = state.channelsReducer;
-    const currentChannel = state.channelsReducer.channels.find(({ id }) => id === currentChannelId);
+    const { currentChannelId } = state.channels;
+    const currentChannel = channels.find(({ id }) => id === currentChannelId);
     return `# ${currentChannel.name}`;
   });
 
@@ -18,7 +30,7 @@ const Header = () => { // { children } TODO: Нужно?
 };
 
 const Body = () => {
-  const messages = useSelector((state) => state.messagesReducer.messages);
+  const messages = useSelector(messagesSelectors.selectAll);
   return (
     <div id="messages-box" className="chat-messages overflow-auto px-5">
       {messages.map(({ body, username, id }) => ( // channelId,
@@ -34,10 +46,20 @@ const Body = () => {
 
 const InputForm = () => {
   const [inputValue, setInputValue] = useState('');
+  const auth = useAuth();
+  const currentChannelId = useSelector((state) => state.channels.currentChannelId);
+  const socketApi = useSocketApi();
+
   const handleSubmitInputForm = (e) => {
     e.preventDefault();
+    socketApi.sendMessage({
+      username: auth.getUsername(),
+      body: inputValue,
+      channelId: currentChannelId,
+    });
     setInputValue('');
   };
+
   const handleChange = (e) => {
     setInputValue(e.target.value);
   };
@@ -55,9 +77,7 @@ const InputForm = () => {
             onChange={handleChange}
           />
           <Button variant="white" type="submit" className="btn-group-vertical border-0" disabled={!inputValue}>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="currentColor">
-              <path fillRule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
-            </svg>
+            <Image src={svgArrow} alt="arrow" />
             <span className="visually-hidden">Отправить</span>
           </Button>
         </InputGroup>

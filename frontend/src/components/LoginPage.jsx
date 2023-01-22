@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
-import useAuth from '../hooks/index';
+import useAuth from '../hooks/useAuth';
 import routes from '../routes';
 
 const LoginPage = () => {
@@ -12,6 +12,7 @@ const LoginPage = () => {
   const inputRef = useRef();
   const location = useLocation();
   const navigate = useNavigate();
+
   useEffect(() => {
     inputRef.current.focus();
   }, []);
@@ -26,8 +27,7 @@ const LoginPage = () => {
 
       try {
         const res = await axios.post(routes.loginPath(), values);
-        localStorage.setItem('userId', JSON.stringify(res.data));
-        auth.logIn();
+        auth.logIn(res.data);
         const { from } = location.state || { from: { pathname: '/' } };
         navigate(from);
       } catch (err) {

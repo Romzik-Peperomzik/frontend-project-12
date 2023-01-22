@@ -32,7 +32,7 @@ const renderNonRemovableButton = (id, name, buttonVariant) => (
 
 const Channel = (props) => {
   const { id, name, removable } = props;
-  const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId);
+  const currentChannelId = useSelector((state) => state.channels.currentChannelId);
   const buttonVariant = pickButtonVariant(id, currentChannelId);
   return (
     <Nav.Item className="w-100">

@@ -4,13 +4,12 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-import useAuth from '../hooks/index';
+import useAuth from '../hooks/useAuth';
 import routes from '../routes';
-
-import { addMessages } from '../slices/messagesSlice';
-import { addChannels, setCurrentChannelId } from '../slices/channelsSlice';
 import ChannelsPane from './ChannelsPane';
 import MessagesPane from './MessagesPane';
+import { addChannels, setCurrentChannelId } from '../slices/channelsSlice';
+import { setMessages } from '../slices/messagesSlice';
 
 const getAuthHeader = () => {
   const userId = JSON.parse(localStorage.getItem('userId'));
@@ -30,9 +29,9 @@ const ChatPage = () => {
       if (!auth.loggedIn) return;
       const res = await axios.get(routes.usersPath(), { headers: getAuthHeader() });
       const { channels, messages, currentChannelId } = res.data;
-      dispatch(addMessages({ messages }));
-      dispatch(addChannels({ channels }));
-      dispatch(setCurrentChannelId({ currentChannelId }));
+      dispatch(setMessages(messages));
+      dispatch(addChannels(channels));
+      dispatch(setCurrentChannelId(currentChannelId));
       setChatData(res.data);
     }
     fetchData();
