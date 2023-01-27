@@ -8,7 +8,9 @@ import useAuth from '../hooks/useAuth';
 import routes from '../routes';
 import ChannelsPaneHeader from './ChannelsPaneHeader';
 import ChannelsPaneNavigation from './ChannelsPaneNavigation';
-import MessagesPane from './MessagesPane';
+import MessagesPaneHeader from './MessagesPaneHeader';
+import MessagesPaneBody from './MessagesPaneBody';
+import MessagesPaneInputForm from './MessagesPaneInputForm';
 import { addChannels, setCurrentChannelId } from '../slices/channelsSlice';
 import { setMessages } from '../slices/messagesSlice';
 
@@ -52,11 +54,9 @@ const ChatPage = () => {
               <ChannelsPaneNavigation />
             </Col>
             <Col xs={8} md={10} className="p-0 d-flex flex-column h-100">
-              <MessagesPane>
-                <MessagesPane.Header />
-                <MessagesPane.Body />
-                <MessagesPane.InputForm />
-              </MessagesPane>
+              <MessagesPaneHeader />
+              <MessagesPaneBody />
+              <MessagesPaneInputForm />
             </Col>
           </Row>
         </Container>
