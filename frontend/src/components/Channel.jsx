@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import React from 'react';
 import {
   Dropdown,
@@ -5,16 +6,13 @@ import {
   ButtonGroup,
   Nav,
 } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-const pickButtonVariant = (id, currentChannelId) => (id === currentChannelId ? 'secondary' : 'light');
+import { setCurrentChannelId } from '../slices/channelsSlice';
 
-const renderDropDownButton = (id, name, buttonVariant) => (
+const renderDropDownButton = (defaultButton, buttonVariant) => (
   <Dropdown as={ButtonGroup} className="w-100">
-    <Button variant={buttonVariant} className="w-100 rounded-0 text-start text-truncate">
-      <span className="me-1">#</span>
-      {name}
-    </Button>
+    {defaultButton}
     <Dropdown.Toggle split variant={buttonVariant} id="dropdown-split-basic" />
     <Dropdown.Menu>
       <Dropdown.Item href="#/action-1">Удалить</Dropdown.Item>
@@ -23,22 +21,33 @@ const renderDropDownButton = (id, name, buttonVariant) => (
   </Dropdown>
 );
 
-const renderNonRemovableButton = (id, name, buttonVariant) => (
-  <Button variant={buttonVariant} className="w-100 rounded-0 text-start">
-    <span className="me-1">#</span>
-    {name}
-  </Button>
-);
-
-const Channel = (props) => {
-  const { id, name, removable } = props;
+const Channel = ({ id, name, removable }) => {
+  const dispatch = useDispatch();
   const currentChannelId = useSelector((state) => state.channels.currentChannelId);
-  const buttonVariant = pickButtonVariant(id, currentChannelId);
+  const buttonVariant = (id === currentChannelId ? 'secondary' : 'light');
+  const buttonClasses = cn({
+    'w-100': true,
+    'rounded-0': true,
+    'text-start': true,
+    'text-truncate': removable,
+  });
+
+  const defaultButton = (
+    <Button
+      variant={buttonVariant}
+      className={buttonClasses}
+      onClick={() => dispatch(setCurrentChannelId(id))}
+    >
+      <span className="me-1">#</span>
+      {name}
+    </Button>
+  );
+
   return (
     <Nav.Item className="w-100">
       {removable
-        ? renderDropDownButton(id, name, buttonVariant)
-        : renderNonRemovableButton(id, name, buttonVariant)}
+        ? renderDropDownButton(defaultButton, buttonVariant)
+        : defaultButton}
     </Nav.Item>
   );
 };
