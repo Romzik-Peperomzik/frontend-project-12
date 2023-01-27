@@ -44,8 +44,8 @@ const ChatPage = () => {
       )}
 
       {chatData && (
-        <Container className="my-4 overflow-hidden rounded shadow">
-          <Row className="bg-white vh-100">
+        <Container className="my-4 overflow-hidden rounded shadow" style={{ height: '85%' }}>
+          <Row className="bg-white h-100">
             <Col xs={4} md={2} className="pt-5 px-0 border-end bg-light">
               <ChannelsPane>
                 <ChannelsPane.Header />
