@@ -14,9 +14,12 @@ import { messagesSelectors } from '../slices/messagesSlice';
 import svgArrow from '../assets/arrow.svg';
 
 const Header = () => {
+  const messages = useSelector(messagesSelectors.selectAll);
+  const currentChannelId = useSelector((state) => state.channels.currentChannelId);
+  const currentChannelMessages = messages.filter(({ channelId }) => channelId === currentChannelId);
+
   const channels = useSelector(channelsSelectors.selectAll);
-  const channelName = useSelector((state) => {
-    const { currentChannelId } = state.channels;
+  const channelName = useSelector(() => {
     const currentChannel = channels.find(({ id }) => id === currentChannelId);
     return `# ${currentChannel.name}`;
   });
@@ -24,16 +27,19 @@ const Header = () => {
   return (
     <div className="bg-light mb-4 p-3 shadow-sm small">
       <p className="m-0"><b>{channelName}</b></p>
-      <span className="text-muted">0 сообщений</span>
+      <span className="text-muted">{`${currentChannelMessages.length} сообщений`}</span>
     </div>
   );
 };
 
 const Body = () => {
   const messages = useSelector(messagesSelectors.selectAll);
+  const currentChannelId = useSelector((state) => state.channels.currentChannelId);
+  const currentChannelMessages = messages.filter(({ channelId }) => channelId === currentChannelId);
+
   return (
     <div id="messages-box" className="chat-messages overflow-auto px-5">
-      {messages.map(({ body, username, id }) => ( // channelId,
+      {currentChannelMessages.map(({ body, username, id }) => (
         <div className="text-break mb-2" key={id}>
           <b>{username}</b>
           {': '}
