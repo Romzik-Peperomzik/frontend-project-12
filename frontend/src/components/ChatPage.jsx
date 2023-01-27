@@ -6,7 +6,8 @@ import { Navigate } from 'react-router-dom';
 
 import useAuth from '../hooks/useAuth';
 import routes from '../routes';
-import ChannelsPane from './ChannelsPane';
+import ChannelsPaneHeader from './ChannelsPaneHeader';
+import ChannelsPaneNavigation from './ChannelsPaneNavigation';
 import MessagesPane from './MessagesPane';
 import { addChannels, setCurrentChannelId } from '../slices/channelsSlice';
 import { setMessages } from '../slices/messagesSlice';
@@ -47,12 +48,10 @@ const ChatPage = () => {
         <Container className="my-4 overflow-hidden rounded shadow" style={{ height: '85%' }}>
           <Row className="bg-white h-100">
             <Col xs={4} md={2} className="pt-5 px-0 border-end bg-light">
-              <ChannelsPane>
-                <ChannelsPane.Header />
-                <ChannelsPane.Navigation />
-              </ChannelsPane>
+              <ChannelsPaneHeader />
+              <ChannelsPaneNavigation />
             </Col>
-            <Col xs={8} md={10} className="p-0">
+            <Col xs={8} md={10} className="p-0 d-flex flex-column h-100">
               <MessagesPane>
                 <MessagesPane.Header />
                 <MessagesPane.Body />
