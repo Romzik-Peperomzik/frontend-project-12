@@ -4,6 +4,7 @@ const channelsAdapter = createEntityAdapter();
 
 const initialState = {
   currentChannelId: '',
+  recentlyCreatedChannel: '',
 };
 
 const channelsSlice = createSlice({
@@ -15,9 +16,15 @@ const channelsSlice = createSlice({
     setCurrentChannelId: (state, { payload }) => (
       { ...state, currentChannelId: payload }
     ),
+    setRecentlyCreatedChannel: (state, { payload }) => (
+      { ...state, recentlyCreatedChannel: payload }
+    ),
   },
 });
 
-export const { addChannel, addChannels, setCurrentChannelId } = channelsSlice.actions;
+export const {
+  addChannel, addChannels, setCurrentChannelId, setRecentlyCreatedChannel,
+} = channelsSlice.actions;
+
 export const channelsSelectors = channelsAdapter.getSelectors((state) => state.channels);
 export default channelsSlice.reducer;
