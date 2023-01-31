@@ -10,6 +10,7 @@ import { Button, Navbar, Container } from 'react-bootstrap';
 import ChatPage from './ChatPage';
 import LoginPage from './LoginPage';
 import NotFoundPage from './NotFoundPage';
+import RequireAuth from '../hoc/RequireAuth';
 
 const App = () => (
   <BrowserRouter>
@@ -20,7 +21,14 @@ const App = () => (
       </Container>
     </Navbar>
     <Routes>
-      <Route path="/" element={<ChatPage />} />
+      <Route
+        path="/"
+        element={(
+          <RequireAuth>
+            <ChatPage />
+          </RequireAuth>
+        )}
+      />
       <Route path="/login" element={<LoginPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

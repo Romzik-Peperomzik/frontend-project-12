@@ -1,8 +1,7 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
 
 import ChannelsPaneHeader from './ChannelsPaneHeader';
 import ChannelsPaneNavigation from './ChannelsPaneNavigation';
@@ -25,50 +24,48 @@ const getAuthHeader = () => {
 
 const ChatPage = () => {
   const auth = useAuth();
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
   const dispatch = useDispatch();
-  const [chatData, setChatData] = useState(''); // TODO: Не нужно?
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(routes.usersPath(), { headers: getAuthHeader() });
+        dispatch(setMessages(res.data.messages));
+        dispatch(addChannels(res.data.channels));
+        dispatch(setCurrentChannelId(res.data.currentChannelId));
+        setIsDataLoaded(true);
+      } catch (e) {
+        console.err(e);
+        auth.logOut();
+        setIsDataLoaded(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   const modalType = useSelector((state) => state.modal.type);
   const Modal = getModal(modalType);
 
-  useEffect(() => {
-    async function fetchData() {
-      if (!auth.loggedIn) return;
-      const res = await axios.get(routes.usersPath(), { headers: getAuthHeader() });
-      const { channels, messages, currentChannelId } = res.data;
-      dispatch(setMessages(messages));
-      dispatch(addChannels(channels));
-      dispatch(setCurrentChannelId(currentChannelId));
-      setChatData(res.data);
-    }
-    fetchData();
-  }, []);
-
   return (
-    <>
-      {!auth.loggedIn && (
-        <Navigate to="/login" />
-      )}
-
-      {chatData && (
+    <Container className="my-4 overflow-hidden rounded shadow" style={{ height: '85%' }}>
+      {isDataLoaded && (
         <>
-          <Container className="my-4 overflow-hidden rounded shadow" style={{ height: '85%' }}>
-            <Row className="bg-white h-100">
-              <Col xs={4} md={2} className="pt-5 px-0 border-end bg-light">
-                <ChannelsPaneHeader />
-                <ChannelsPaneNavigation />
-              </Col>
-              <Col xs={8} md={10} className="p-0 d-flex flex-column h-100">
-                <MessagesPaneHeader />
-                <MessagesPaneBody />
-                <MessagesPaneInputForm />
-              </Col>
-            </Row>
-          </Container>
+          <Row className="bg-white h-100">
+            <Col xs={4} md={2} className="pt-5 px-0 border-end bg-light">
+              <ChannelsPaneHeader />
+              <ChannelsPaneNavigation />
+            </Col>
+            <Col xs={8} md={10} className="p-0 d-flex flex-column h-100">
+              <MessagesPaneHeader />
+              <MessagesPaneBody />
+              <MessagesPaneInputForm />
+            </Col>
+          </Row>
           <Modal />
         </>
       )}
-    </>
+    </Container>
   );
 };
 
