@@ -14,14 +14,6 @@ import useAuth from '../hooks/useAuth';
 import { addChannels, setCurrentChannelId } from '../slices/channelsSlice';
 import { setMessages } from '../slices/messagesSlice';
 
-const getAuthHeader = () => {
-  const userId = JSON.parse(localStorage.getItem('userId'));
-  if (userId && userId.token) {
-    return { Authorization: `Bearer ${userId.token}` };
-  }
-  return {};
-};
-
 const ChatPage = () => {
   const auth = useAuth();
   const [isDataLoaded, setIsDataLoaded] = useState(false);
@@ -30,13 +22,14 @@ const ChatPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(routes.usersPath(), { headers: getAuthHeader() });
+        const headers = { Authorization: `Bearer ${auth.getToken()}` };
+        const res = await axios.get(routes.usersPath(), { headers });
         dispatch(setMessages(res.data.messages));
         dispatch(addChannels(res.data.channels));
         dispatch(setCurrentChannelId(res.data.currentChannelId));
         setIsDataLoaded(true);
       } catch (e) {
-        console.err(e);
+        console.error(e);
         auth.logOut();
         setIsDataLoaded(false);
       }

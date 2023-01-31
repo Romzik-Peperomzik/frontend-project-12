@@ -21,12 +21,19 @@ const AuthProvider = ({ children }) => {
     return user.username;
   };
 
+  const getToken = () => {
+    const userId = JSON.parse(localStorage.getItem('userId'));
+    if (userId && userId.token) return userId.token;
+    return {};
+  };
+
   return (
     <AuthContext.Provider value={{
       loggedIn,
       logIn,
       logOut,
       getUsername,
+      getToken,
     }}
     >
       {children}
