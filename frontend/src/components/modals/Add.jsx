@@ -58,7 +58,7 @@ const Add = () => {
             />
           </FormGroup>
           {!isValidChannelName && <div className="text-danger mb-3">Канал с таким именем уже существует</div>}
-          <input type="submit" className="btn btn-primary mt-2" value="submit" disabled={!isValidChannelName} />
+          <input type="submit" className="btn btn-primary mt-2" value="submit" />
         </form>
       </Modal.Body>
     </Modal>
