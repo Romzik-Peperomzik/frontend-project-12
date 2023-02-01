@@ -1,33 +1,41 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 import SocketApiContext from '../contexts/socketApiContext';
 import store from '../slices/index';
-import { addChannel, setCurrentChannelId } from '../slices/channelsSlice';
+import { addChannel, renameChannel } from '../slices/channelsSlice';
 import { addMessage } from '../slices/messagesSlice';
 
 const SocketApiProvider = ({ children, socket }) => {
-  const recentlyCreatedChannel = useSelector((state) => state.channels.recentlyCreatedChannel);
-
   const socketApiHandler = () => {
     socket.on('newMessage', (message) => {
       store.dispatch(addMessage(message));
     });
+
     socket.on('newChannel', (channel) => {
       store.dispatch(addChannel(channel));
-      if (channel.name === recentlyCreatedChannel) store.dispatch(setCurrentChannelId(channel.id));
+    });
+
+    socket.on('renameChannel', (channel) => {
+      const { id, name } = channel;
+      store.dispatch(renameChannel({ id, changes: { name } }));
     });
 
     const socketApi = {
       newMessage(data) {
         socket.emit('newMessage', data, (response) => {
-          if (response.status === 'ok') return (response.data);
+          if (response.status === 'ok') return;
           throw new Error(response.err);
         });
       },
       newChannel(data) {
         socket.emit('newChannel', data, (response) => {
-          if (response.status === 'ok') return (response.data);
+          if (response.status === 'ok') return; // store.dispatch(setCurrentChannelId(response.data.id))
+          throw new Error(response.err);
+        });
+      },
+      renameChannel(data) {
+        socket.emit('renameChannel', data, (response) => {
+          if (response.status === 'ok') return;
           throw new Error(response.err);
         });
       },

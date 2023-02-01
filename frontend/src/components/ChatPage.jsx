@@ -35,15 +35,15 @@ const ChatPage = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   const modalType = useSelector((state) => state.modal.type);
   const Modal = getModal(modalType);
 
   return (
-    <Container className="my-4 overflow-hidden rounded shadow" style={{ height: '85%' }}>
-      {isDataLoaded && (
-        <>
+    <>
+      <Container className="my-4 overflow-hidden rounded shadow" style={{ height: '85%' }}>
+        {isDataLoaded && (
           <Row className="bg-white h-100">
             <Col xs={4} md={2} className="pt-5 px-0 border-end bg-light">
               <ChannelsPaneHeader />
@@ -55,10 +55,10 @@ const ChatPage = () => {
               <MessagesPaneInputForm />
             </Col>
           </Row>
-          <Modal />
-        </>
-      )}
-    </Container>
+        )}
+      </Container>
+      <Modal />
+    </>
   );
 };
 

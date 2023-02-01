@@ -8,18 +8,8 @@ import {
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { showModal } from '../slices/modalSlice';
 import { setCurrentChannelId } from '../slices/channelsSlice';
-
-const renderDropDownButton = (defaultButton, buttonVariant) => (
-  <Dropdown as={ButtonGroup} className="w-100">
-    {defaultButton}
-    <Dropdown.Toggle split variant={buttonVariant} id="dropdown-split-basic" />
-    <Dropdown.Menu>
-      <Dropdown.Item href="#/action-1">Удалить</Dropdown.Item>
-      <Dropdown.Item href="#/action-2">Переименовать</Dropdown.Item>
-    </Dropdown.Menu>
-  </Dropdown>
-);
 
 const Channel = ({ id, name, removable }) => {
   const dispatch = useDispatch();
@@ -43,10 +33,25 @@ const Channel = ({ id, name, removable }) => {
     </Button>
   );
 
+  const showModalRename = () => {
+    dispatch(showModal({ type: 'renaming', item: { id, name } }));
+  };
+
+  const renderDropDownButton = () => (
+    <Dropdown as={ButtonGroup} className="w-100">
+      {defaultButton}
+      <Dropdown.Toggle split variant={buttonVariant} id="dropdown-split-basic" />
+      <Dropdown.Menu>
+        <Dropdown.Item href="#/action-1">Удалить</Dropdown.Item>
+        <Dropdown.Item onClick={showModalRename}>Переименовать</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+
   return (
     <Nav.Item className="w-100">
       {removable
-        ? renderDropDownButton(defaultButton, buttonVariant)
+        ? renderDropDownButton()
         : defaultButton}
     </Nav.Item>
   );

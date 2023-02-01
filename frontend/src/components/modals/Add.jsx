@@ -1,11 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, {
+  useEffect, useState, useRef,
+} from 'react';
 import { useFormik } from 'formik';
 import { Modal, FormGroup, FormControl } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
 import useSocketApi from '../../hooks/useSocketApi';
 import { hideModal } from '../../slices/modalSlice';
-import { channelsSelectors, setRecentlyCreatedChannel } from '../../slices/channelsSlice';
+import { channelsSelectors } from '../../slices/channelsSlice';
 
 const Add = () => {
   const dispatch = useDispatch();
@@ -22,7 +24,6 @@ const Add = () => {
       setInputChannelValidation(false);
     } else {
       setInputChannelValidation(true);
-      dispatch(setRecentlyCreatedChannel(values.name));
       socketApi.newChannel(values);
       handleCloseModal();
     }
@@ -48,13 +49,12 @@ const Add = () => {
         <form onSubmit={f.handleSubmit}>
           <FormGroup>
             <FormControl
-              required
+              id="name"
+              name="name"
               ref={inputRef}
               onChange={f.handleChange}
               onBlur={f.handleBlur}
               value={f.values.name}
-              data-testid="input-name"
-              name="name"
             />
           </FormGroup>
           {!isValidChannelName && <div className="text-danger mb-3">Канал с таким именем уже существует</div>}
