@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -16,12 +16,16 @@ const Remove = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e);
     const { id } = currentModalItem;
     socketApi.removeChannel({ id });
     dispatch(setCurrentChannelId(1));
     handleCloseModal();
   };
+
+  const buttonRef = useRef();
+  useEffect(() => {
+    buttonRef.current.focus();
+  }, []);
 
   return (
     <Modal show>
@@ -33,7 +37,7 @@ const Remove = () => {
         <form onSubmit={handleSubmit}>
           <Form.Control plaintext readOnly defaultValue={`Канал для удаления: ${currentModalItem.name}`} />
           <div className="d-grid gap-2">
-            <Button variant="danger" type="submit">Remove</Button>
+            <Button variant="danger" type="submit" ref={buttonRef}>Remove</Button>
           </div>
         </form>
       </Modal.Body>
