@@ -2,7 +2,7 @@ import React from 'react';
 
 import SocketApiContext from '../contexts/socketApiContext';
 import store from '../slices/index';
-import { addChannel, renameChannel } from '../slices/channelsSlice';
+import { addChannel, renameChannel, removeChannel } from '../slices/channelsSlice';
 import { addMessage } from '../slices/messagesSlice';
 
 const SocketApiProvider = ({ children, socket }) => {
@@ -15,9 +15,12 @@ const SocketApiProvider = ({ children, socket }) => {
       store.dispatch(addChannel(channel));
     });
 
-    socket.on('renameChannel', (channel) => {
-      const { id, name } = channel;
+    socket.on('renameChannel', ({ id, name }) => {
       store.dispatch(renameChannel({ id, changes: { name } }));
+    });
+
+    socket.on('removeChannel', ({ id }) => {
+      store.dispatch(removeChannel(id));
     });
 
     const socketApi = {
@@ -35,6 +38,12 @@ const SocketApiProvider = ({ children, socket }) => {
       },
       renameChannel(data) {
         socket.emit('renameChannel', data, (response) => {
+          if (response.status === 'ok') return;
+          throw new Error(response.err);
+        });
+      },
+      removeChannel(data) {
+        socket.emit('removeChannel', data, (response) => {
           if (response.status === 'ok') return;
           throw new Error(response.err);
         });

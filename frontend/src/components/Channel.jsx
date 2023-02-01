@@ -37,12 +37,16 @@ const Channel = ({ id, name, removable }) => {
     dispatch(showModal({ type: 'renaming', item: { id, name } }));
   };
 
+  const showModalRemove = () => {
+    dispatch(showModal({ type: 'removing', item: { id, name } }));
+  };
+
   const renderDropDownButton = () => (
     <Dropdown as={ButtonGroup} className="w-100">
       {defaultButton}
       <Dropdown.Toggle split variant={buttonVariant} id="dropdown-split-basic" />
       <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">Удалить</Dropdown.Item>
+        <Dropdown.Item onClick={showModalRemove}>Удалить</Dropdown.Item>
         <Dropdown.Item onClick={showModalRename}>Переименовать</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
