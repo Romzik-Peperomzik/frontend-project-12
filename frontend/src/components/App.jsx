@@ -14,24 +14,28 @@ import RequireAuth from '../hoc/RequireAuth';
 
 const App = () => (
   <BrowserRouter>
-    <Navbar bg="white" className="shadow-sm">
-      <Container>
-        <Navbar.Brand as={Link} to="/">Hexlet Chat</Navbar.Brand>
-        <Button as={Link} to="/login">Login</Button>
-      </Container>
-    </Navbar>
-    <Routes>
-      <Route
-        path="/"
-        element={(
-          <RequireAuth>
-            <ChatPage />
-          </RequireAuth>
-        )}
-      />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
+    <div className="d-flex flex-column h-100">
+      <Navbar bg="white" className="shadow-sm">
+        <Container>
+          <Navbar.Brand>
+            <Link to="/" className="text-reset text-decoration-none">Hexlet Chat</Link>
+          </Navbar.Brand>
+          <Button as={Link} to="/login">Login</Button>
+        </Container>
+      </Navbar>
+      <Routes>
+        <Route
+          path="/"
+          element={(
+            <RequireAuth>
+              <ChatPage />
+            </RequireAuth>
+          )}
+        />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </div>
   </BrowserRouter>
 );
 

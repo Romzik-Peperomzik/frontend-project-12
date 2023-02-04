@@ -41,24 +41,22 @@ const ChatPage = () => {
   const Modal = getModal(modalType);
 
   return (
-    <>
-      <Container className="my-4 overflow-hidden rounded shadow" style={{ height: '85%' }}>
-        {isDataLoaded && (
-          <Row className="bg-white h-100">
-            <Col xs={4} md={2} className="pt-5 px-0 border-end bg-light">
-              <ChannelsPaneHeader />
-              <ChannelsPaneNavigation />
-            </Col>
-            <Col xs={8} md={10} className="p-0 d-flex flex-column h-100">
-              <MessagesPaneHeader />
-              <MessagesPaneBody />
-              <MessagesPaneInputForm />
-            </Col>
-          </Row>
-        )}
-      </Container>
+    <Container className="my-4 overflow-hidden rounded shadow h-100">
+      {isDataLoaded && (
+        <Row className="bg-white h-100">
+          <Col xs={4} md={2} className="pt-5 px-0 border-end bg-light">
+            <ChannelsPaneHeader />
+            <ChannelsPaneNavigation />
+          </Col>
+          <Col xs={8} md={10} className="p-0 d-flex flex-column h-100">
+            <MessagesPaneHeader />
+            <MessagesPaneBody />
+            <MessagesPaneInputForm />
+          </Col>
+        </Row>
+      )}
       <Modal />
-    </>
+    </Container>
   );
 };
 
