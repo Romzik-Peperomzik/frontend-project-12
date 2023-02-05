@@ -8,6 +8,8 @@ const translation = {
   controls: {
     loginButton: 'Войти',
     loginFooterRegLink: 'Регистрация',
+    navLogo: 'Hexlet Chat',
+    navLogout: 'Выйти',
   },
   feedback: {
     invalidLoginAttempt: 'Неверные имя пользователя или пароль',

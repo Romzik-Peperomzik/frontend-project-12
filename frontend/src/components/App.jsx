@@ -6,6 +6,7 @@ import {
   Link,
 } from 'react-router-dom';
 import { Button, Navbar, Container } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 import ChatPage from './ChatPage';
 import LoginPage from './LoginPage';
@@ -16,6 +17,7 @@ import SignupPage from './SignupPage';
 import useAuth from '../hooks/useAuth';
 
 const App = () => {
+  const { t } = useTranslation();
   const auth = useAuth();
   const { loggedIn } = auth;
 
@@ -25,9 +27,9 @@ const App = () => {
         <Navbar bg="white" className="shadow-sm">
           <Container>
             <Navbar.Brand>
-              <Link to="/" className="text-reset text-decoration-none">Hexlet Chat</Link>
+              <Link to="/" className="text-reset text-decoration-none">{t('controls.navLogo')}</Link>
             </Navbar.Brand>
-            {loggedIn && (<Button as={Link} to="/logout">Logout</Button>)}
+            {loggedIn && (<Button as={Link} to="/logout">{t('controls.navLogout')}</Button>)}
           </Container>
         </Navbar>
         <Routes>
