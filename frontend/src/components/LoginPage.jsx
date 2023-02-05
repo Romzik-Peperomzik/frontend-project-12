@@ -4,12 +4,14 @@ import {
   Button, Form, Container, Row, Col, Card, Image, FloatingLabel,
 } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import useAuth from '../hooks/useAuth';
 import routes from '../routes';
 import imgLogin from '../assets/login.jpeg';
 
 const LoginPage = () => {
+  const { t } = useTranslation();
   const auth = useAuth();
   const [authFailed, setAuthFailed] = useState(false);
   const inputRef = useRef();
@@ -52,7 +54,7 @@ const LoginPage = () => {
                 <Image src={imgLogin} className="rounded-circle" />
               </Col>
               <Col as={Form} onSubmit={formik.handleSubmit} sm={12} md={6} className="mt-3 mt-mb-0">
-                <h1 className="text-center mb-4">Войти</h1>
+                <h1 className="text-center mb-4">{t('login')}</h1>
                 <fieldset disabled={formik.isSubmitting}>
                   <Form.Group className="form-floating mb-3">
                     <FloatingLabel htmlFor="username" label="Ваш ник">
