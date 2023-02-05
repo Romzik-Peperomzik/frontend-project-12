@@ -1,12 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { setCurrentChannelId } from '../../slices/channelsSlice';
 import useSocketApi from '../../hooks/useSocketApi';
 import { hideModal } from '../../slices/modalSlice';
 
 const Remove = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const currentModalItem = useSelector((state) => state.modal.item);
   const socketApi = useSocketApi();
@@ -30,17 +32,24 @@ const Remove = () => {
   return (
     <Modal show>
       <Modal.Header closeButton onHide={handleCloseModal}>
-        <Modal.Title>Remove</Modal.Title>
+        <Modal.Title>{t('modals.removeTitle')}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
-        <form onSubmit={handleSubmit}>
-          <Form.Control plaintext readOnly defaultValue={`Канал для удаления: ${currentModalItem.name}`} />
-          <div className="d-grid gap-2">
-            <Button variant="danger" type="submit" ref={buttonRef}>Remove</Button>
-          </div>
-        </form>
+        <Form onSubmit={handleSubmit}>
+          <Form.Control plaintext readOnly defaultValue={t('modals.removeReadOnlyText', { name: currentModalItem.name })} />
+        </Form>
       </Modal.Body>
+
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleCloseModal}>
+          {t('modals.close')}
+        </Button>
+        <Button variant="danger" onClick={handleSubmit} ref={buttonRef}>
+          {t('modals.remove')}
+        </Button>
+      </Modal.Footer>
+
     </Modal>
   );
 };

@@ -28,8 +28,11 @@ const translation = {
   modals: {
     save: 'Сохранить',
     close: 'Закрыть',
+    remove: 'Удалить',
     addTitle: 'Добавить канал',
+    removeTitle: 'Удалить канал',
     inputPlaceholder: 'Введите название канала',
+    removeReadOnlyText: 'Канал для удаления: {{name}}',
   },
 };
 
