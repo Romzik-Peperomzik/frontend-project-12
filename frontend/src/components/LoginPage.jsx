@@ -85,7 +85,7 @@ const LoginPage = () => {
                         isInvalid={authFailed}
                         required
                       />
-                      <Form.Control.Feedback type="invalid">{t('feedback.invalidLoginAttempt')}</Form.Control.Feedback>
+                      <Form.Control.Feedback type="invalid" tooltip>{t('feedback.invalidLoginAttempt')}</Form.Control.Feedback>
                     </FloatingLabel>
                   </Form.Group>
                   <Button type="submit" variant="outline-primary" className="w-100 mb-3">{t('controls.loginButton')}</Button>
