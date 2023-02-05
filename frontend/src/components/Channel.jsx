@@ -7,11 +7,13 @@ import {
   Nav,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { showModal } from '../slices/modalSlice';
 import { setCurrentChannelId } from '../slices/channelsSlice';
 
 const Channel = ({ id, name, removable }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const currentChannelId = useSelector((state) => state.channels.currentChannelId);
   const buttonVariant = (id === currentChannelId ? 'secondary' : 'light');
@@ -46,8 +48,8 @@ const Channel = ({ id, name, removable }) => {
       {defaultButton}
       <Dropdown.Toggle split variant={buttonVariant} id="dropdown-split-basic" />
       <Dropdown.Menu>
-        <Dropdown.Item onClick={showModalRemove}>Удалить</Dropdown.Item>
-        <Dropdown.Item onClick={showModalRename}>Переименовать</Dropdown.Item>
+        <Dropdown.Item onClick={showModalRemove}>{t('controls.dropDownChannelRemove')}</Dropdown.Item>
+        <Dropdown.Item onClick={showModalRename}>{t('controls.dropDownChannelRename')}</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );
