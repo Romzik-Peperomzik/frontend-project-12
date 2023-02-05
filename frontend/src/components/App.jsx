@@ -11,6 +11,7 @@ import ChatPage from './ChatPage';
 import LoginPage from './LoginPage';
 import NotFoundPage from './NotFoundPage';
 import RequireAuth from '../hoc/RequireAuth';
+import SignupPage from './SignupPage';
 
 const App = () => (
   <BrowserRouter>
@@ -33,6 +34,7 @@ const App = () => (
           )}
         />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
