@@ -54,14 +54,14 @@ const LoginPage = () => {
                 <Image src={imgLogin} className="rounded-circle" />
               </Col>
               <Col as={Form} onSubmit={formik.handleSubmit} sm={12} md={6} className="mt-3 mt-mb-0">
-                <h1 className="text-center mb-4">{t('login')}</h1>
+                <h1 className="text-center mb-4">{t('forms.loginHeader')}</h1>
                 <fieldset disabled={formik.isSubmitting}>
                   <Form.Group className="form-floating mb-3">
-                    <FloatingLabel htmlFor="username" label="Ваш ник">
+                    <FloatingLabel htmlFor="username" label={t('forms.usernameLabel')}>
                       <Form.Control
                         onChange={formik.handleChange}
                         value={formik.values.username}
-                        placeholder="Ваш ник"
+                        placeholder="username"
                         name="username"
                         id="username"
                         autoComplete="username"
@@ -71,8 +71,9 @@ const LoginPage = () => {
                       />
                     </FloatingLabel>
                   </Form.Group>
+
                   <Form.Group className="form-floating mb-4">
-                    <FloatingLabel htmlFor="password" label="Пароль">
+                    <FloatingLabel htmlFor="password" label={t('forms.passwordLabel')}>
                       <Form.Control
                         type="password"
                         onChange={formik.handleChange}
@@ -84,17 +85,18 @@ const LoginPage = () => {
                         isInvalid={authFailed}
                         required
                       />
-                      <Form.Control.Feedback type="invalid">Неверные имя пользователя или пароль</Form.Control.Feedback>
+                      <Form.Control.Feedback type="invalid">{t('feedback.invalidLoginAttempt')}</Form.Control.Feedback>
                     </FloatingLabel>
                   </Form.Group>
-                  <Button type="submit" variant="outline-primary" className="w-100 mb-3">Войти</Button>
+                  <Button type="submit" variant="outline-primary" className="w-100 mb-3">{t('controls.loginButton')}</Button>
                 </fieldset>
               </Col>
             </Card.Body>
             <Card.Footer className="p-4">
               <div className="text-center">
-                <span>Нет аккаунта? </span>
-                <a href="/signup">Регистрация</a>
+                <span>{t('forms.loginFooterNoAcc')}</span>
+                {' '}
+                <a href="/signup">{t('controls.loginFooterRegLink')}</a>
               </div>
             </Card.Footer>
           </Card>
