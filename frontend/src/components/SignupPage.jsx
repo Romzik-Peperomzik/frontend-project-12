@@ -4,15 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import {
   Form, Button, Card, Image, Row, Col, Container, FloatingLabel,
 } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 
 import imgSignup from '../assets/signup.jpeg';
 import useAuth from '../hooks/useAuth';
 
 const SignupPage = () => {
+  const { t } = useTranslation();
   const auth = useAuth();
   const [invalid, setInvalid] = useState(false);
-  // const history = useHistory();
   const [processing, setProcessing] = useState(false);
   const navigate = useNavigate();
 
@@ -24,15 +25,15 @@ const SignupPage = () => {
     },
     validationSchema: Yup.object({
       username: Yup.string()
-        .min(3, 'От 3 до 20 символов')
-        .max(20, 'От 3 до 20 символов')
-        .required('Обязательное поле'),
+        .min(3, t('feedback.validationMin3'))
+        .max(20, t('feedback.validationMax20'))
+        .required(t('feedback.validationRequired')),
       password: Yup.string()
-        .min(6, 'Не менее 6 символов')
-        .required('Обязательное поле'),
+        .min(6, t('feedback.validationRange6'))
+        .required(t('feedback.validationRequired')),
       password_confirmation: Yup.string()
-        .required('Обязательное поле')
-        .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать'),
+        .required(t('feedback.validationRequired'))
+        .oneOf([Yup.ref('password'), null], t('feedback.validationCoincidence')),
     }),
     onSubmit: async (values) => {
       setProcessing(true);
@@ -61,13 +62,13 @@ const SignupPage = () => {
             <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
               <Image src={imgSignup} className="rounded-circle" />
               <Form onSubmit={formik.handleSubmit} className="w-50">
-                <h1 className="text-center mb-4">Регистрация</h1>
+                <h1 className="text-center mb-4">{t('forms.signupHeader')}</h1>
 
                 <Form.Group className="mb-3">
-                  <FloatingLabel controlId="username" label="Имя пользователя">
+                  <FloatingLabel controlId="username" label={t('forms.usernameLabel')}>
                     <Form.Control
                       name="username"
-                      placeholder="Имя пользователя"
+                      placeholder={t('forms.usernameLabel')}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.username}
@@ -81,11 +82,11 @@ const SignupPage = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                  <FloatingLabel controlId="password" label="Пароль">
+                  <FloatingLabel controlId="password" label={t('forms.passwordLabel')}>
                     <Form.Control
                       name="password"
                       type="password"
-                      placeholder="Пароль"
+                      placeholder={t('forms.passwordLabel')}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
@@ -99,11 +100,11 @@ const SignupPage = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                  <FloatingLabel controlId="floatingInput" label="Подтвердите пароль">
+                  <FloatingLabel controlId="floatingInput" label={t('forms.passwordConfirmation')}>
                     <Form.Control
                       name="password_confirmation"
                       type="password"
-                      placeholder="Подтвердите пароль"
+                      placeholder={t('forms.passwordConfirmation')}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password_confirmation}
@@ -117,9 +118,9 @@ const SignupPage = () => {
                   </FloatingLabel>
                 </Form.Group>
 
-                {invalid && <div className="text-danger mb-3">Такой пользователь уже существует</div>}
+                {invalid && <div className="text-danger mb-3">{t('feedback.userAlreadyExists')}</div>}
 
-                <Button variant="primary" type="submit" className="w-100" disabled={processing}>Зарегистрироваться</Button>
+                <Button variant="primary" type="submit" className="w-100" disabled={processing}>{t('controls.signup')}</Button>
               </Form>
             </Card.Body>
           </Card>

@@ -5,6 +5,8 @@ const translation = {
     usernameLabel: 'Ваш ник',
     passwordLabel: 'Пароль',
     messagesInput: 'Введите сообщение...',
+    signupHeader: 'Регистрация',
+    passwordConfirmation: 'Подтвердите пароль',
   },
   controls: {
     loginButton: 'Войти',
@@ -14,10 +16,17 @@ const translation = {
     dropDownChannelRemove: 'Удалить',
     dropDownChannelRename: 'Переименовать',
     messagesSendInput: 'Отправить',
+    signup: 'Зарегистрироваться',
   },
   feedback: {
     invalidLoginAttempt: 'Неверные имя пользователя или пароль',
     invalidChannelName: 'Канал с таким именем уже существует',
+    validationMin3: 'От 3 до 20 символов',
+    validationMax20: 'От 3 до 20 символов',
+    validationRequired: 'Обязательное поле',
+    validationRange6: 'Не менее 6 символов',
+    validationCoincidence: 'Пароли должны совпадать',
+    userAlreadyExists: 'Такой пользователь уже существует',
   },
   panes: {
     channelsHeader: 'Каналы',
