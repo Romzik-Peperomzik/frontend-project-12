@@ -1,10 +1,9 @@
-import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import {
   Button, Form, Container, Row, Col, Card, Image, FloatingLabel,
 } from 'react-bootstrap';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import useAuth from '../hooks/useAuth';
 import routes from '../routes';
@@ -14,7 +13,6 @@ const LoginPage = () => {
   const auth = useAuth();
   const [authFailed, setAuthFailed] = useState(false);
   const inputRef = useRef();
-  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,10 +28,8 @@ const LoginPage = () => {
       setAuthFailed(false);
 
       try {
-        const res = await axios.post(routes.loginPath(), values);
-        auth.logIn(res.data);
-        const { from } = location.state || { from: { pathname: '/' } };
-        navigate(from);
+        await auth.authorizeUser(routes.loginPath(), values);
+        navigate({ pathname: '/' });
       } catch (err) {
         formik.setSubmitting(false);
         if (err.isAxiosError && err.response.status === 401) {
@@ -59,7 +55,7 @@ const LoginPage = () => {
                 <h1 className="text-center mb-4">Войти</h1>
                 <fieldset disabled={formik.isSubmitting}>
                   <Form.Group className="form-floating mb-3">
-                    <FloatingLabel htmlFor="username" controlId="floatingInput" label="Ваш ник">
+                    <FloatingLabel htmlFor="username" label="Ваш ник">
                       <Form.Control
                         onChange={formik.handleChange}
                         value={formik.values.username}
@@ -74,7 +70,7 @@ const LoginPage = () => {
                     </FloatingLabel>
                   </Form.Group>
                   <Form.Group className="form-floating mb-4">
-                    <FloatingLabel htmlFor="password" controlId="floatingInput" label="Пароль">
+                    <FloatingLabel htmlFor="password" label="Пароль">
                       <Form.Control
                         type="password"
                         onChange={formik.handleChange}

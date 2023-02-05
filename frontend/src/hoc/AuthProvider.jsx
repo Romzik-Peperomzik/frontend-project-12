@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 
+import axios from 'axios';
 import React, { useState } from 'react';
+
 import AuthContext from '../contexts/authContext';
 
 const AuthProvider = ({ children }) => {
@@ -27,6 +29,11 @@ const AuthProvider = ({ children }) => {
     return {};
   };
 
+  const authorizeUser = async (route, data) => {
+    const res = await axios.post(route, data);
+    logIn(res.data);
+  };
+
   return (
     <AuthContext.Provider value={{
       loggedIn,
@@ -34,6 +41,7 @@ const AuthProvider = ({ children }) => {
       logOut,
       getUsername,
       getToken,
+      authorizeUser,
     }}
     >
       {children}
