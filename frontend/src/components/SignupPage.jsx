@@ -43,13 +43,10 @@ const SignupPage = () => {
         navigate({ pathname: '/' });
         setInvalid(false);
       } catch (err) {
-        console.error(err);
-        if (err.response.status === 409) {
-          auth.logOut();
-          setInvalid(true);
-        } else {
-          toast.error(t('feedback.noNetwork'));
-        }
+        console.log(err.toJSON());
+        auth.logOut();
+        if (err.code === 'ERR_NETWORK') toast.error(t('feedback.noNetwork'));
+        if (err.response.status === 409) setInvalid(true);
       }
       setProcessing(false);
     },

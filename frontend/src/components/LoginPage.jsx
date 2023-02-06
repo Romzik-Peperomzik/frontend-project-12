@@ -34,14 +34,11 @@ const LoginPage = () => {
         await auth.authorizeUser(routes.loginPath(), values);
         navigate({ pathname: '/' });
       } catch (err) {
-        console.error(err);
+        console.log(err.toJSON());
         formik.setSubmitting(false);
-        if (err.isAxiosError && err.response.status === 401) {
-          setAuthFailed(true);
-          inputRef.current.select();
-        } else {
-          toast.error(t('feedback.noNetwork'));
-        }
+        setAuthFailed(true);
+        if (err.code === 'ERR_NETWORK') toast.error(t('feedback.noNetwork'));
+        if (err.isAxiosError && err.response.status === 401) inputRef.current.select();
       }
     },
   });

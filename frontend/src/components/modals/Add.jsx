@@ -7,7 +7,6 @@ import {
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
 
 import useSocketApi from '../../hooks/useSocketApi';
 import { hideModal } from '../../slices/modalSlice';
@@ -29,9 +28,12 @@ const Add = () => {
       setInputChannelValidation(false);
     } else {
       setInputChannelValidation(true);
-      socketApi.newChannel(values);
-      handleCloseModal();
-      toast.success(t('feedback.channelAdded'));
+      try {
+        socketApi.newChannel(values);
+        handleCloseModal();
+      } catch (err) {
+        console.error(err.toJSON());
+      }
     }
   };
 

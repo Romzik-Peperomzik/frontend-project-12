@@ -32,7 +32,7 @@ const ChatPage = () => {
         dispatch(setCurrentChannelId(res.data.currentChannelId));
         setIsDataLoaded(true);
       } catch (err) {
-        console.error(err);
+        console.log(err.toJSON());
         auth.logOut();
         setIsDataLoaded(false);
         toast.error(t('feedback.noNetwork'));

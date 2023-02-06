@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
 
 import { setCurrentChannelId } from '../../slices/channelsSlice';
 import useSocketApi from '../../hooks/useSocketApi';
@@ -23,7 +22,6 @@ const Remove = () => {
     socketApi.removeChannel({ id });
     dispatch(setCurrentChannelId(1));
     handleCloseModal();
-    toast.success(t('feedback.channelRemoved'));
   };
 
   const buttonRef = useRef();
