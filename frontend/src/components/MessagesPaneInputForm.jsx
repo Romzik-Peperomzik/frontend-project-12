@@ -7,6 +7,7 @@ import {
 } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 
 import useSocketApi from '../hooks/useSocketApi';
 import useAuth from '../hooks/useAuth';
@@ -14,6 +15,8 @@ import svgArrow from '../assets/arrow.svg';
 
 const MessagesPaneInputForm = () => {
   const { t } = useTranslation();
+  filter.add(filter.getDictionary('ru'));
+  filter.add(filter.getDictionary('en'));
   const [inputValue, setInputValue] = useState('');
   const auth = useAuth();
   const currentChannelId = useSelector((state) => state.channels.currentChannelId);
@@ -23,7 +26,7 @@ const MessagesPaneInputForm = () => {
     e.preventDefault();
     socketApi.newMessage({
       username: auth.getUsername(),
-      body: inputValue,
+      body: filter.clean(inputValue),
       channelId: currentChannelId,
     });
     setInputValue('');
