@@ -46,7 +46,7 @@ const translation = {
     removeTitle: 'Удалить канал',
     renameTitle: 'Переименовать канал',
     inputPlaceholder: 'Введите название канала',
-    removeReadOnlyText: 'Канал для удаления: {{name}}',
+    removeReadOnlyText: 'Вы собираетесь удалить канал: {{name}}',
   },
 };
 
