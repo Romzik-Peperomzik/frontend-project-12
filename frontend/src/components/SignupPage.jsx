@@ -5,6 +5,7 @@ import {
   Form, Button, Card, Image, Row, Col, Container, FloatingLabel,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
 import imgSignup from '../assets/signup.jpeg';
@@ -47,7 +48,7 @@ const SignupPage = () => {
           auth.logOut();
           setInvalid(true);
         } else {
-          throw new Error('Network error');
+          toast.error(t('feedback.noNetwork'));
         }
       }
       setProcessing(false);

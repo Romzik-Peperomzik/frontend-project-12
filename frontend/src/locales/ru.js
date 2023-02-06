@@ -27,6 +27,7 @@ const translation = {
     validationRange6: 'Не менее 6 символов',
     validationCoincidence: 'Пароли должны совпадать',
     userAlreadyExists: 'Такой пользователь уже существует',
+    noNetwork: 'Подключение к сети отсутствует',
   },
   panes: {
     channelsHeader: 'Каналы',

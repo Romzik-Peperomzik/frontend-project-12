@@ -5,6 +5,7 @@ import {
 } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 import useAuth from '../hooks/useAuth';
 import routes from '../routes';
@@ -38,9 +39,9 @@ const LoginPage = () => {
         if (err.isAxiosError && err.response.status === 401) {
           setAuthFailed(true);
           inputRef.current.select();
-          return;
+        } else {
+          toast.error(t('feedback.noNetwork'));
         }
-        throw err;
       }
     },
   });

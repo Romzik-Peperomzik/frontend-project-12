@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 import ChannelsPaneHeader from './ChannelsPaneHeader';
 import ChannelsPaneNavigation from './ChannelsPaneNavigation';
@@ -15,6 +17,7 @@ import { addChannels, setCurrentChannelId } from '../slices/channelsSlice';
 import { setMessages } from '../slices/messagesSlice';
 
 const ChatPage = () => {
+  const { t } = useTranslation();
   const auth = useAuth();
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -28,10 +31,11 @@ const ChatPage = () => {
         dispatch(addChannels(res.data.channels));
         dispatch(setCurrentChannelId(res.data.currentChannelId));
         setIsDataLoaded(true);
-      } catch (e) {
-        console.error(e);
+      } catch (err) {
+        console.error(err);
         auth.logOut();
         setIsDataLoaded(false);
+        toast.error(t('feedback.noNetwork'));
       }
     };
     fetchData();

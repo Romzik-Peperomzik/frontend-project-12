@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.min.css';
 import { createRoot } from 'react-dom/client';
 import { io } from 'socket.io-client';
 import init from './init';
