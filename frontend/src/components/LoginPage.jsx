@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Button, Form, Container, Row, Col, Card, Image, FloatingLabel,
 } from 'react-bootstrap';
@@ -33,6 +33,7 @@ const LoginPage = () => {
         await auth.authorizeUser(routes.loginPath(), values);
         navigate({ pathname: '/' });
       } catch (err) {
+        console.error(err);
         formik.setSubmitting(false);
         if (err.isAxiosError && err.response.status === 401) {
           setAuthFailed(true);
