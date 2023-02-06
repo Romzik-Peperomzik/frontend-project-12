@@ -5,6 +5,7 @@ import {
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 import useSocketApi from '../../hooks/useSocketApi';
 import { hideModal } from '../../slices/modalSlice';
@@ -30,6 +31,7 @@ const Rename = () => {
       const { id } = currentModalItem;
       socketApi.renameChannel({ id, name: values.name });
       handleCloseModal();
+      toast.success(t('feedback.channelRenamed'));
     }
   };
 

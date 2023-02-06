@@ -28,6 +28,9 @@ const translation = {
     validationCoincidence: 'Пароли должны совпадать',
     userAlreadyExists: 'Такой пользователь уже существует',
     noNetwork: 'Подключение к сети отсутствует',
+    channelAdded: 'Канал создан',
+    channelRemoved: 'Канал удалён',
+    channelRenamed: 'Канал переименован',
   },
   panes: {
     channelsHeader: 'Каналы',
