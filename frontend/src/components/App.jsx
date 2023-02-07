@@ -20,7 +20,6 @@ import useAuth from '../hooks/useAuth';
 const App = () => {
   const { t } = useTranslation();
   const auth = useAuth();
-  const { loggedIn } = auth;
 
   return (
     <BrowserRouter>
@@ -30,7 +29,7 @@ const App = () => {
             <Navbar.Brand>
               <Link to="/" className="text-reset text-decoration-none">{t('controls.navLogo')}</Link>
             </Navbar.Brand>
-            {loggedIn && (<Button as={Link} to="/logout">{t('controls.navLogout')}</Button>)}
+            {auth.user && (<Button as={Link} to="/logout">{t('controls.navLogout')}</Button>)}
           </Container>
         </Navbar>
         <Routes>
