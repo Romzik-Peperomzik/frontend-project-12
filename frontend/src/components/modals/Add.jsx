@@ -1,12 +1,12 @@
-import React, {
-  useEffect, useState, useRef,
-} from 'react';
+import React, { useEffect, useRef } from 'react';
+import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import {
   Button, Modal, Form, FormGroup, FormControl,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import * as yup from 'yup';
 
 import useSocketApi from '../../hooks/useSocketApi';
 import { hideModal } from '../../slices/modalSlice';
@@ -16,30 +16,28 @@ const Add = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const channels = useSelector(channelsSelectors.selectAll);
+  const channelsName = channels.map(({ name }) => name);
   const socketApi = useSocketApi();
-  const [isValidChannelName, setInputChannelValidation] = useState(true);
   const handleCloseModal = () => {
     dispatch(hideModal());
   };
 
   const generateOnSubmit = (values) => {
-    const index = channels.findIndex((channel) => channel.name === values.name);
-    if (index > -1) {
-      setInputChannelValidation(false);
-    } else {
-      setInputChannelValidation(true);
-      try {
-        socketApi.newChannel(values);
-        handleCloseModal();
-      } catch (err) {
-        console.error(err.toJSON());
-      }
+    try {
+      socketApi.newChannel(values);
+      toast.success(t('feedback.channelAdded'));
+      handleCloseModal();
+    } catch (err) {
+      console.error(err.toJSON());
     }
   };
 
   const f = useFormik({
     onSubmit: generateOnSubmit,
     initialValues: { name: '' },
+    validationSchema: yup.object({
+      name: yup.string().required(t('yup.required')).notOneOf(channelsName, t('yup.notOneOf')),
+    }),
   });
 
   const inputRef = useRef();
@@ -66,7 +64,7 @@ const Add = () => {
               value={f.values.name}
             />
           </FormGroup>
-          {!isValidChannelName && <div className="text-danger mt-1">{t('feedback.invalidChannelName')}</div>}
+          {f.errors.name && <div className="text-danger mt-1">{t('feedback.invalidChannelName')}</div>}
         </Form>
       </Modal.Body>
 

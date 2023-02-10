@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { toast } from 'react-toastify';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -20,6 +21,7 @@ const Remove = () => {
     e.preventDefault();
     const { id } = currentModalItem;
     socketApi.removeChannel({ id });
+    toast.success(t('feedback.channelRenamed'));
     dispatch(setCurrentChannelId(1));
     handleCloseModal();
   };
