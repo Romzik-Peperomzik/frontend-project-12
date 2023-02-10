@@ -12,7 +12,6 @@ import useAuth from '../hooks/useAuth';
 import fetchData from '../slices/fetchThunk';
 
 const ChatPage = () => {
-  const channelsIsLoaded = useSelector((state) => state.channels.loadingStatus);
   const auth = useAuth();
   const dispatch = useDispatch();
   const headers = { Authorization: `Bearer ${auth.getToken()}` };
@@ -26,19 +25,17 @@ const ChatPage = () => {
 
   return (
     <Container className="my-4 overflow-hidden rounded shadow h-100">
-      {channelsIsLoaded && (
-        <Row className="bg-white h-100">
-          <Col xs={4} md={2} className="pt-5 px-0 border-end bg-light">
-            <ChannelsPaneHeader />
-            <ChannelsPaneNavigation />
-          </Col>
-          <Col xs={8} md={10} className="p-0 d-flex flex-column h-100">
-            <MessagesPaneHeader />
-            <MessagesPaneBody />
-            <MessagesPaneInputForm />
-          </Col>
-        </Row>
-      )}
+      <Row className="bg-white h-100">
+        <Col xs={4} md={2} className="pt-5 px-0 border-end bg-light">
+          <ChannelsPaneHeader />
+          <ChannelsPaneNavigation />
+        </Col>
+        <Col xs={8} md={10} className="p-0 d-flex flex-column h-100">
+          <MessagesPaneHeader />
+          <MessagesPaneBody />
+          <MessagesPaneInputForm />
+        </Col>
+      </Row>
       <Modal />
     </Container>
   );

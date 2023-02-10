@@ -6,7 +6,6 @@ import fetchData from './fetchThunk';
 const channelsAdapter = createEntityAdapter();
 const initialState = channelsAdapter.getInitialState({
   currentChannelId: '',
-  loadingStatus: '',
 });
 
 const channelsSlice = createSlice({
@@ -23,13 +22,9 @@ const channelsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchData.pending, (state) => {
-        state.loadingStatus = null;
-      })
       .addCase(fetchData.fulfilled, (state, { payload }) => {
         channelsAdapter.setAll(state, payload.channels);
         state.currentChannelId = payload.currentChannelId;
-        state.loadingStatus = true;
       });
   },
 });

@@ -7,16 +7,19 @@ import Channel from './Channel';
 
 const ChannelsPaneNavigation = () => {
   const channels = useSelector(channelsSelectors.selectAll);
+
   return (
     <Nav className="px-2">
-      {channels.map(({ id, name, removable }) => (
-        <Channel
-          key={id}
-          id={id}
-          name={name}
-          removable={removable}
-        />
-      ))}
+      {channels
+        ? channels.map(({ id, name, removable }) => (
+          <Channel
+            key={id}
+            id={id}
+            name={name}
+            removable={removable}
+          />
+        ))
+        : null}
     </Nav>
   );
 };
