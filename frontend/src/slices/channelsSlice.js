@@ -1,10 +1,13 @@
+/* eslint-disable no-param-reassign */
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 
-const channelsAdapter = createEntityAdapter();
+import fetchData from './fetchThunk';
 
-const initialState = {
+const channelsAdapter = createEntityAdapter();
+const initialState = channelsAdapter.getInitialState({
   currentChannelId: '',
-};
+  loadingStatus: '',
+});
 
 const channelsSlice = createSlice({
   name: 'channels',
@@ -17,6 +20,17 @@ const channelsSlice = createSlice({
     setCurrentChannelId: (state, { payload }) => (
       { ...state, currentChannelId: payload }
     ),
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchData.pending, (state) => {
+        state.loadingStatus = null;
+      })
+      .addCase(fetchData.fulfilled, (state, { payload }) => {
+        channelsAdapter.setAll(state, payload.channels);
+        state.currentChannelId = payload.currentChannelId;
+        state.loadingStatus = true;
+      });
   },
 });
 

@@ -1,8 +1,13 @@
+/* eslint-disable no-param-reassign */
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+
 import { removeChannel } from './channelsSlice';
+import fetchData from './fetchThunk';
 
 const messagesAdapter = createEntityAdapter();
-const initialState = messagesAdapter.getInitialState();
+const initialState = messagesAdapter.getInitialState({
+  loadingStatus: '',
+});
 
 const messagesSlice = createSlice({
   name: 'messages',
@@ -12,11 +17,19 @@ const messagesSlice = createSlice({
     addMessage: messagesAdapter.addOne,
   },
   extraReducers: (builder) => {
-    builder.addCase(removeChannel, (state, { payload }) => {
-      const restEntities = Object.values(state.entities)
-        .filter((message) => message.channelId !== payload);
-      messagesAdapter.setAll(state, restEntities);
-    });
+    builder
+      .addCase(fetchData.pending, (state) => {
+        state.loadingStatus = null;
+      })
+      .addCase(fetchData.fulfilled, (state, { payload }) => {
+        messagesAdapter.setAll(state, payload.messages);
+        state.loadingStatus = true;
+      })
+      .addCase(removeChannel, (state, { payload }) => {
+        const restEntities = Object.values(state.entities)
+          .filter((message) => message.channelId !== payload);
+        messagesAdapter.setAll(state, restEntities);
+      });
   },
 });
 
