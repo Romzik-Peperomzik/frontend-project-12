@@ -2,6 +2,7 @@ import React from 'react';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { Provider } from 'react-redux';
 import i18next from 'i18next';
+import filter from 'leo-profanity';
 
 import App from './components/App';
 import AuthProvider from './hoc/AuthProvider';
@@ -23,6 +24,9 @@ const init = async (socket) => {
         },
       },
     });
+
+  filter.add(filter.getDictionary('ru'));
+  filter.add(filter.getDictionary('en'));
 
   return (
     <AuthProvider>

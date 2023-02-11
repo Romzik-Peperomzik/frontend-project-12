@@ -15,8 +15,6 @@ import svgArrow from '../assets/arrow.svg';
 
 const MessagesPaneInputForm = () => {
   const { t } = useTranslation();
-  filter.add(filter.getDictionary('ru'));
-  filter.add(filter.getDictionary('en'));
   const [inputValue, setInputValue] = useState('');
   const auth = useAuth();
   const currentChannelId = useSelector((state) => state.channels.currentChannelId);

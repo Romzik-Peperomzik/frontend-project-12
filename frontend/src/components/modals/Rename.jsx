@@ -6,6 +6,7 @@ import {
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 import * as yup from 'yup';
 
 import useSocketApi from '../../hooks/useSocketApi';
@@ -24,9 +25,10 @@ const Rename = () => {
   };
 
   const generateOnSubmit = (values, actions) => {
-    const { id } = currentModalItem;
     actions.setSubmitting(true);
-    socketApi.renameChannel({ id, name: values.name }, (response) => {
+    const { id } = currentModalItem;
+    const name = filter.clean(values.name);
+    socketApi.renameChannel({ id, name }, (response) => {
       if (response.status === 'ok') {
         toast.success(t('feedback.channelRenamed'));
         handleCloseModal();

@@ -6,6 +6,7 @@ import {
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 import * as yup from 'yup';
 
 import useSocketApi from '../../hooks/useSocketApi';
@@ -24,7 +25,8 @@ const Add = () => {
 
   const generateOnSubmit = (values, actions) => {
     actions.setSubmitting(true);
-    socketApi.newChannel(values, (response) => {
+    const name = filter.clean(values.name);
+    socketApi.newChannel({ name }, (response) => {
       if (response.status === 'ok') {
         dispatch(setCurrentChannelId(response.data.id));
         handleCloseModal();
