@@ -30,22 +30,19 @@ const SocketApiProvider = ({ children, socket }) => {
           throw new Error(response.err);
         });
       },
-      newChannel(data) {
+      newChannel(data, callbackHandler) {
         socket.emit('newChannel', data, (response) => {
-          if (response.status === 'ok') return; // store.dispatch(setCurrentChannelId(response.data.id))
-          throw new Error(response.err);
+          callbackHandler(response);
         });
       },
-      renameChannel(data) {
+      renameChannel(data, callbackHandler) {
         socket.emit('renameChannel', data, (response) => {
-          if (response.status === 'ok') return;
-          throw new Error(response.err);
+          callbackHandler(response);
         });
       },
-      removeChannel(data) {
+      removeChannel(data, callbackHandler) {
         socket.emit('removeChannel', data, (response) => {
-          if (response.status === 'ok') return;
-          throw new Error(response.err);
+          callbackHandler(response);
         });
       },
     };

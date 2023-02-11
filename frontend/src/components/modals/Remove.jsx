@@ -1,10 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { setCurrentChannelId } from '../../slices/channelsSlice';
 import useSocketApi from '../../hooks/useSocketApi';
 import { hideModal } from '../../slices/modalSlice';
 
@@ -13,6 +12,7 @@ const Remove = () => {
   const dispatch = useDispatch();
   const currentModalItem = useSelector((state) => state.modal.item);
   const socketApi = useSocketApi();
+  const [isDisable, setDisable] = useState(false);
   const handleCloseModal = () => {
     dispatch(hideModal());
   };
@@ -20,10 +20,14 @@ const Remove = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { id } = currentModalItem;
-    socketApi.removeChannel({ id });
-    toast.success(t('feedback.channelRenamed'));
-    dispatch(setCurrentChannelId(1));
-    handleCloseModal();
+    setDisable(true);
+    socketApi.removeChannel({ id }, (response) => {
+      if (response.status === 'ok') {
+        handleCloseModal();
+        toast.success(t('feedback.channelRemoved'));
+      } else toast.error(t('feedback.noNetwork'));
+    });
+    setDisable(false);
   };
 
   const buttonRef = useRef();
@@ -47,7 +51,7 @@ const Remove = () => {
         <Button variant="secondary" onClick={handleCloseModal}>
           {t('modals.close')}
         </Button>
-        <Button variant="danger" onClick={handleSubmit} ref={buttonRef}>
+        <Button variant="danger" onClick={handleSubmit} ref={buttonRef} disabled={isDisable}>
           {t('modals.remove')}
         </Button>
       </Modal.Footer>

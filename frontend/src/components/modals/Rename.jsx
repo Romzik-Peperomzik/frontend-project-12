@@ -23,15 +23,16 @@ const Rename = () => {
     dispatch(hideModal());
   };
 
-  const generateOnSubmit = (values) => {
-    try {
-      const { id } = currentModalItem;
-      socketApi.renameChannel({ id, name: values.name });
-      toast.success(t('feedback.channelRenamed'));
-      handleCloseModal();
-    } catch (err) {
-      console.error(err.toJSON());
-    }
+  const generateOnSubmit = (values, actions) => {
+    const { id } = currentModalItem;
+    actions.setSubmitting(true);
+    socketApi.renameChannel({ id, name: values.name }, (response) => {
+      if (response.status === 'ok') {
+        toast.success(t('feedback.channelRenamed'));
+        handleCloseModal();
+      } else toast.error(t('feedback.noNetwork'));
+    });
+    actions.setSubmitting(false);
   };
 
   const f = useFormik({
@@ -75,7 +76,7 @@ const Rename = () => {
         <Button variant="secondary" onClick={handleCloseModal}>
           {t('modals.close')}
         </Button>
-        <Button variant="primary" onClick={f.handleSubmit}>
+        <Button variant="primary" onClick={f.handleSubmit} disabled={f.isSubmitting}>
           {t('modals.save')}
         </Button>
       </Modal.Footer>

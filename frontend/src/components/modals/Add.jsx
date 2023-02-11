@@ -10,7 +10,7 @@ import * as yup from 'yup';
 
 import useSocketApi from '../../hooks/useSocketApi';
 import { hideModal } from '../../slices/modalSlice';
-import { channelsSelectors } from '../../slices/channelsSlice';
+import { channelsSelectors, setCurrentChannelId } from '../../slices/channelsSlice';
 
 const Add = () => {
   const { t } = useTranslation();
@@ -22,14 +22,16 @@ const Add = () => {
     dispatch(hideModal());
   };
 
-  const generateOnSubmit = (values) => {
-    try {
-      socketApi.newChannel(values);
-      toast.success(t('feedback.channelAdded'));
-      handleCloseModal();
-    } catch (err) {
-      console.error(err.toJSON());
-    }
+  const generateOnSubmit = (values, actions) => {
+    actions.setSubmitting(true);
+    socketApi.newChannel(values, (response) => {
+      if (response.status === 'ok') {
+        dispatch(setCurrentChannelId(response.data.id));
+        handleCloseModal();
+        toast.success(t('feedback.channelAdded'));
+      } else toast.error(t('feedback.noNetwork'));
+    });
+    actions.setSubmitting(false);
   };
 
   const f = useFormik({
@@ -60,7 +62,6 @@ const Add = () => {
               placeholder={t('modals.inputPlaceholder')}
               ref={inputRef}
               onChange={f.handleChange}
-              onBlur={f.handleBlur}
               value={f.values.name}
             />
           </FormGroup>
@@ -72,7 +73,7 @@ const Add = () => {
         <Button variant="secondary" onClick={handleCloseModal}>
           {t('modals.close')}
         </Button>
-        <Button variant="primary" onClick={f.handleSubmit}>
+        <Button variant="primary" onClick={f.handleSubmit} disabled={f.isSubmitting}>
           {t('modals.save')}
         </Button>
       </Modal.Footer>
