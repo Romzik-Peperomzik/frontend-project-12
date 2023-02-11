@@ -1,9 +1,23 @@
 import React from 'react';
+import { Image } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
-const Notfoundpage = () => (
-  <div>
-    <p>Notfoundpage</p>
-  </div>
-);
+import imgNotfound from '../assets/notfound.svg';
+
+const Notfoundpage = () => {
+  const { t } = useTranslation();
+
+  return (
+    <div className="text-center">
+      <Image src={imgNotfound} alt="notfound" className="img-fluid h-25" />
+      <h1 className="h4 text-muted">{t('feedback.pageNotfound')}</h1>
+      <p className="text-muted">
+        {t('feedback.pathNoticeText')}
+        {' '}
+        <a href="/">{t('feedback.pathNoticeLink')}</a>
+      </p>
+    </div>
+  );
+};
 
 export default Notfoundpage;

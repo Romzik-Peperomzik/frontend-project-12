@@ -32,6 +32,9 @@ const translation = {
     channelAdded: 'Канал создан',
     channelRemoved: 'Канал удалён',
     channelRenamed: 'Канал переименован',
+    pageNotfound: 'Страница не найдена',
+    pathNoticeText: 'Но вы можете перейти',
+    pathNoticeLink: 'на главную страницу',
   },
   panes: {
     channelsHeader: 'Каналы',
