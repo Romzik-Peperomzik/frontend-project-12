@@ -66,6 +66,7 @@ const Add = () => {
               onChange={f.handleChange}
               value={f.values.name}
             />
+            <Form.Label htmlFor="name" className="visually-hidden">{t('modals.inputPlaceholder')}</Form.Label>
           </FormGroup>
           {f.errors.name && <div className="text-danger mt-1">{t('feedback.invalidChannelName')}</div>}
         </Form>
