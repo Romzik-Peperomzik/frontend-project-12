@@ -17,6 +17,11 @@ https://frontend-project-12-production-9523.up.railway.app/
 make install
 ```
 
+## Run linter:
+```sh
+make lint-frontend
+```
+
 ## Run server and client
 
 ```sh
