@@ -6,6 +6,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import { useRollbar } from '@rollbar/react';
 
 import useAuth from '../hooks/useAuth';
 import routes from '../routes';
@@ -17,6 +18,7 @@ const LoginPage = () => {
   const [authFailed, setAuthFailed] = useState(false);
   const inputRef = useRef();
   const navigate = useNavigate();
+  const rollbar = useRollbar();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -31,10 +33,11 @@ const LoginPage = () => {
       setAuthFailed(false);
 
       try {
-        await auth.authorizeUser(routes.loginPath(), values);
+        const userData = await auth.authorizeUser(routes.loginPath(), values);
         navigate({ pathname: '/' });
+        rollbar.info(`${userData.username} logged in`);
       } catch (err) {
-        console.log(err.toJSON());
+        console.log(err);
         formik.setSubmitting(false);
         setAuthFailed(true);
         if (err.code === 'ERR_NETWORK') toast.error(t('feedback.noNetwork'));

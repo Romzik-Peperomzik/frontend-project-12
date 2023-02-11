@@ -23,6 +23,7 @@ const AuthProvider = ({ children }) => {
     const res = await axios.post(route, data);
     localStorage.setItem('userId', JSON.stringify(res.data));
     setUser(JSON.parse(localStorage.getItem('userId')));
+    return res.data;
   };
 
   return (

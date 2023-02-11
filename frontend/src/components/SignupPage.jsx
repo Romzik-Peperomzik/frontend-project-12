@@ -7,6 +7,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
+import { useRollbar } from '@rollbar/react';
 
 import imgSignup from '../assets/signup.jpeg';
 import useAuth from '../hooks/useAuth';
@@ -17,6 +18,7 @@ const SignupPage = () => {
   const [invalid, setInvalid] = useState(false);
   const [processing, setProcessing] = useState(false);
   const navigate = useNavigate();
+  const rollbar = useRollbar();
 
   const formik = useFormik({
     initialValues: {
@@ -39,11 +41,12 @@ const SignupPage = () => {
     onSubmit: async (values) => {
       setProcessing(true);
       try {
-        await auth.authorizeUser('/api/v1/signup', values);
+        const userData = await auth.authorizeUser('/api/v1/signup', values);
         navigate({ pathname: '/' });
         setInvalid(false);
+        rollbar.info(`${userData.username} signed up`);
       } catch (err) {
-        console.log(err.toJSON());
+        console.log(err);
         auth.logOut();
         if (err.code === 'ERR_NETWORK') toast.error(t('feedback.noNetwork'));
         if (err.response.status === 409) setInvalid(true);
