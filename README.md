@@ -11,14 +11,18 @@
 ## Deployed on Railway:
 https://frontend-project-12-production-9523.up.railway.app/
 
-
+## Build project
+```sh
+npm run build
+npm start
+```
 ## Install dependencies
 
 ```sh
 make install
 ```
 
-## Run linter:
+## Run linter
 ```sh
 make lint-frontend
 ```
@@ -29,6 +33,6 @@ make lint-frontend
 make start
 ```
 
-## Pre created user:
+## Pre created user
 - Login: admin
 - Password: admin
