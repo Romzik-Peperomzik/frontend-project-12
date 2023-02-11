@@ -19,6 +19,7 @@ const translation = {
     dropDownChannelRename: 'Переименовать',
     messagesSendInput: 'Отправить',
     signup: 'Зарегистрироваться',
+    editChannel: 'Управление каналом',
   },
   feedback: {
     invalidLoginAttempt: 'Неверные имя пользователя или пароль',

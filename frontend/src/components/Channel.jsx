@@ -46,7 +46,11 @@ const Channel = ({ id, name, removable }) => {
   const renderDropDownButton = () => (
     <Dropdown as={ButtonGroup} className="w-100">
       {defaultButton}
-      <Dropdown.Toggle split variant={buttonVariant} id="dropdown-split-basic" />
+      <Dropdown.Toggle split variant={buttonVariant} id="dropdown-split-basic">
+        <span className="visually-hidden">
+          {t('controls.editChannel')}
+        </span>
+      </Dropdown.Toggle>
       <Dropdown.Menu>
         <Dropdown.Item onClick={showModalRemove}>{t('controls.dropDownChannelRemove')}</Dropdown.Item>
         <Dropdown.Item onClick={showModalRename}>{t('controls.dropDownChannelRename')}</Dropdown.Item>
