@@ -7,6 +7,7 @@
 - Simple websocket chat with frontend and [backend](https://github.com/hexlet-components/project-js-chat-backend) implimentation.
 - Support multiple channels and controls to them (create, delete, rename).
 - Signup as new user and login as existed.
+
 ## Deployed on Railway:
 https://frontend-project-12-production-9523.up.railway.app/
 
@@ -27,3 +28,7 @@ make lint-frontend
 ```sh
 make start
 ```
+
+## Pre created user:
+- Login: admin
+- Password: admin
