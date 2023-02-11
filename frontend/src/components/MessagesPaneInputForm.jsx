@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   Button,
   Image,
@@ -17,8 +17,13 @@ const MessagesPaneInputForm = () => {
   const { t } = useTranslation();
   const [inputValue, setInputValue] = useState('');
   const auth = useAuth();
+  const inputRef = useRef();
   const currentChannelId = useSelector((state) => state.channels.currentChannelId);
   const socketApi = useSocketApi();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  });
 
   const handleSubmitInputForm = (e) => {
     e.preventDefault();
@@ -39,12 +44,13 @@ const MessagesPaneInputForm = () => {
       <Form onSubmit={handleSubmitInputForm} noValidate className="py-1 border rounded-2">
         <InputGroup className="has-validation">
           <Form.Control
-            placeholder={t('forms.messagesInput')}
+            placeholder={t('forms.messagesInputPlaceholder')}
             aria-label={t('forms.messagesInput')}
             aria-describedby="basic-addon2"
             className="border-0 p-0 ps-2"
             value={inputValue}
             onChange={handleChange}
+            ref={inputRef}
           />
           <Button variant="white" type="submit" className="btn-group-vertical border-0" disabled={!inputValue}>
             <Image src={svgArrow} alt="arrow" />
