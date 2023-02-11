@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useRollbar } from '@rollbar/react';
+import * as yup from 'yup';
 
 import useAuth from '../hooks/useAuth';
 import routes from '../routes';
@@ -29,6 +30,12 @@ const LoginPage = () => {
       username: '',
       password: '',
     },
+    validationSchema: yup.object({
+      username: yup.string()
+        .required(t('feedback.validationRequired')),
+      password: yup.string()
+        .required(t('feedback.validationRequired')),
+    }),
     onSubmit: async (values) => {
       setAuthFailed(false);
 
@@ -63,7 +70,7 @@ const LoginPage = () => {
                       <Form.Control
                         onChange={formik.handleChange}
                         value={formik.values.username}
-                        placeholder="username"
+                        placeholder={t('forms.usernickLabel')}
                         name="username"
                         id="username"
                         autoComplete="username"
@@ -83,7 +90,7 @@ const LoginPage = () => {
                         placeholder="password"
                         name="password"
                         id="password"
-                        autoComplete="current-password"
+                        autoComplete={t('forms.passwordLabel')}
                         isInvalid={authFailed}
                         required
                       />
