@@ -2,7 +2,8 @@ const translation = {
   forms: {
     loginHeader: 'Войти',
     loginFooterNoAcc: 'Нет аккаунта?',
-    usernameLabel: 'Ваш ник',
+    usernameLabel: 'Имя пользователя',
+    usernickLabel: 'Ваш ник',
     passwordLabel: 'Пароль',
     messagesInput: 'Введите сообщение...',
     signupHeader: 'Регистрация',
@@ -27,7 +28,7 @@ const translation = {
     validationRange6: 'Не менее 6 символов',
     validationCoincidence: 'Пароли должны совпадать',
     userAlreadyExists: 'Такой пользователь уже существует',
-    noNetwork: 'Ошибка сети',
+    noNetwork: 'Ошибка соединения',
     channelAdded: 'Канал создан',
     channelRemoved: 'Канал удалён',
     channelRenamed: 'Канал переименован',
