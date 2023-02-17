@@ -12,6 +12,7 @@ import * as yup from 'yup';
 import useAuth from '../hooks/useAuth';
 import routes from '../routes';
 import imgLogin from '../assets/login.jpeg';
+import LoginPageFormGroup from './LoginPageFormGroup';
 
 const LoginPage = () => {
   const { t } = useTranslation();
@@ -25,6 +26,11 @@ const LoginPage = () => {
     inputRef.current.focus();
   }, []);
 
+  const formGroups = [
+    { name: 'username', placeholder: t('forms.usernickLabel'), inputRef },
+    { name: 'password', placeholder: t('forms.passwordLabel'), type: 'password' },
+  ];
+
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -36,17 +42,14 @@ const LoginPage = () => {
       password: yup.string()
         .required(t('feedback.validationRequired')),
     }),
-    onSubmit: async (values, actions) => {
-      actions.setSubmitting(true);
+    onSubmit: async (values) => {
       try {
         const userData = await auth.authorizeUser(routes.loginPath(), values);
-        actions.setSubmitting(false);
         setAuthFailed(false);
         navigate({ pathname: '/' });
         rollbar.info(`${userData.username} logged in`);
       } catch (err) {
         console.log(err);
-        actions.setSubmitting(false);
         setAuthFailed(true);
         if (err.code === 'ERR_NETWORK') toast.error(t('feedback.noNetwork'));
         if (err.isAxiosError && err.response.status === 401) inputRef.current.select();
@@ -67,42 +70,17 @@ const LoginPage = () => {
               <Col as={Form} onSubmit={formik.handleSubmit} sm={12} md={6} className="mt-3 mt-mb-0">
                 <h1 className="text-center mb-4">{t('forms.loginHeader')}</h1>
                 <fieldset disabled={formik.isSubmitting}>
-                  <Form.Group className="form-floating mb-3">
-                    <Form.Control
-                      onChange={formik.handleChange}
-                      value={formik.values.username}
-                      placeholder={t('forms.usernickLabel')}
-                      name="username"
-                      id="username"
-                      autoComplete="username"
-                      isInvalid={authFailed}
-                      required
-                      ref={inputRef}
+                  {formGroups.map((itemAttributes) => (
+                    <LoginPageFormGroup
+                      attributes={itemAttributes}
+                      formik={formik}
+                      authFailed={authFailed}
+                      authFailedFeedback={t('feedback.invalidLoginAttempt')}
+                      key={itemAttributes.name}
                     />
-                    <Form.Label htmlFor="username">{t('forms.usernickLabel')}</Form.Label>
-                  </Form.Group>
+                  ))}
 
-                  <Form.Group className="form-floating mb-4">
-                    <Form.Control
-                      type="password"
-                      onChange={formik.handleChange}
-                      placeholder={t('forms.passwordLabel')}
-                      name="password"
-                      id="password"
-                      autoComplete="password"
-                      isInvalid={authFailed}
-                      required
-                    />
-                    <Form.Label htmlFor="password">{t('forms.passwordLabel')}</Form.Label>
-
-                    {authFailed
-                      ? (
-                        <Form.Control.Feedback type="invalid" tooltip>
-                          {t('feedback.invalidLoginAttempt')}
-                        </Form.Control.Feedback>
-                      ) : null}
-                  </Form.Group>
-                  <Button type="submit" variant="outline-primary" className="w-100 mb-3" disabled={formik.isSubmitting}>
+                  <Button type="submit" variant="outline-primary" className="w-100 mb-3">
                     {t('controls.loginButton')}
                   </Button>
                 </fieldset>
