@@ -12,6 +12,7 @@ import { useRollbar } from '@rollbar/react';
 import imgSignup from '../assets/signup.jpeg';
 import useAuth from '../hooks/useAuth';
 import SignupPageFormGroup from './SignupPageFormGroup';
+import routes from '../routes';
 
 const SignupPage = () => {
   const { t } = useTranslation();
@@ -36,7 +37,11 @@ const SignupPage = () => {
   const formInputGroupData = [
     { name: 'username', placeholder: t('forms.usernameLabel'), inputRef },
     { name: 'password', placeholder: t('forms.passwordLabel'), type: 'password' },
-    { name: 'password_confirmation', placeholder: t('forms.passwordConfirmation'), type: 'password' },
+    {
+      name: 'password_confirmation',
+      placeholder: t('forms.passwordConfirmation'),
+      type: 'password',
+    },
   ];
 
   useEffect(() => {
@@ -52,8 +57,8 @@ const SignupPage = () => {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        const userData = await auth.authorizeUser('/api/v1/signup', values);
-        navigate({ pathname: '/' });
+        const userData = await auth.authorizeUser(routes.signupPath(), values);
+        navigate({ pathname: routes.chatPagePath() });
         setInvalid(false);
         rollbar.info(`${userData.username} signed up`);
       } catch (err) {
@@ -93,7 +98,11 @@ const SignupPage = () => {
                   ))}
 
                   {invalid
-                    && <div className="text-danger mb-3">{t('feedback.userAlreadyExists')}</div>}
+                    && (
+                    <div className="text-danger mb-3">
+                      {t('feedback.userAlreadyExists')}
+                    </div>
+                    )}
 
                   <Button variant="primary" type="submit" className="w-100">
                     {t('controls.signup')}

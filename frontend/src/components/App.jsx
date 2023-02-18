@@ -13,6 +13,7 @@ import NotFoundPage from './NotFoundPage';
 import RequireAuth from '../hoc/RequireAuth';
 import SignupPage from './SignupPage';
 import MainNavbar from './MainNavbar';
+import routes from '../routes';
 
 const App = () => (
   <BrowserRouter>
@@ -20,17 +21,17 @@ const App = () => (
       <MainNavbar />
       <Routes>
         <Route
-          path="/"
+          path={routes.chatPagePath()}
           element={(
             <RequireAuth>
               <ChatPage />
             </RequireAuth>
           )}
         />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/logout" element={<LogoutPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path={routes.loginPagePath()} element={<LoginPage />} />
+        <Route path={routes.signupPagePath()} element={<SignupPage />} />
+        <Route path={routes.logoutPagePath()} element={<LogoutPage />} />
+        <Route path={routes.notFoundPagePath()} element={<NotFoundPage />} />
       </Routes>
       <ToastContainer />
     </div>

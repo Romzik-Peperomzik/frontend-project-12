@@ -3,6 +3,7 @@ import { Image } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import imgNotfound from '../assets/notfound.svg';
+import routes from '../routes';
 
 const Notfoundpage = () => {
   const { t } = useTranslation();
@@ -14,7 +15,7 @@ const Notfoundpage = () => {
       <p className="text-muted">
         {t('feedback.pathNoticeText')}
         {' '}
-        <a href="/">{t('feedback.pathNoticeLink')}</a>
+        <a href={routes.chatPagePath()}>{t('feedback.pathNoticeLink')}</a>
       </p>
     </div>
   );

@@ -46,7 +46,7 @@ const LoginPage = () => {
       try {
         const userData = await auth.authorizeUser(routes.loginPath(), values);
         setAuthFailed(false);
-        navigate({ pathname: '/' });
+        navigate({ pathname: routes.chatPagePath() });
         rollbar.info(`${userData.username} logged in`);
       } catch (err) {
         console.log(err);

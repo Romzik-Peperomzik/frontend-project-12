@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import useAuth from '../hooks/useAuth';
+import routes from '../routes';
 
 const LogoutPage = () => {
   const auth = useAuth();
@@ -8,7 +10,7 @@ const LogoutPage = () => {
 
   useEffect(() => {
     auth.logOut();
-    navigate({ pathname: '/login' });
+    navigate({ pathname: routes.loginPagePath() });
   }, [navigate]);
 };
 

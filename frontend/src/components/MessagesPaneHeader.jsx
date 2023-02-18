@@ -25,7 +25,9 @@ const MessagesPaneHeader = () => {
     <div className="bg-light mb-4 p-3 shadow-sm small">
       <p className="m-0"><b>{channelName}</b></p>
       {currentChannelMessages && (
-        <span className="text-muted">{t('panes.messagesHeader', { count: currentChannelMessages.length })}</span>
+        <span className="text-muted">
+          {t('panes.messagesHeader', { count: currentChannelMessages.length })}
+        </span>
       )}
     </div>
   );
