@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 import { messagesSelectors } from '../slices/messagesSlice';
@@ -9,9 +9,17 @@ const MessagesPaneBody = () => {
   const currentChannelMessages = messages
     ? messages.filter(({ channelId }) => channelId === currentChannelId)
     : null;
+  const scrollRef = useRef();
+
+  useEffect(() => {
+    scrollRef.current.scrollTo({
+      top: 10000,
+      behavior: 'smooth',
+    });
+  }, [currentChannelMessages]);
 
   return (
-    <div id="messages-box" className="chat-messages overflow-auto px-5">
+    <div id="messages-box" className="chat-messages overflow-auto px-5" ref={scrollRef}>
       {currentChannelMessages
         ? currentChannelMessages.map(({ body, username, id }) => (
           <div className="text-break mb-2" key={id}>
