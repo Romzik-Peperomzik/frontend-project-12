@@ -13,9 +13,13 @@ const Remove = () => {
   const currentModalItem = useSelector((state) => state.modal.item);
   const socketApi = useSocketApi();
   const [isDisable, setDisable] = useState(false);
-  const handleCloseModal = () => {
-    dispatch(hideModal());
-  };
+  const buttonRef = useRef();
+
+  const handleCloseModal = () => dispatch(hideModal());
+
+  useEffect(() => {
+    buttonRef.current.focus();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,11 +34,6 @@ const Remove = () => {
     setDisable(false);
   };
 
-  const buttonRef = useRef();
-  useEffect(() => {
-    buttonRef.current.focus();
-  }, []);
-
   return (
     <Modal show>
       <Modal.Header closeButton onHide={handleCloseModal}>
@@ -43,7 +42,11 @@ const Remove = () => {
 
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
-          <Form.Control plaintext readOnly defaultValue={t('modals.removeReadOnlyText', { name: currentModalItem.name })} />
+          <Form.Control
+            plaintext
+            readOnly
+            defaultValue={t('modals.removeReadOnlyText', { name: currentModalItem.name })}
+          />
         </Form>
       </Modal.Body>
 

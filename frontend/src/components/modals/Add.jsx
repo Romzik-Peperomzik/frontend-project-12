@@ -19,12 +19,15 @@ const Add = () => {
   const channels = useSelector(channelsSelectors.selectAll);
   const channelsName = channels.map(({ name }) => name);
   const socketApi = useSocketApi();
-  const handleCloseModal = () => {
-    dispatch(hideModal());
-  };
+  const inputRef = useRef();
 
-  const generateOnSubmit = (values, actions) => {
-    actions.setSubmitting(true);
+  const handleCloseModal = () => dispatch(hideModal());
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
+  const generateOnSubmit = (values) => {
     const name = filter.clean(values.name);
     socketApi.newChannel({ name }, (response) => {
       if (response.status === 'ok') {
@@ -33,21 +36,19 @@ const Add = () => {
         toast.success(t('feedback.channelAdded'));
       } else toast.error(t('feedback.noNetwork'));
     });
-    actions.setSubmitting(false);
   };
 
-  const f = useFormik({
-    onSubmit: generateOnSubmit,
+  const formik = useFormik({
     initialValues: { name: '' },
     validationSchema: yup.object({
-      name: yup.string().required(t('yup.required')).notOneOf(channelsName, t('yup.notOneOf')),
+      name: yup.string()
+        .notOneOf(channelsName, t(t('feedback.invalidChannelName')))
+        .min(3, t('feedback.validationMin3'))
+        .max(20, t('feedback.validationMax20'))
+        .required(t('feedback.validationRequired')),
     }),
+    onSubmit: generateOnSubmit,
   });
-
-  const inputRef = useRef();
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
 
   return (
     <Modal show>
@@ -56,19 +57,24 @@ const Add = () => {
       </Modal.Header>
 
       <Modal.Body>
-        <Form onSubmit={f.handleSubmit}>
+        <Form onSubmit={formik.handleSubmit}>
           <FormGroup>
             <FormControl
               id="name"
               name="name"
               placeholder={t('modals.inputPlaceholder')}
               ref={inputRef}
-              onChange={f.handleChange}
-              value={f.values.name}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.name}
             />
-            <Form.Label htmlFor="name" className="visually-hidden">{t('modals.inputPlaceholder')}</Form.Label>
+            <Form.Label htmlFor="name" className="visually-hidden">
+              {t('modals.inputPlaceholder')}
+            </Form.Label>
           </FormGroup>
-          {f.errors.name && <div className="text-danger mt-1">{t('feedback.invalidChannelName')}</div>}
+
+          {formik.errors.name
+            && <div className="text-danger mt-1">{formik.errors.name}</div>}
         </Form>
       </Modal.Body>
 
@@ -76,7 +82,7 @@ const Add = () => {
         <Button variant="secondary" onClick={handleCloseModal}>
           {t('modals.close')}
         </Button>
-        <Button variant="primary" onClick={f.handleSubmit} disabled={f.isSubmitting}>
+        <Button variant="primary" onClick={formik.handleSubmit} disabled={formik.isSubmitting}>
           {t('modals.save')}
         </Button>
       </Modal.Footer>
