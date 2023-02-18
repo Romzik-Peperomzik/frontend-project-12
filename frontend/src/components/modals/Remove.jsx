@@ -39,7 +39,6 @@ const Remove = () => {
       <Modal.Header closeButton onHide={handleCloseModal}>
         <Modal.Title>{t('modals.removeTitle')}</Modal.Title>
       </Modal.Header>
-
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
           <Form.Control
@@ -49,7 +48,6 @@ const Remove = () => {
           />
         </Form>
       </Modal.Body>
-
       <Modal.Footer>
         <Button variant="secondary" onClick={handleCloseModal}>
           {t('modals.close')}

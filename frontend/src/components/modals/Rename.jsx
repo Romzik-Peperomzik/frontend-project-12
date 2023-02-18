@@ -21,6 +21,13 @@ const Rename = () => {
   const currentModalItem = useSelector((state) => state.modal.item);
   const socketApi = useSocketApi();
   const inputRef = useRef();
+  const validationSchema = yup.object({
+    name: yup.string()
+      .notOneOf(channelsName, t('feedback.invalidChannelName'))
+      .min(3, t('feedback.validationMin3'))
+      .max(20, t('feedback.validationMax20'))
+      .required(t('feedback.validationRequired')),
+  });
 
   const handleCloseModal = () => dispatch(hideModal());
 
@@ -42,13 +49,7 @@ const Rename = () => {
 
   const formik = useFormik({
     initialValues: { name: currentModalItem.name },
-    validationSchema: yup.object({
-      name: yup.string()
-        .notOneOf(channelsName, t(t('feedback.invalidChannelName')))
-        .min(3, t('feedback.validationMin3'))
-        .max(20, t('feedback.validationMax20'))
-        .required(t('feedback.validationRequired')),
-    }),
+    validationSchema,
     onSubmit: generateOnSubmit,
   });
 
@@ -57,7 +58,6 @@ const Rename = () => {
       <Modal.Header closeButton onHide={handleCloseModal}>
         <Modal.Title>{t('modals.renameTitle')}</Modal.Title>
       </Modal.Header>
-
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <FormGroup>
@@ -79,7 +79,6 @@ const Rename = () => {
             && <div className="text-danger mt-1">{formik.errors.name}</div>}
         </Form>
       </Modal.Body>
-
       <Modal.Footer>
         <Button variant="secondary" onClick={handleCloseModal}>
           {t('modals.close')}

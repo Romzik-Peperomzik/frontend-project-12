@@ -20,6 +20,13 @@ const Add = () => {
   const channelsName = channels.map(({ name }) => name);
   const socketApi = useSocketApi();
   const inputRef = useRef();
+  const validationSchema = yup.object({
+    name: yup.string()
+      .notOneOf(channelsName, t('feedback.invalidChannelName'))
+      .min(3, t('feedback.validationMin3'))
+      .max(20, t('feedback.validationMax20'))
+      .required(t('feedback.validationRequired')),
+  });
 
   const handleCloseModal = () => dispatch(hideModal());
 
@@ -40,13 +47,7 @@ const Add = () => {
 
   const formik = useFormik({
     initialValues: { name: '' },
-    validationSchema: yup.object({
-      name: yup.string()
-        .notOneOf(channelsName, t(t('feedback.invalidChannelName')))
-        .min(3, t('feedback.validationMin3'))
-        .max(20, t('feedback.validationMax20'))
-        .required(t('feedback.validationRequired')),
-    }),
+    validationSchema,
     onSubmit: generateOnSubmit,
   });
 
@@ -55,7 +56,6 @@ const Add = () => {
       <Modal.Header closeButton onHide={handleCloseModal}>
         <Modal.Title>{t('modals.addTitle')}</Modal.Title>
       </Modal.Header>
-
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <FormGroup>
@@ -77,7 +77,6 @@ const Add = () => {
             && <div className="text-danger mt-1">{formik.errors.name}</div>}
         </Form>
       </Modal.Body>
-
       <Modal.Footer>
         <Button variant="secondary" onClick={handleCloseModal}>
           {t('modals.close')}
