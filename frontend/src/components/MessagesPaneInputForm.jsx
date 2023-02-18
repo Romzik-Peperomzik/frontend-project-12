@@ -52,7 +52,12 @@ const MessagesPaneInputForm = () => {
             onChange={handleChange}
             ref={inputRef}
           />
-          <Button variant="white" type="submit" className="btn-group-vertical border-0" disabled={!inputValue}>
+          <Button
+            variant="white"
+            type="submit"
+            className="btn-group-vertical border-0"
+            disabled={!inputValue}
+          >
             <Image src={svgArrow} alt="arrow" />
             <span className="visually-hidden">{t('controls.messagesSendInput')}</span>
           </Button>

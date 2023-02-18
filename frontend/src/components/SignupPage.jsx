@@ -20,16 +20,28 @@ const SignupPage = () => {
   const inputRef = useRef();
   const navigate = useNavigate();
   const rollbar = useRollbar();
+  const validationSchema = yup.object({
+    username: yup.string()
+      .min(3, t('feedback.validationMin3'))
+      .max(20, t('feedback.validationMax20'))
+      .required(t('feedback.validationRequired')),
+    password: yup.string()
+      .min(6, t('feedback.validationRange6'))
+      .required(t('feedback.validationRequired')),
+    password_confirmation: yup.string()
+      .required(t('feedback.validationRequired'))
+      .oneOf([yup.ref('password'), null], t('feedback.validationCoincidence')),
+  });
 
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
-
-  const formGroups = [
+  const formInputGroupData = [
     { name: 'username', placeholder: t('forms.usernameLabel'), inputRef },
     { name: 'password', placeholder: t('forms.passwordLabel'), type: 'password' },
     { name: 'password_confirmation', placeholder: t('forms.passwordConfirmation'), type: 'password' },
   ];
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -37,18 +49,7 @@ const SignupPage = () => {
       password: '',
       password_confirmation: '',
     },
-    validationSchema: yup.object({
-      username: yup.string()
-        .min(3, t('feedback.validationMin3'))
-        .max(20, t('feedback.validationMax20'))
-        .required(t('feedback.validationRequired')),
-      password: yup.string()
-        .min(6, t('feedback.validationRange6'))
-        .required(t('feedback.validationRequired')),
-      password_confirmation: yup.string()
-        .required(t('feedback.validationRequired'))
-        .oneOf([yup.ref('password'), null], t('feedback.validationCoincidence')),
-    }),
+    validationSchema,
     onSubmit: async (values) => {
       try {
         const userData = await auth.authorizeUser('/api/v1/signup', values);
@@ -70,13 +71,20 @@ const SignupPage = () => {
         <Col sm={12} md={8} lg={8} xxl={6}>
           <Card className="shadow-sm">
             <Card.Body
-              className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5"
+              className="
+                d-flex
+                flex-column
+                flex-md-row
+                justify-content-around
+                align-items-center
+                p-5"
             >
               <Image src={imgSignup} className="rounded-circle" />
+
               <Form onSubmit={formik.handleSubmit} className="w-50">
                 <h1 className="text-center mb-4">{t('forms.signupHeader')}</h1>
                 <fieldset disabled={formik.isSubmitting}>
-                  {formGroups.map((itemAttributes) => (
+                  {formInputGroupData.map((itemAttributes) => (
                     <SignupPageFormGroup
                       attributes={itemAttributes}
                       formik={formik}
