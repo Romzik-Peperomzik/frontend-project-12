@@ -27,10 +27,10 @@ const LoginPageFormGroup = ({
         placeholder={placeholder}
         value={formik.values[name]}
         onChange={formik.handleChange}
-        isInvalid={authFailed}
         onBlur={formik.handleBlur}
-        required
+        isInvalid={authFailed}
         ref={inputRef}
+        required
         type={type}
       />
       {name === 'password'

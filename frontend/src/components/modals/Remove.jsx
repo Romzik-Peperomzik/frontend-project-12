@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -21,42 +21,38 @@ const Remove = () => {
     buttonRef.current.focus();
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleClick = () => {
+    setDisable(!isDisable);
     const { id } = currentModalItem;
-    setDisable(true);
     socketApi.removeChannel({ id }, (response) => {
       if (response.status === 'ok') {
         handleCloseModal();
         toast.success(t('feedback.channelRemoved'));
       } else toast.error(t('feedback.noNetwork'));
     });
-    setDisable(false);
+    setDisable(!isDisable);
   };
 
   return (
-    <Modal show>
-      <Modal.Header closeButton onHide={handleCloseModal}>
+    <Modal show centered onHide={handleCloseModal}>
+      <Modal.Header closeButton>
         <Modal.Title>{t('modals.removeTitle')}</Modal.Title>
       </Modal.Header>
+
       <Modal.Body>
-        <Form onSubmit={handleSubmit}>
-          <Form.Control
-            plaintext
-            readOnly
-            defaultValue={t('modals.removeReadOnlyText', { name: currentModalItem.name })}
-          />
-        </Form>
+        <p>
+          {t('modals.removeReadOnlyText', { name: currentModalItem.name })}
+        </p>
       </Modal.Body>
+
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleCloseModal}>
+        <Button variant="secondary" onClick={handleCloseModal} disabled={isDisable}>
           {t('modals.close')}
         </Button>
-        <Button variant="danger" onClick={handleSubmit} ref={buttonRef} disabled={isDisable}>
+        <Button variant="danger" onClick={handleClick} ref={buttonRef} disabled={isDisable}>
           {t('modals.remove')}
         </Button>
       </Modal.Footer>
-
     </Modal>
   );
 };

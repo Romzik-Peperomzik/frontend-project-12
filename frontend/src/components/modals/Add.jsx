@@ -1,9 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
-import {
-  Button, Modal, Form, FormGroup, FormControl,
-} from 'react-bootstrap';
+import { Button, Modal, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
@@ -52,38 +50,48 @@ const Add = () => {
   });
 
   return (
-    <Modal show>
-      <Modal.Header closeButton onHide={handleCloseModal}>
+    <Modal show centered onHide={handleCloseModal}>
+      <Modal.Header closeButton>
         <Modal.Title>{t('modals.addTitle')}</Modal.Title>
       </Modal.Header>
+
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
-          <FormGroup>
-            <FormControl
+          <Form.Group controlId="modalAddChannel" className="position-relative">
+            <Form.Control
               id="name"
               name="name"
               placeholder={t('modals.inputPlaceholder')}
-              ref={inputRef}
+              value={formik.values.name}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.name}
+              isInvalid={!formik.isValid}
+              ref={inputRef}
+              disabled={formik.isSubmitting}
             />
+            {formik.errors.name
+              && (
+              <Form.Control.Feedback type="invalid" tooltip>
+                {formik.errors.name}
+              </Form.Control.Feedback>
+              )}
+
             <Form.Label htmlFor="name" className="visually-hidden">
               {t('modals.inputPlaceholder')}
             </Form.Label>
-          </FormGroup>
-
-          {formik.errors.name
-            && <div className="text-danger mt-1">{formik.errors.name}</div>}
+          </Form.Group>
         </Form>
       </Modal.Body>
+
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleCloseModal}>
-          {t('modals.close')}
-        </Button>
-        <Button variant="primary" onClick={formik.handleSubmit} disabled={formik.isSubmitting}>
-          {t('modals.save')}
-        </Button>
+        <fieldset disabled={formik.isSubmitting}>
+          <Button variant="secondary" onClick={handleCloseModal} className="me-2">
+            {t('modals.close')}
+          </Button>
+          <Button variant="primary" onClick={formik.handleSubmit}>
+            {t('modals.save')}
+          </Button>
+        </fieldset>
       </Modal.Footer>
     </Modal>
   );

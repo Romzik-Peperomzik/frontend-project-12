@@ -17,7 +17,7 @@ import routes from '../routes';
 const SignupPage = () => {
   const { t } = useTranslation();
   const auth = useAuth();
-  const [invalid, setInvalid] = useState(false);
+  const [isSignupFailed, setSignupFailed] = useState(false);
   const inputRef = useRef();
   const navigate = useNavigate();
   const rollbar = useRollbar();
@@ -46,7 +46,8 @@ const SignupPage = () => {
 
   useEffect(() => {
     inputRef.current.focus();
-  }, []);
+    inputRef.current.select();
+  }, [isSignupFailed]);
 
   const formik = useFormik({
     initialValues: {
@@ -59,13 +60,13 @@ const SignupPage = () => {
       try {
         const userData = await auth.authorizeUser(routes.signupPath(), values);
         navigate({ pathname: routes.chatPagePath() });
-        setInvalid(false);
+        setSignupFailed(false);
         rollbar.info(`${userData.username} signed up`);
       } catch (err) {
         console.log(err);
         auth.logOut();
         if (err.code === 'ERR_NETWORK') toast.error(t('feedback.noNetwork'));
-        if (err.response.status === 409) setInvalid(true);
+        if (err.response.status === 409) setSignupFailed(true);
       }
     },
   });
@@ -93,16 +94,11 @@ const SignupPage = () => {
                     <SignupPageFormGroup
                       attributes={itemAttributes}
                       formik={formik}
+                      isSignupFailed={isSignupFailed}
+                      isSignupFailedFeedback={t('feedback.userAlreadyExists')}
                       key={itemAttributes.name}
                     />
                   ))}
-
-                  {invalid
-                    && (
-                    <div className="text-danger mb-3">
-                      {t('feedback.userAlreadyExists')}
-                    </div>
-                    )}
 
                   <Button variant="primary" type="submit" className="w-100">
                     {t('controls.signup')}
