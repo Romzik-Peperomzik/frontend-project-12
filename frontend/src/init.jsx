@@ -11,32 +11,27 @@ import translation from './locales/ru';
 import SocketApiProvider from './hoc/SocketApiProvider';
 import store from './slices/index';
 
-const init = async (socket) => {
-  const defaultLanguage = 'ru';
-  const i18nextInstance = i18next.createInstance();
+const rollbarConfig = {
+  accessToken: process.env.REACT_APP_ROLLBAR_ACCESS_TOKEN,
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+  payload: {
+    environment: 'production',
+  },
+};
 
+const defaultLanguage = 'ru';
+filter.add(filter.getDictionary('ru'));
+filter.add(filter.getDictionary('en'));
+
+const init = async (socket) => {
+  const i18nextInstance = i18next.createInstance();
   await i18nextInstance
     .use(initReactI18next)
     .init({
       lng: defaultLanguage,
-      resources: {
-        ru: {
-          translation,
-        },
-      },
+      resources: { ru: { translation } },
     });
-
-  filter.add(filter.getDictionary('ru'));
-  filter.add(filter.getDictionary('en'));
-
-  const rollbarConfig = {
-    accessToken: process.env.REACT_APP_ROLLBAR_ACCESS_TOKEN,
-    captureUncaught: true,
-    captureUnhandledRejections: true,
-    payload: {
-      environment: 'production',
-    },
-  };
 
   return (
     <RollbarProvider config={rollbarConfig}>
