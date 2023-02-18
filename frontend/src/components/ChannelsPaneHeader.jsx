@@ -10,14 +10,14 @@ const ChannelsPaneHeader = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const showModalAdd = () => {
-    dispatch(showModal({ type: 'adding' }));
-  };
-
   return (
     <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
       <span>{t('panes.channelsHeader')}</span>
-      <Button className="p-0 text-primary btn-group-vertical" variant="light" onClick={showModalAdd}>
+      <Button
+        className="p-0 text-primary btn-group-vertical"
+        variant="light"
+        onClick={() => dispatch(showModal({ type: 'adding' }))}
+      >
         <Image src={svgCross} alt="cross" />
         <span className="visually-hidden">+</span>
       </Button>

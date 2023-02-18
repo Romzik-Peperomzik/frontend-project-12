@@ -35,12 +35,8 @@ const Channel = ({ id, name, removable }) => {
     </Button>
   );
 
-  const showModalRename = () => {
-    dispatch(showModal({ type: 'renaming', item: { id, name } }));
-  };
-
-  const showModalRemove = () => {
-    dispatch(showModal({ type: 'removing', item: { id, name } }));
+  const dispatchNewModal = (type) => {
+    dispatch(showModal({ type, item: { id, name } }));
   };
 
   const renderDropDownButton = () => (
@@ -52,8 +48,12 @@ const Channel = ({ id, name, removable }) => {
         </span>
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item onClick={showModalRemove}>{t('controls.dropDownChannelRemove')}</Dropdown.Item>
-        <Dropdown.Item onClick={showModalRename}>{t('controls.dropDownChannelRename')}</Dropdown.Item>
+        <Dropdown.Item onClick={() => dispatchNewModal('removing')}>
+          {t('controls.dropDownChannelRemove')}
+        </Dropdown.Item>
+        <Dropdown.Item onClick={() => dispatchNewModal('renaming')}>
+          {t('controls.dropDownChannelRename')}
+        </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );
