@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
-import { Button, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import useSocketApi from '../../hooks/useSocketApi';
 import { hideModal } from '../../slices/modalSlice';
+import ModalWindow from './ModalWindow';
 
 const Remove = () => {
   const { t } = useTranslation();
@@ -33,27 +33,23 @@ const Remove = () => {
     setDisable(!isDisable);
   };
 
+  const texts = {
+    titleText: t('modals.removeTitle'),
+    placeholderText: t('modals.inputPlaceholder'),
+    closeButtonText: t('modals.close'),
+    removeButtonText: t('modals.remove'),
+    removeReadOnlyText: t('modals.removeReadOnlyText', { name: currentModalItem.name }),
+  };
+
   return (
-    <Modal show centered onHide={handleCloseModal}>
-      <Modal.Header closeButton>
-        <Modal.Title>{t('modals.removeTitle')}</Modal.Title>
-      </Modal.Header>
-
-      <Modal.Body>
-        <p>
-          {t('modals.removeReadOnlyText', { name: currentModalItem.name })}
-        </p>
-      </Modal.Body>
-
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleCloseModal} disabled={isDisable}>
-          {t('modals.close')}
-        </Button>
-        <Button variant="danger" onClick={handleClick} ref={buttonRef} disabled={isDisable}>
-          {t('modals.remove')}
-        </Button>
-      </Modal.Footer>
-    </Modal>
+    <ModalWindow
+      handleClick={handleClick}
+      isDisable={isDisable}
+      handleCloseModal={handleCloseModal}
+      buttonRef={buttonRef}
+      texts={texts}
+      type="remove"
+    />
   );
 };
 
