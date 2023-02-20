@@ -68,13 +68,7 @@ const LoginPage = () => {
               <Col sm={12} md={6} className="d-flex align-items-center justify-content-center">
                 <Image src={imgLogin} className="rounded-circle" />
               </Col>
-              <Col
-                as={Form}
-                onSubmit={formik.handleSubmit}
-                sm={12}
-                md={6}
-                className="mt-3 mt-mb-0"
-              >
+              <Col as={Form} onSubmit={formik.handleSubmit} sm={12} md={6} className="mt-3 mt-mb-0">
                 <h1 className="text-center mb-4">{t('forms.loginHeader')}</h1>
                 <fieldset disabled={formik.isSubmitting}>
                   {formGroups.map((itemAttributes) => (
