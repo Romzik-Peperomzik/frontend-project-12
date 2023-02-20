@@ -13,12 +13,15 @@ const ModalWindow = ({
     removeReadOnlyText,
   } = texts;
 
+  const getModalHeader = () => (
+    <Modal.Header closeButton>
+      <Modal.Title>{titleText}</Modal.Title>
+    </Modal.Header>
+  );
+
   const renderAddOrRenameModal = () => (
     <Modal show centered onHide={handleCloseModal}>
-      <Modal.Header closeButton>
-        <Modal.Title>{titleText}</Modal.Title>
-      </Modal.Header>
-
+      {getModalHeader}
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group controlId="modalAddChannel" className="position-relative">
@@ -62,10 +65,7 @@ const ModalWindow = ({
 
   const renderRemoveModal = () => (
     <Modal show centered onHide={handleCloseModal}>
-      <Modal.Header closeButton>
-        <Modal.Title>{titleText}</Modal.Title>
-      </Modal.Header>
-
+      {getModalHeader}
       <Modal.Body>
         <p>
           {removeReadOnlyText}
