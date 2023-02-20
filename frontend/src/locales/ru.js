@@ -1,5 +1,6 @@
 const translation = {
   forms: {
+    loginHeader: 'Логин',
     loginFooterNoAcc: 'Нет аккаунта?',
     usernameLabel: 'Имя пользователя',
     usernickLabel: 'Ваш ник',
