@@ -6,30 +6,29 @@ import React, { useState } from 'react';
 import AuthContext from '../contexts/authContext';
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('userId')) || null);
+  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userData')) || null);
 
   const logOut = () => {
-    localStorage.removeItem('userId');
-    setUser(null);
+    localStorage.removeItem('userData');
+    setUserData(null);
   };
 
   const getToken = () => {
-    const userId = JSON.parse(localStorage.getItem('userId'));
-    if (userId && userId.token) return userId.token;
-    return {};
+    const { token } = JSON.parse(localStorage.getItem('userData'));
+    if (token) return token;
+    return '';
   };
 
   const authorizeUser = async (route, data) => {
     const res = await axios.post(route, data);
-    localStorage.setItem('userId', JSON.stringify(res.data));
-    setUser(JSON.parse(localStorage.getItem('userId')));
+    localStorage.setItem('userData', JSON.stringify(res.data));
+    setUserData(JSON.parse(localStorage.getItem('userData')));
     return res.data;
   };
 
   return (
     <AuthContext.Provider value={{
-      user,
-      setUser,
+      userData,
       logOut,
       getToken,
       authorizeUser,

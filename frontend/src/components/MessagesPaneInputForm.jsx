@@ -28,7 +28,7 @@ const MessagesPaneInputForm = () => {
   const handleSubmitInputForm = (e) => {
     e.preventDefault();
     socketApi.newMessage({
-      username: auth.user.username,
+      username: auth.userData.username,
       body: filter.clean(inputValue),
       channelId: currentChannelId,
     });

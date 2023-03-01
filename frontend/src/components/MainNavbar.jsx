@@ -21,7 +21,7 @@ const MainNavbar = () => {
             {t('controls.navLogo')}
           </Link>
         </Navbar.Brand>
-        {auth.user
+        {auth.userData
           && (
           <Button as={Link} to={routes.logoutPagePath()}>
             {t('controls.navLogout')}
