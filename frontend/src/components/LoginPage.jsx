@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useFormik } from 'formik';
 import React, { useEffect, useRef, useState } from 'react';
 import {
@@ -45,7 +46,8 @@ const LoginPage = () => {
     }),
     onSubmit: async (values) => {
       try {
-        const userData = await auth.authorizeUser(routes.loginPath(), values);
+        const res = await axios.post(routes.loginPath(), values);
+        const userData = auth.logIn(res);
         setAuthFailed(false);
         navigate({ pathname: routes.chatPagePath() });
         rollbar.info(`${userData.username} logged in`);

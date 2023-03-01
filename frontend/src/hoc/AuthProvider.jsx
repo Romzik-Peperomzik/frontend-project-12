@@ -1,12 +1,16 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-
-import axios from 'axios';
 import React, { useState } from 'react';
 
 import AuthContext from '../contexts/authContext';
 
 const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userData')) || null);
+
+  const logIn = ({ data }) => {
+    localStorage.setItem('userData', JSON.stringify(data));
+    setUserData(JSON.parse(localStorage.getItem('userData')));
+    return data;
+  };
 
   const logOut = () => {
     localStorage.removeItem('userData');
@@ -19,19 +23,12 @@ const AuthProvider = ({ children }) => {
     return '';
   };
 
-  const authorizeUser = async (route, data) => {
-    const res = await axios.post(route, data);
-    localStorage.setItem('userData', JSON.stringify(res.data));
-    setUserData(JSON.parse(localStorage.getItem('userData')));
-    return res.data;
-  };
-
   return (
     <AuthContext.Provider value={{
       userData,
+      logIn,
       logOut,
       getToken,
-      authorizeUser,
     }}
     >
       {children}

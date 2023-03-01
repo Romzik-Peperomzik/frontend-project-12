@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useFormik } from 'formik';
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -58,7 +59,8 @@ const SignupPage = () => {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        const userData = await auth.authorizeUser(routes.signupPath(), values);
+        const res = await axios.post(routes.signupPath(), values);
+        const userData = auth.logIn(res);
         navigate({ pathname: routes.chatPagePath() });
         setSignupFailed(false);
         rollbar.info(`${userData.username} signed up`);
