@@ -6,6 +6,7 @@ import {
   Form,
 } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 
@@ -16,6 +17,7 @@ import svgArrow from '../assets/arrow.svg';
 const MessagesPaneInputForm = () => {
   const { t } = useTranslation();
   const [inputValue, setInputValue] = useState('');
+  const [isDisable, setDisable] = useState(false);
   const auth = useAuth();
   const inputRef = useRef();
   const currentChannelId = useSelector((state) => state.channels.currentChannelId);
@@ -27,12 +29,23 @@ const MessagesPaneInputForm = () => {
 
   const handleSubmitInputForm = (e) => {
     e.preventDefault();
-    socketApi.newMessage({
-      username: auth.userData.username,
-      body: filter.clean(inputValue),
-      channelId: currentChannelId,
-    });
-    setInputValue('');
+    setDisable(!isDisable);
+    socketApi.newMessage(
+      {
+        username: auth.userData.username,
+        body: filter.clean(inputValue),
+        channelId: currentChannelId,
+      },
+      () => {
+        setInputValue('');
+        setDisable(!!isDisable);
+      },
+      (err) => {
+        console.error(err);
+        toast.error(t('feedback.noNetwork'));
+        setDisable(!!isDisable);
+      },
+    );
   };
 
   const handleChange = (e) => {
@@ -51,12 +64,13 @@ const MessagesPaneInputForm = () => {
             aria-label={t('forms.messagesInput')}
             aria-describedby="basic-addon2"
             className="border-0 p-0 ps-2"
+            disabled={isDisable}
           />
           <Button
             variant="white"
             type="submit"
             className="btn-group-vertical border-0"
-            disabled={!inputValue}
+            disabled={!inputValue || isDisable}
           >
             <Image src={svgArrow} alt="arrow" />
             <span className="visually-hidden">{t('controls.messagesSendInput')}</span>

@@ -5,29 +5,31 @@ import store from '../slices/index';
 import { addChannel, renameChannel, removeChannel } from '../slices/channelsSlice';
 import { addMessage } from '../slices/messagesSlice';
 
-const socketApiHandler = (socket) => ({
-  newMessage(data) {
-    socket.emit('newMessage', data, (response) => {
-      if (response.status === 'ok') return;
-      throw new Error(response.err);
+const socketApiHandler = (socket) => {
+  const emitPromisify = (type, data, resolve, reject) => new Promise(() => {
+    socket.timeout(5000).emit(type, data, (err, response) => {
+      if (err) reject(err);
+      else resolve(response);
     });
-  },
-  newChannel(data, callbackHandler) {
-    socket.emit('newChannel', data, (response) => {
-      callbackHandler(response);
-    });
-  },
-  renameChannel(data, callbackHandler) {
-    socket.emit('renameChannel', data, (response) => {
-      callbackHandler(response);
-    });
-  },
-  removeChannel(data, callbackHandler) {
-    socket.emit('removeChannel', data, (response) => {
-      callbackHandler(response);
-    });
-  },
-});
+  });
+
+  const handlers = {
+    newMessage(data, resolve, reject) {
+      emitPromisify('newMessage', data, resolve, reject);
+    },
+    newChannel(data, resolve, reject) {
+      emitPromisify('newChannel', data, resolve, reject);
+    },
+    renameChannel(data, resolve, reject) {
+      emitPromisify('renameChannel', data, resolve, reject);
+    },
+    removeChannel(data, resolve, reject) {
+      emitPromisify('removeChannel', data, resolve, reject);
+    },
+  };
+
+  return handlers;
+};
 
 const SocketApiProvider = ({ children, socket }) => {
   socket.on('newMessage', (message) => {
