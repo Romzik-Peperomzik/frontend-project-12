@@ -4,35 +4,45 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/f884e05e9f231f0c3766/maintainability)](https://codeclimate.com/github/Romzik-Peperomzik/frontend-project-12/maintainability)
 # **Simple websocket chat**
 ## Description:
-- Simple websocket chat with frontend and [backend](https://github.com/hexlet-components/project-js-chat-backend) implimentation.
-- Support multiple channels and controls to them (create, delete, rename).
-- Signup as new user and login as existed.
+- Simple websocket chat with frontend and [backend](https://github.com/hexlet-components/project-js-chat-backend) implementation.
+- Supported features:
+  - Signin, login.
+  - Profanity filter (en, ru).
+  - Multiple channels.
+  - Channel managment (add, rename, remove).
+- Signup as new user or login as existed (see pre-created user).
+
+- Stack:
+  - JS, React.
+  - Redux toolkit.
+  - Bootstrap.
+
+## Pre-created user:
+- Login: admin
+- Password: admin
 
 ## Deployed on Railway:
 https://frontend-project-12-production-9523.up.railway.app/
 
-## Build project
+## Build project:
 ```sh
 npm run build
 npm start
 ```
-## Install dependencies
+
+## Install dependencies:
 
 ```sh
 make install
 ```
 
-## Run linter
+## Run linter:
 ```sh
 make lint-frontend
 ```
 
-## Run server and client
+## Run server and client:
 
 ```sh
 make start
 ```
-
-## Pre created user
-- Login: admin
-- Password: admin
