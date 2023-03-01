@@ -24,7 +24,7 @@ const ModalWindow = ({
       {getModalHeader()}
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
-          <Form.Group controlId="modalAddChannel" className="position-relative">
+          <Form.Group className="position-relative">
             <Form.Control
               id="name"
               name="name"
