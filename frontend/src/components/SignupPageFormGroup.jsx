@@ -31,7 +31,7 @@ const SignupPageFormGroup = ({
         {formik.errors[name] ? formik.errors[name] : userExistError}
       </Form.Control.Feedback>
 
-      <Form.Label htmlFor="username">
+      <Form.Label htmlFor={name}>
         {placeholder}
       </Form.Label>
     </Form.Group>
