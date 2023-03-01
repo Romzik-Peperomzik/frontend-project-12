@@ -45,7 +45,7 @@ const SocketApiProvider = ({ children, socket }) => {
   });
 
   socket.on('removeChannel', ({ id }) => {
-    store.dispatch(removeChannel(id));
+    store.dispatch(removeChannel({ id }));
   });
   const socketApi = socketApiHandler(socket);
 
