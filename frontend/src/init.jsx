@@ -6,7 +6,6 @@ import filter from 'leo-profanity';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 
 import App from './components/App';
-import AuthProvider from './hoc/AuthProvider';
 import translation from './locales/ru';
 import SocketApiProvider from './hoc/SocketApiProvider';
 import store from './slices/index';
@@ -21,8 +20,6 @@ const rollbarConfig = {
 };
 
 const defaultLanguage = 'ru';
-filter.add(filter.getDictionary('ru'));
-filter.add(filter.getDictionary('en'));
 
 const init = async (socket) => {
   const i18nextInstance = i18next.createInstance();
@@ -33,18 +30,19 @@ const init = async (socket) => {
       resources: { ru: { translation } },
     });
 
+  filter.add(filter.getDictionary('ru'));
+  filter.add(filter.getDictionary('en'));
+
   return (
     <RollbarProvider config={rollbarConfig}>
       <ErrorBoundary>
-        <AuthProvider>
-          <Provider store={store}>
-            <I18nextProvider i18n={i18nextInstance}>
-              <SocketApiProvider socket={socket}>
-                <App />
-              </SocketApiProvider>
-            </I18nextProvider>
-          </Provider>
-        </AuthProvider>
+        <Provider store={store}>
+          <I18nextProvider i18n={i18nextInstance}>
+            <SocketApiProvider socket={socket}>
+              <App />
+            </SocketApiProvider>
+          </I18nextProvider>
+        </Provider>
       </ErrorBoundary>
     </RollbarProvider>
   );
