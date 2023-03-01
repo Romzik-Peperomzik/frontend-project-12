@@ -36,7 +36,7 @@ const LoginPageFormGroup = ({
       {name === 'password'
         ? isInvalid
         : null}
-      <Form.Label htmlFor="username">
+      <Form.Label htmlFor={name}>
         {placeholder}
       </Form.Label>
     </Form.Group>
