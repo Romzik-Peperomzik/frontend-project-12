@@ -22,8 +22,8 @@ const Rename = () => {
   const validationSchema = yup.object({
     name: yup.string()
       .notOneOf(channelsName, t('feedback.invalidChannelName'))
-      .min(3, t('feedback.validationMin3'))
-      .max(20, t('feedback.validationMax20'))
+      .min(3, t('feedback.validationMin3Max20'))
+      .max(20, t('feedback.validationMin3Max20'))
       .required(t('feedback.validationRequired')),
   });
 

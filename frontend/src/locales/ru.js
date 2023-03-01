@@ -24,10 +24,9 @@ const translation = {
   feedback: {
     invalidLoginAttempt: 'Неверные имя пользователя или пароль',
     invalidChannelName: 'Канал с таким именем уже существует',
-    validationMin3: 'Минимум 3 символа',
-    validationMax20: 'Максимум 20 символов',
+    validationMin3Max20: 'От 3 до 20 символов',
     validationRequired: 'Обязательное поле',
-    validationRange6: 'Не менее 6 символов',
+    validationFrom6Char: 'Не менее 6 символов',
     validationCoincidence: 'Пароли должны совпадать',
     userAlreadyExists: 'Такой пользователь уже существует',
     noNetwork: 'Ошибка соединения',

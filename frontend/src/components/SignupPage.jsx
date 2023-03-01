@@ -24,11 +24,11 @@ const SignupPage = () => {
   const rollbar = useRollbar();
   const validationSchema = yup.object({
     username: yup.string()
-      .min(3, t('feedback.validationMin3'))
-      .max(20, t('feedback.validationMax20'))
+      .min(3, t('feedback.validationMin3Max20'))
+      .max(20, t('feedback.validationMin3Max20'))
       .required(t('feedback.validationRequired')),
     password: yup.string()
-      .min(6, t('feedback.validationRange6'))
+      .min(6, t('feedback.validationFrom6Char'))
       .required(t('feedback.validationRequired')),
     password_confirmation: yup.string()
       .required(t('feedback.validationRequired'))
