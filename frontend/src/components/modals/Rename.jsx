@@ -37,18 +37,16 @@ const Rename = () => {
   const generateOnSubmit = (values) => {
     const { id } = currentModalItem;
     const name = filter.clean(values.name);
-    socketApi.renameChannel(
-      { id, name },
-      () => {
+    socketApi.renameChannel({ id, name })
+      .then(() => {
         handleCloseModal();
         toast.success(t('feedback.channelRenamed'));
-      },
-      (err) => {
+      })
+      .catch((err) => {
         console.error(err);
         handleCloseModal();
         toast.error(t('feedback.noNetwork'));
-      },
-    );
+      });
   };
 
   const formik = useFormik({

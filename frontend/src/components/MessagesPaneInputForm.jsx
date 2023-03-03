@@ -30,22 +30,20 @@ const MessagesPaneInputForm = () => {
   const handleSubmitInputForm = (e) => {
     e.preventDefault();
     setDisable(!isDisable);
-    socketApi.newMessage(
-      {
-        username: auth.userData.username,
-        body: filter.clean(inputValue),
-        channelId: currentChannelId,
-      },
-      () => {
+    socketApi.newMessage({
+      username: auth.userData.username,
+      body: filter.clean(inputValue),
+      channelId: currentChannelId,
+    })
+      .then(() => {
         setInputValue('');
         setDisable(!!isDisable);
-      },
-      (err) => {
+      })
+      .catch((err) => {
         console.error(err);
         toast.error(t('feedback.noNetwork'));
         setDisable(!!isDisable);
-      },
-    );
+      });
   };
 
   const handleChange = (e) => {

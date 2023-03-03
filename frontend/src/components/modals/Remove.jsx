@@ -24,20 +24,18 @@ const Remove = () => {
   const handleClick = () => {
     setDisable(!isDisable);
     const { id } = currentModalItem;
-    socketApi.removeChannel(
-      { id },
-      () => {
+    socketApi.removeChannel({ id })
+      .then(() => {
         handleCloseModal();
         toast.success(t('feedback.channelRemoved'));
         setDisable(!!isDisable);
-      },
-      (err) => {
+      })
+      .catch((err) => {
         console.error(err);
         handleCloseModal();
         toast.error(t('feedback.noNetwork'));
         setDisable(!!isDisable);
-      },
-    );
+      });
   };
 
   const texts = {

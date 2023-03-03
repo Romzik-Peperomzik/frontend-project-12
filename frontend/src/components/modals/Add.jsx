@@ -34,19 +34,17 @@ const Add = () => {
 
   const generateOnSubmit = (values) => {
     const name = filter.clean(values.name);
-    socketApi.newChannel(
-      { name },
-      (response) => {
+    socketApi.newChannel({ name })
+      .then((response) => {
         dispatch(setCurrentChannelId(response.data.id));
         handleCloseModal();
         toast.success(t('feedback.channelAdded'));
-      },
-      (err) => {
+      })
+      .catch((err) => {
         console.error(err);
         handleCloseModal();
         toast.error(t('feedback.noNetwork'));
-      },
-    );
+      });
   };
 
   const formik = useFormik({

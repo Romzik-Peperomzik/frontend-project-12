@@ -6,7 +6,7 @@ import { addChannel, renameChannel, removeChannel } from '../slices/channelsSlic
 import { addMessage } from '../slices/messagesSlice';
 
 const socketApiHandler = (socket) => {
-  const emitPromisify = (type, data, resolve, reject) => new Promise(() => {
+  const emitPromisify = (type, data) => new Promise((resolve, reject) => {
     socket.timeout(5000).emit(type, data, (err, response) => {
       if (err) reject(err);
       else resolve(response);
@@ -14,18 +14,10 @@ const socketApiHandler = (socket) => {
   });
 
   const handlers = {
-    newMessage(data, resolve, reject) {
-      emitPromisify('newMessage', data, resolve, reject);
-    },
-    newChannel(data, resolve, reject) {
-      emitPromisify('newChannel', data, resolve, reject);
-    },
-    renameChannel(data, resolve, reject) {
-      emitPromisify('renameChannel', data, resolve, reject);
-    },
-    removeChannel(data, resolve, reject) {
-      emitPromisify('removeChannel', data, resolve, reject);
-    },
+    newMessage: (data) => emitPromisify('newMessage', data),
+    newChannel: (data) => emitPromisify('newChannel', data),
+    renameChannel: (data) => emitPromisify('renameChannel', data),
+    removeChannel: (data) => emitPromisify('removeChannel', data),
   };
 
   return handlers;
