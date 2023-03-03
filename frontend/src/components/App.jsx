@@ -9,7 +9,6 @@ import { ToastContainer } from 'react-toastify';
 import AuthProvider from '../hoc/AuthProvider';
 import ChatPage from './ChatPage';
 import LoginPage from './LoginPage';
-import LogoutPage from './LogoutPage';
 import MainNavbar from './MainNavbar';
 import NotFoundPage from './NotFoundPage';
 import RequireAuth from '../hoc/RequireAuth';
@@ -32,7 +31,6 @@ const App = () => (
           />
           <Route path={routes.loginPagePath()} element={<LoginPage />} />
           <Route path={routes.signupPagePath()} element={<SignupPage />} />
-          <Route path={routes.logoutPagePath()} element={<LogoutPage />} />
           <Route path={routes.notFoundPagePath()} element={<NotFoundPage />} />
         </Routes>
         <ToastContainer />
