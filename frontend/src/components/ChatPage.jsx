@@ -14,10 +14,10 @@ import fetchData from '../slices/fetchThunk';
 const ChatPage = () => {
   const auth = useAuth();
   const dispatch = useDispatch();
-  const headers = { Authorization: `Bearer ${auth.getToken()}` };
+  const authHeader = auth.getAuthHeader();
 
   useEffect(() => {
-    dispatch(fetchData(headers));
+    dispatch(fetchData(authHeader));
   }, [dispatch]);
 
   const modalType = useSelector((state) => state.modal.type);
