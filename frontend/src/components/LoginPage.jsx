@@ -54,8 +54,8 @@ const LoginPage = () => {
       } catch (err) {
         console.log(err);
         setAuthFailed(true);
-        if (err.code === 'ERR_NETWORK') toast.error(t('feedback.noNetwork'));
-        if (err.isAxiosError && err.response.status === 401) inputRef.current.select();
+        if (err?.response?.status === 401) inputRef.current.select();
+        else toast.error(t('feedback.noNetwork'));
       }
     },
   });

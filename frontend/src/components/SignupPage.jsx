@@ -67,8 +67,8 @@ const SignupPage = () => {
       } catch (err) {
         console.log(err);
         auth.logOut();
-        if (err.code === 'ERR_NETWORK') toast.error(t('feedback.noNetwork'));
-        if (err.response.status === 409) setSignupFailed(true);
+        if (err?.response?.status === 409) setSignupFailed(true);
+        else toast.error(t('feedback.noNetwork'));
       }
     },
   });
