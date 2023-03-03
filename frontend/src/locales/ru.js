@@ -36,6 +36,7 @@ const translation = {
     pageNotfound: 'Страница не найдена',
     pathNoticeText: 'Но вы можете перейти',
     pathNoticeLink: 'на главную страницу',
+    unAuth: 'Ошибка авторизации',
   },
   panes: {
     channelsHeader: 'Каналы',

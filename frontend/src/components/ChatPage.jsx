@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 import ChannelsPaneHeader from './ChannelsPaneHeader';
 import ChannelsPaneNavigation from './ChannelsPaneNavigation';
@@ -10,14 +13,26 @@ import MessagesPaneInputForm from './MessagesPaneInputForm';
 import getModal from './modals/index';
 import useAuth from '../hooks/useAuth';
 import fetchData from '../slices/fetchThunk';
+import routes from '../routes';
 
 const ChatPage = () => {
+  const { t } = useTranslation();
   const auth = useAuth();
   const dispatch = useDispatch();
   const authHeader = auth.getAuthHeader();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(fetchData(authHeader));
+    dispatch(fetchData(authHeader))
+      .unwrap()
+      .catch((err) => {
+        console.error(err);
+        if (err.statusCode === 401) {
+          toast.error(t('feedback.unAuth'));
+          auth.logOut();
+          navigate({ pathname: routes.loginPagePath() });
+        } else toast.error(t('feedback.noNetwork'));
+      });
   }, [dispatch]);
 
   const modalType = useSelector((state) => state.modal.type);

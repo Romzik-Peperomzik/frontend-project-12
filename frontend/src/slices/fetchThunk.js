@@ -4,9 +4,13 @@ import routes from '../routes';
 
 const fetchData = createAsyncThunk(
   'chatPage/fetchData',
-  async (headers) => {
-    const response = await axios.get(routes.usersPath(), { headers });
-    return response.data;
+  async (headers, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(routes.usersPath(), { headers });
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
   },
 );
 
