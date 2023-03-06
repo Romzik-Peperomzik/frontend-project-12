@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
+import { Button, Modal, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
@@ -9,7 +10,6 @@ import * as yup from 'yup';
 import useSocketApi from '../../hooks/useSocketApi';
 import { hideModal } from '../../slices/modalSlice';
 import { channelsSelectors } from '../../slices/channelsSlice';
-import ModalWindow from './ModalWindow';
 
 const Rename = () => {
   const { t } = useTranslation();
@@ -55,21 +55,49 @@ const Rename = () => {
     onSubmit: generateOnSubmit,
   });
 
-  const texts = {
-    titleText: t('modals.renameTitle'),
-    placeholderText: t('modals.inputPlaceholder'),
-    closeButtonText: t('modals.close'),
-    saveButtonText: t('modals.save'),
-  };
-
   return (
-    <ModalWindow
-      formik={formik}
-      handleCloseModal={handleCloseModal}
-      inputRef={inputRef}
-      texts={texts}
-      type="rename"
-    />
+    <Modal show centered onHide={handleCloseModal}>
+      <Modal.Header closeButton>
+        <Modal.Title>{t('modals.renameTitle')}</Modal.Title>
+      </Modal.Header>
+
+      <Modal.Body>
+        <Form onSubmit={formik.handleSubmit}>
+          <Form.Group controlId="modalRenameChannel" className="position-relative">
+            <Form.Control
+              id="name"
+              name="name"
+              placeholder={t('modals.inputPlaceholder')}
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              isInvalid={!formik.isValid}
+              ref={inputRef}
+              disabled={formik.isSubmitting}
+            />
+            {formik.errors.name
+              && (
+              <Form.Control.Feedback type="invalid" tooltip>
+                {formik.errors.name}
+              </Form.Control.Feedback>
+              )}
+
+            <Form.Label htmlFor="name" className="visually-hidden">
+              {t('modals.inputPlaceholder')}
+            </Form.Label>
+          </Form.Group>
+        </Form>
+      </Modal.Body>
+
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleCloseModal} disabled={formik.isSubmitting}>
+          {t('modals.close')}
+        </Button>
+        <Button variant="primary" onClick={formik.handleSubmit} disabled={formik.isSubmitting}>
+          {t('modals.save')}
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 };
 
