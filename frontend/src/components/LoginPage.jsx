@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import {
   Button, Form, Container, Row, Col, Card, Image,
 } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useRollbar } from '@rollbar/react';
@@ -94,7 +94,7 @@ const LoginPage = () => {
               <div className="text-center">
                 <span>{t('forms.loginFooterNoAcc')}</span>
                 {' '}
-                <a href="/signup">{t('controls.loginFooterRegLink')}</a>
+                <Link to={routes.signupPagePath()}>{t('controls.loginFooterRegLink')}</Link>
               </div>
             </Card.Footer>
           </Card>
