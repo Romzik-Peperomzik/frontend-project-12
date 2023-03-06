@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SocketApiContext from '../contexts/socketApiContext';
+import SocketApiContext from './socketApiContext';
 import store from '../slices/index';
 import { addChannel, renameChannel, removeChannel } from '../slices/channelsSlice';
 import { addMessage } from '../slices/messagesSlice';

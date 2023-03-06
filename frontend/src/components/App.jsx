@@ -6,12 +6,12 @@ import {
 } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import AuthProvider from '../hoc/AuthProvider';
+import AuthProvider from '../contexts/AuthProvider';
 import ChatPage from './ChatPage';
 import LoginPage from './LoginPage';
 import MainNavbar from './MainNavbar';
 import NotFoundPage from './NotFoundPage';
-import RequireAuth from '../hoc/RequireAuth';
+import RequireAuth from './RequireAuth';
 import SignupPage from './SignupPage';
 import routes from '../routes';
 

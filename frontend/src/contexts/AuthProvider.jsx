@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React, { useState } from 'react';
 
-import AuthContext from '../contexts/authContext';
+import AuthContext from './authContext';
 
 const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userData')) || null);

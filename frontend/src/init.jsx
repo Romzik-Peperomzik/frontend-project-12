@@ -7,7 +7,7 @@ import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 
 import App from './components/App';
 import translation from './locales/ru';
-import SocketApiProvider from './hoc/SocketApiProvider';
+import SocketApiProvider from './contexts/SocketApiProvider';
 import store from './slices/index';
 
 const rollbarConfig = {
