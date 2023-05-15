@@ -7,7 +7,7 @@ import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import AuthProvider from './contexts/AuthProvider';
 
 import App from './components/App';
-import translation from './locales/ru';
+import locales from './locales/index';
 import SocketApiProvider from './contexts/SocketApiProvider';
 import store from './slices/index';
 
@@ -27,8 +27,8 @@ const init = async (socket) => {
   await i18nextInstance
     .use(initReactI18next)
     .init({
+      resources: { ru: { translation: locales.ru }, en: { translation: locales.en } },
       lng: defaultLanguage,
-      resources: { ru: { translation } },
     });
 
   filter.add(filter.getDictionary('ru'));
