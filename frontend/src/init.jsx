@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import i18next from 'i18next';
 import filter from 'leo-profanity';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
+import AuthProvider from './contexts/AuthProvider';
 
 import App from './components/App';
 import translation from './locales/ru';
@@ -38,9 +39,11 @@ const init = async (socket) => {
       <ErrorBoundary>
         <Provider store={store}>
           <I18nextProvider i18n={i18nextInstance}>
-            <SocketApiProvider socket={socket}>
-              <App />
-            </SocketApiProvider>
+            <AuthProvider>
+              <SocketApiProvider socket={socket}>
+                <App />
+              </SocketApiProvider>
+            </AuthProvider>
           </I18nextProvider>
         </Provider>
       </ErrorBoundary>

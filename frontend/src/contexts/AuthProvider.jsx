@@ -18,8 +18,10 @@ const AuthProvider = ({ children }) => {
   };
 
   const getToken = () => {
-    const { token } = JSON.parse(localStorage.getItem('userData'));
-    if (token) return token;
+    if (localStorage.getItem('userData')) {
+      const { token } = JSON.parse(localStorage.getItem('userData'));
+      if (token) return token;
+    }
     return '';
   };
 

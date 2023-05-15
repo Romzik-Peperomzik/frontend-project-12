@@ -6,7 +6,6 @@ import {
 } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import AuthProvider from '../contexts/AuthProvider';
 import ChatPage from './ChatPage';
 import LoginPage from './LoginPage';
 import MainNavbar from './MainNavbar';
@@ -16,27 +15,25 @@ import SignupPage from './SignupPage';
 import routes from '../routes';
 
 const App = () => (
-  <AuthProvider>
-    <BrowserRouter>
-      <div className="d-flex flex-column h-100">
-        <MainNavbar />
-        <Routes>
-          <Route
-            path={routes.chatPagePath()}
-            element={(
-              <RequireAuth>
-                <ChatPage />
-              </RequireAuth>
-            )}
-          />
-          <Route path={routes.loginPagePath()} element={<LoginPage />} />
-          <Route path={routes.signupPagePath()} element={<SignupPage />} />
-          <Route path={routes.notFoundPagePath()} element={<NotFoundPage />} />
-        </Routes>
-        <ToastContainer />
-      </div>
-    </BrowserRouter>
-  </AuthProvider>
+  <BrowserRouter>
+    <div className="d-flex flex-column h-100">
+      <MainNavbar />
+      <Routes>
+        <Route
+          path={routes.chatPagePath()}
+          element={(
+            <RequireAuth>
+              <ChatPage />
+            </RequireAuth>
+          )}
+        />
+        <Route path={routes.loginPagePath()} element={<LoginPage />} />
+        <Route path={routes.signupPagePath()} element={<SignupPage />} />
+        <Route path={routes.notFoundPagePath()} element={<NotFoundPage />} />
+      </Routes>
+      <ToastContainer />
+    </div>
+  </BrowserRouter>
 );
 
 export default App;
