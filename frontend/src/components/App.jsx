@@ -8,9 +8,9 @@ import { ToastContainer } from 'react-toastify';
 
 import ChatPage from './ChatPage';
 import LoginPage from '../pages/login/page';
+import NotFoundPage from '../pages/404/page';
 import SignupPage from '../pages/signup/page';
 import MainNavbar from './MainNavbar';
-import NotFoundPage from './NotFoundPage';
 import RequireAuth from './RequireAuth';
 import routes from '../routes';
 

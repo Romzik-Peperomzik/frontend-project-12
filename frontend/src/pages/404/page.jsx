@@ -3,10 +3,10 @@ import { Image } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import imgNotfound from '../assets/notfound.svg';
-import routes from '../routes';
+import imgNotfound from '../../assets/notfound.svg';
+import routes from '../../routes';
 
-const Notfoundpage = () => {
+const NotFoundPage = () => {
   const { t } = useTranslation();
 
   return (
@@ -22,4 +22,4 @@ const Notfoundpage = () => {
   );
 };
 
-export default Notfoundpage;
+export default NotFoundPage;
