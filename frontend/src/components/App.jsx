@@ -7,7 +7,7 @@ import {
 import { ToastContainer } from 'react-toastify';
 
 import ChatPage from './ChatPage';
-import LoginPage from './LoginPage';
+import LoginPage from '../pages/login/page';
 import MainNavbar from './MainNavbar';
 import NotFoundPage from './NotFoundPage';
 import RequireAuth from './RequireAuth';
