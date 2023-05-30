@@ -3,10 +3,9 @@ import { Form } from 'react-bootstrap';
 
 const LoginInputField = forwardRef((props, ref) => {
   const {
-    name, placeholder, type, authFailed, formik, authFailedFeedback,
+    name, placeholder, type, formik, isAuthFailed, authFailedFeedback,
   } = props;
-
-  const isInvalid = (formik.touched[name] && formik.errors[name]) || authFailed;
+  const isInvalid = (formik.touched[name] && formik.errors[name]) || isAuthFailed;
   const authFailedError = name === 'password' ? authFailedFeedback : null;
   const classNames = name === 'password'
     ? 'form-floating mb-4'

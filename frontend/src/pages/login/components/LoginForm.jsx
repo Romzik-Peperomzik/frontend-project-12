@@ -14,7 +14,7 @@ import useAuth from '../../../hooks/useAuth';
 const LoginForm = () => {
   const { t } = useTranslation();
   const auth = useAuth();
-  const [authFailed, setAuthFailed] = useState(false);
+  const [isAuthFailed, setIsAuthFailed] = useState(false);
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
@@ -33,11 +33,11 @@ const LoginForm = () => {
       try {
         const res = await axios.post(routes.loginPath(), values);
         auth.logIn(res);
-        setAuthFailed(false);
+        setIsAuthFailed(false);
         navigate({ pathname: routes.chatPagePath() });
       } catch (err) {
-        console.log(err);
-        setAuthFailed(true);
+        console.error(err);
+        setIsAuthFailed(true);
         if (err?.response?.status === 401) inputRef.current.select();
         else toast.error(t('feedback.noNetwork'));
       }
@@ -47,7 +47,7 @@ const LoginForm = () => {
   useEffect(() => {
     inputRef.current.focus();
     inputRef.current.select();
-  }, [authFailed]);
+  }, [isAuthFailed]);
 
   return (
     <Form onSubmit={formik.handleSubmit}>
@@ -59,8 +59,7 @@ const LoginForm = () => {
           ref={inputRef}
           type="text"
           formik={formik}
-          authFailed={authFailed}
-          key="username"
+          isAuthFailed={isAuthFailed}
         />
 
         <LoginInputField
@@ -68,9 +67,8 @@ const LoginForm = () => {
           placeholder={t('forms.passwordLabel')}
           type="password"
           formik={formik}
-          authFailed={authFailed}
+          isAuthFailed={isAuthFailed}
           authFailedFeedback={t('feedback.invalidLoginAttempt')}
-          key="password"
         />
 
         <Button
