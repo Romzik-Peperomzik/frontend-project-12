@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
-import { messagesSelectors } from '../slices/messagesSlice';
+import { messagesSelectors } from '../../../slices/messagesSlice';
 
 const MessagesPaneBody = () => {
   const messages = useSelector(messagesSelectors.selectAll);

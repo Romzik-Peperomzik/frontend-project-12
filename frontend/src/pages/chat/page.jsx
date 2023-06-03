@@ -5,15 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
-import ChannelsPaneHeader from './ChannelsPaneHeader';
-import ChannelsPaneNavigation from './ChannelsPaneNavigation';
-import MessagesPaneHeader from './MessagesPaneHeader';
-import MessagesPaneBody from './MessagesPaneBody';
-import MessagesPaneInputForm from './MessagesPaneInputForm';
-import getModal from './modals/index';
-import useAuth from '../hooks/useAuth';
-import fetchData from '../slices/fetchThunk';
-import routes from '../routes';
+import ChannelsPaneHeader from './components/ChannelsPaneHeader';
+import ChannelsPaneNavigation from './components/ChannelsPaneNavigation';
+import MessagesPaneHeader from './components/MessagesPaneHeader';
+import MessagesPaneBody from './components/MessagesPaneBody';
+import MessagesPaneInputForm from './components/MessagesPaneInputForm';
+import getModal from '../../components/modals/index';
+import useAuth from '../../hooks/useAuth';
+import fetchData from '../../slices/fetchThunk';
+import routes from '../../routes';
 
 const ChatPage = () => {
   const { t } = useTranslation();

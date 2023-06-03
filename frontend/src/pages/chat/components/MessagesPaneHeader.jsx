@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { channelsSelectors } from '../slices/channelsSlice';
-import { messagesSelectors } from '../slices/messagesSlice';
+import { channelsSelectors } from '../../../slices/channelsSlice';
+import { messagesSelectors } from '../../../slices/messagesSlice';
 
 const MessagesPaneHeader = () => {
   const { t } = useTranslation();

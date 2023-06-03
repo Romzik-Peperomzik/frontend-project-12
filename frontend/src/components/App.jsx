@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import ChatPage from './ChatPage';
+import ChatPage from '../pages/chat/page';
 import LoginPage from '../pages/login/page';
 import NotFoundPage from '../pages/404/page';
 import SignupPage from '../pages/signup/page';

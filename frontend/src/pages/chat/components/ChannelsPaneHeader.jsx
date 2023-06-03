@@ -3,8 +3,8 @@ import { Button, Image } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { showModal } from '../slices/modalSlice';
-import svgCross from '../assets/cross.svg';
+import { showModal } from '../../../slices/modalSlice';
+import svgCross from '../../../assets/cross.svg';
 
 const ChannelsPaneHeader = () => {
   const { t } = useTranslation();

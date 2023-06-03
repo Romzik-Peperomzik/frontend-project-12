@@ -10,9 +10,9 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 
-import useSocketApi from '../hooks/useSocketApi';
-import useAuth from '../hooks/useAuth';
-import svgArrow from '../assets/arrow.svg';
+import useSocketApi from '../../../hooks/useSocketApi';
+import useAuth from '../../../hooks/useAuth';
+import svgArrow from '../../../assets/arrow.svg';
 
 const MessagesPaneInputForm = () => {
   const { t } = useTranslation();

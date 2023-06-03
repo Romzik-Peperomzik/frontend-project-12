@@ -9,8 +9,8 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { showModal } from '../slices/modalSlice';
-import { setCurrentChannelId } from '../slices/channelsSlice';
+import { showModal } from '../../../slices/modalSlice';
+import { setCurrentChannelId } from '../../../slices/channelsSlice';
 
 const Channel = ({ id, name, removable }) => {
   const { t } = useTranslation();

@@ -2,7 +2,7 @@ import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
-import { channelsSelectors } from '../slices/channelsSlice';
+import { channelsSelectors } from '../../../slices/channelsSlice';
 import Channel from './Channel';
 
 const ChannelsPaneNavigation = () => {
