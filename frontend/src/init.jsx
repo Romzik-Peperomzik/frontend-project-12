@@ -3,22 +3,12 @@ import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { Provider } from 'react-redux';
 import i18next from 'i18next';
 import filter from 'leo-profanity';
-import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import AuthProvider from './contexts/AuthProvider';
 
 import App from './components/App';
 import locales from './locales/index';
 import SocketApiProvider from './contexts/SocketApiProvider';
 import store from './slices/index';
-
-const rollbarConfig = {
-  accessToken: process.env.REACT_APP_ROLLBAR_ACCESS_TOKEN,
-  captureUncaught: true,
-  captureUnhandledRejections: true,
-  payload: {
-    environment: 'production',
-  },
-};
 
 const defaultLanguage = 'ru';
 
@@ -35,19 +25,15 @@ const init = async (socket) => {
   filter.add(filter.getDictionary('en'));
 
   return (
-    <RollbarProvider config={rollbarConfig}>
-      <ErrorBoundary>
-        <Provider store={store}>
-          <I18nextProvider i18n={i18nextInstance}>
-            <AuthProvider>
-              <SocketApiProvider socket={socket}>
-                <App />
-              </SocketApiProvider>
-            </AuthProvider>
-          </I18nextProvider>
-        </Provider>
-      </ErrorBoundary>
-    </RollbarProvider>
+    <Provider store={store}>
+      <I18nextProvider i18n={i18nextInstance}>
+        <AuthProvider>
+          <SocketApiProvider socket={socket}>
+            <App />
+          </SocketApiProvider>
+        </AuthProvider>
+      </I18nextProvider>
+    </Provider>
   );
 };
 
