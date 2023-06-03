@@ -5,8 +5,12 @@ const LoginInputField = forwardRef((props, ref) => {
   const {
     name, placeholder, type, formik, isAuthFailed, authFailedFeedback,
   } = props;
-  const isInvalid = (formik.touched[name] && formik.errors[name]) || isAuthFailed;
-  const authFailedError = name === 'password' ? authFailedFeedback : null;
+  const isInvalid = name === 'password'
+    ? (formik.touched[name] && formik.errors[name]) || isAuthFailed
+    : formik.touched[name] && formik.errors[name];
+  const authFailedError = name === 'password'
+    ? authFailedFeedback
+    : null;
   const classNames = name === 'password'
     ? 'form-floating mb-4'
     : 'form-floating mb-3';

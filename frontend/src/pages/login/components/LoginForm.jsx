@@ -30,10 +30,10 @@ const LoginForm = () => {
         .required(t('feedback.validationRequired')),
     }),
     onSubmit: async (values) => {
+      setIsAuthFailed(false);
       try {
         const res = await axios.post(routes.loginPath(), values);
         auth.logIn(res);
-        setIsAuthFailed(false);
         navigate({ pathname: routes.chatPagePath() });
       } catch (err) {
         console.error(err);

@@ -43,11 +43,11 @@ const SignupForm = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
+      setSignupFailed(false);
       try {
         const res = await axios.post(routes.signupPath(), values);
         auth.logIn(res);
         navigate({ pathname: routes.chatPagePath() });
-        setSignupFailed(false);
       } catch (err) {
         console.log(err);
         auth.logOut();

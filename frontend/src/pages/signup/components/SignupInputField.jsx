@@ -5,7 +5,9 @@ const SignupInputField = forwardRef((props, ref) => {
   const {
     name, placeholder, type, formik, isSignupFailed, signupFailedFeedback,
   } = props;
-  const isInvalid = (formik.touched[name] && formik.errors[name]) || isSignupFailed;
+  const isInvalid = name === 'password_confirmation'
+    ? (formik.touched[name] && formik.errors[name]) || isSignupFailed
+    : formik.touched[name] && formik.errors[name];
   const signupFailedError = name === 'password_confirmation'
     ? signupFailedFeedback
     : null;
