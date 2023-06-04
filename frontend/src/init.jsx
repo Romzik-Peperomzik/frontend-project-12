@@ -3,10 +3,11 @@ import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { Provider } from 'react-redux';
 import i18next from 'i18next';
 import filter from 'leo-profanity';
-import AuthProvider from './contexts/AuthProvider';
 
+import AuthProvider from './contexts/AuthProvider';
 import App from './components/App';
 import locales from './locales/index';
+import ThemeProvider from './contexts/ThemeProvider';
 import SocketApiProvider from './contexts/SocketApiProvider';
 import store from './slices/index';
 
@@ -28,9 +29,11 @@ const init = async (socket) => {
     <Provider store={store}>
       <I18nextProvider i18n={i18nextInstance}>
         <AuthProvider>
-          <SocketApiProvider socket={socket}>
-            <App />
-          </SocketApiProvider>
+          <ThemeProvider>
+            <SocketApiProvider socket={socket}>
+              <App />
+            </SocketApiProvider>
+          </ThemeProvider>
         </AuthProvider>
       </I18nextProvider>
     </Provider>
