@@ -6,7 +6,7 @@ import {
 import imgSignUp from '../../assets/signup.jpeg';
 import SignupForm from './components/SignupForm';
 
-const SignupPage = () => (
+const Signup = () => (
   <Container fluid className="h-100">
     <Row className="justify-content-center align-content-center h-100">
       <Col sm={12} md={8} lg={8} xxl={6}>
@@ -24,4 +24,4 @@ const SignupPage = () => (
   </Container>
 );
 
-export default SignupPage;
+export default Signup;

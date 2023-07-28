@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import imgNotfound from '../../assets/notfound.svg';
 import routes from '../../routes';
 
-const NotFoundPage = () => {
+const NotFound = () => {
   const { t } = useTranslation();
 
   return (
@@ -22,4 +22,4 @@ const NotFoundPage = () => {
   );
 };
 
-export default NotFoundPage;
+export default NotFound;

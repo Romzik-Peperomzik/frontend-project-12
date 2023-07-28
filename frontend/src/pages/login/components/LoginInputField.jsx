@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import { Form } from 'react-bootstrap';
 
-import styles from '../LoginPage.module.css';
+import styles from '../Login.module.css';
 import useTheme from '../../../hooks/useTheme';
 
 const LoginInputField = forwardRef((props, ref) => {

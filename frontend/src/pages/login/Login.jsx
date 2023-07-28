@@ -8,10 +8,10 @@ import { useTranslation } from 'react-i18next';
 import routes from '../../routes';
 import imgLogin from '../../assets/login.jpeg';
 import LoginForm from './components/LoginForm';
-import styles from './LoginPage.module.css';
+import styles from './Login.module.css';
 import useTheme from '../../hooks/useTheme';
 
-const LoginPage = () => {
+const Login = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
 
@@ -49,4 +49,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { channelsSelectors } from '../../../slices/channelsSlice';
 import Channel from './Channel';
 
-const ChannelsPaneNavigation = () => {
+const ChannelNavigation = () => {
   const channels = useSelector(channelsSelectors.selectAll);
 
   return (
@@ -24,4 +24,4 @@ const ChannelsPaneNavigation = () => {
   );
 };
 
-export default ChannelsPaneNavigation;
+export default ChannelNavigation;

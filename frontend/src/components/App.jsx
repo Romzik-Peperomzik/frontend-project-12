@@ -6,10 +6,10 @@ import {
 } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import ChatPage from '../pages/chat/page';
-import LoginPage from '../pages/login/page';
-import NotFoundPage from '../pages/404/page';
-import SignupPage from '../pages/signup/page';
+import Chat from '../pages/chat/Chat';
+import Login from '../pages/login/Login';
+import NotFound from '../pages/404/NotFound';
+import Signup from '../pages/signup/Signup';
 import MainNavbar from './MainNavbar';
 import RequireAuth from './RequireAuth';
 import routes from '../routes';
@@ -28,13 +28,13 @@ const App = () => {
             path={routes.chatPagePath()}
             element={(
               <RequireAuth>
-                <ChatPage />
+                <Chat />
               </RequireAuth>
             )}
           />
-          <Route path={routes.loginPagePath()} element={<LoginPage />} />
-          <Route path={routes.signupPagePath()} element={<SignupPage />} />
-          <Route path={routes.notFoundPagePath()} element={<NotFoundPage />} />
+          <Route path={routes.loginPagePath()} element={<Login />} />
+          <Route path={routes.signupPagePath()} element={<Signup />} />
+          <Route path={routes.notFoundPagePath()} element={<NotFound />} />
         </Routes>
         <ToastContainer />
       </div>

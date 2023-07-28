@@ -14,7 +14,7 @@ import useSocketApi from '../../../hooks/useSocketApi';
 import useAuth from '../../../hooks/useAuth';
 import svgArrow from '../../../assets/arrow.svg';
 
-const MessagesPaneInputForm = () => {
+const MessageInputForm = () => {
   const { t } = useTranslation();
   const [inputValue, setInputValue] = useState('');
   const [isDisable, setDisable] = useState(false);
@@ -79,4 +79,4 @@ const MessagesPaneInputForm = () => {
   );
 };
 
-export default MessagesPaneInputForm;
+export default MessageInputForm;

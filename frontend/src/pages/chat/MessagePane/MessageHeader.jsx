@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { channelsSelectors } from '../../../slices/channelsSlice';
 import { messagesSelectors } from '../../../slices/messagesSlice';
 
-const MessagesPaneHeader = () => {
+const MessageHeader = () => {
   const { t } = useTranslation();
   const messages = useSelector(messagesSelectors.selectAll);
   const currentChannelId = useSelector((state) => state.channels.currentChannelId);
@@ -33,4 +33,4 @@ const MessagesPaneHeader = () => {
   );
 };
 
-export default MessagesPaneHeader;
+export default MessageHeader;

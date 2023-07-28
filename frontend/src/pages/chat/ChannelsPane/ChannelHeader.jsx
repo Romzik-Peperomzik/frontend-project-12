@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { showModal } from '../../../slices/modalSlice';
 import svgCross from '../../../assets/cross.svg';
 
-const ChannelsPaneHeader = () => {
+const ChannelHeader = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -25,4 +25,4 @@ const ChannelsPaneHeader = () => {
   );
 };
 
-export default ChannelsPaneHeader;
+export default ChannelHeader;

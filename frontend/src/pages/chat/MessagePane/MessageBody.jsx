@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { messagesSelectors } from '../../../slices/messagesSlice';
 
-const MessagesPaneBody = () => {
+const MessagesBody = () => {
   const messages = useSelector(messagesSelectors.selectAll);
   const currentChannelId = useSelector((state) => state.channels.currentChannelId);
   const currentChannelMessages = messages
@@ -33,4 +33,4 @@ const MessagesPaneBody = () => {
   );
 };
 
-export default MessagesPaneBody;
+export default MessagesBody;
