@@ -1,0 +1,35 @@
+:root {
+  --light-text: #3B434E;
+  --light-bg: #f8f9fa;
+  --light-bg-secondary: white;
+  --dark-text: #f8f9fa;
+  --dark-text-link: #A4A4A4;
+  --dark-text-link-hover: #EBEBEB;
+  --dark-bg: #50577A;
+  --dark-bg-secondary: #474E68;
+  --dark-bg-third: #6B728E;
+  --dark-bg-footer: #454b69;
+
+
+  --black: #3B434E;
+  --gray-light: #EBEBEB;
+  --gray: #A4A4A4;
+  --gray-dark: #787D85;
+  --white: #FFF;
+  --primary: #7653FC;
+  --primary-hover: #6344DF;
+  --red-light: #FEA291;
+  --red: #FC836D;
+  --green: #1DC37E;
+  --green-light: #C8F8E4;
+}
+
+#root {
+  height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+@import 'custom'

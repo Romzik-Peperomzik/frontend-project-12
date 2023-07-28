@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/main.scss';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { createRoot } from 'react-dom/client';
 import { io } from 'socket.io-client';
