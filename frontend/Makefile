@@ -4,8 +4,8 @@ install:
 start:
 	npm start
 
-build:
-	npm build
+build-frontend:
+	npm run build
 
 lint:
 	npx eslint .

@@ -24,25 +24,22 @@
 ## Deployed on Railway:
 https://frontend-project-12-production-9523.up.railway.app/
 
-## Build project:
-```sh
-npm run build
-npm start
-```
-
 ## Install dependencies:
-
 ```sh
 make install
+```
+
+## Build project:
+```sh
+make build
+```
+
+## Run backend and frontend:
+```sh
+make start
 ```
 
 ## Run linter:
 ```sh
 make lint-frontend
-```
-
-## Run server and client:
-
-```sh
-make start
 ```
