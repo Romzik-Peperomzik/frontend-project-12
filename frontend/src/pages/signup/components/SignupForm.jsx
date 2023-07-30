@@ -30,11 +30,6 @@ const SignupForm = () => {
       .oneOf([yup.ref('password'), null], t('feedback.validationCoincidence')),
   });
 
-  useEffect(() => {
-    inputRef.current.focus();
-    inputRef.current.select();
-  }, [isSignupFailed]);
-
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -56,6 +51,11 @@ const SignupForm = () => {
       }
     },
   });
+
+  useEffect(() => {
+    inputRef.current.focus();
+    inputRef.current.select();
+  }, [isSignupFailed]);
 
   return (
     <Form onSubmit={formik.handleSubmit} className="w-50">

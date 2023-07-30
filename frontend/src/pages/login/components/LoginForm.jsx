@@ -17,18 +17,19 @@ const LoginForm = () => {
   const [isAuthFailed, setIsAuthFailed] = useState(false);
   const inputRef = useRef(null);
   const navigate = useNavigate();
+  const validationSchema = yup.object({
+    username: yup.string()
+      .required(t('feedback.validationRequired')),
+    password: yup.string()
+      .required(t('feedback.validationRequired')),
+  });
 
   const formik = useFormik({
     initialValues: {
       username: '',
       password: '',
     },
-    validationSchema: yup.object({
-      username: yup.string()
-        .required(t('feedback.validationRequired')),
-      password: yup.string()
-        .required(t('feedback.validationRequired')),
-    }),
+    validationSchema,
     onSubmit: async (values) => {
       setIsAuthFailed(false);
       try {
@@ -38,7 +39,7 @@ const LoginForm = () => {
       } catch (err) {
         console.error(err);
         setIsAuthFailed(true);
-        if (err?.response?.status === 401) inputRef.current.select();
+        if (err?.response?.status === 401) setIsAuthFailed(true);
         else toast.error(t('feedback.noNetwork'));
       }
     },
