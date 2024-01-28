@@ -8,8 +8,8 @@ import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import SignupInputField from './SignupInputField';
-import routes from '../../../routes';
-import useAuth from '../../../hooks/useAuth';
+import routes from '../../routes';
+import useAuth from '../../hooks/useAuth';
 
 const SignupForm = () => {
   const { t } = useTranslation();
@@ -17,6 +17,7 @@ const SignupForm = () => {
   const [isSignupFailed, setSignupFailed] = useState(false);
   const inputRef = useRef();
   const navigate = useNavigate();
+
   const validationSchema = yup.object({
     username: yup.string()
       .min(3, t('feedback.validationMin3Max20'))
@@ -30,6 +31,20 @@ const SignupForm = () => {
       .oneOf([yup.ref('password'), null], t('feedback.validationCoincidence')),
   });
 
+  const submitAction = async (values) => {
+    setSignupFailed(false);
+    try {
+      const res = await axios.post(routes.signupPath(), values);
+      auth.logIn(res);
+      navigate({ pathname: routes.chatPagePath() });
+    } catch (err) {
+      console.log(err);
+      auth.logOut();
+      if (err?.response?.status === 409) setSignupFailed(true);
+      else toast.error(t('feedback.noNetwork'));
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -37,19 +52,7 @@ const SignupForm = () => {
       password_confirmation: '',
     },
     validationSchema,
-    onSubmit: async (values) => {
-      setSignupFailed(false);
-      try {
-        const res = await axios.post(routes.signupPath(), values);
-        auth.logIn(res);
-        navigate({ pathname: routes.chatPagePath() });
-      } catch (err) {
-        console.log(err);
-        auth.logOut();
-        if (err?.response?.status === 409) setSignupFailed(true);
-        else toast.error(t('feedback.noNetwork'));
-      }
-    },
+    onSubmit: submitAction,
   });
 
   useEffect(() => {
