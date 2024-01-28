@@ -32,4 +32,5 @@ a {
   text-decoration: none;
 }
 
-@import 'custom'
+@import 'bsCustom';
+@import '~bootstrap/scss/bootstrap.scss';

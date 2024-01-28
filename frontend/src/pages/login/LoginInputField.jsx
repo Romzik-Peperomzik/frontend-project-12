@@ -27,6 +27,7 @@ const LoginInputField = forwardRef((props, ref) => {
         value={formik.values[name]}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
+        variant="dark"
       />
 
       <Form.Control.Feedback type="invalid" tooltip>
