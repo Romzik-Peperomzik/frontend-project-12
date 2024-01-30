@@ -18,21 +18,22 @@
   box-shadow: 0 0 1rem rgba(173, 173, 173, 1);
 }
 
-.login-form > fieldset > button[data-bs-theme="dark"] {
+fieldset > button[data-bs-theme="dark"] {
   color: var(--dark-text);
   border-color: var(--dark-bg);
 }
 
-.login-form > fieldset > button[data-bs-theme="dark"]:focus,
-.login-form > fieldset > button[data-bs-theme="dark"]:hover,
-.login-form > fieldset > button[data-bs-theme="dark"]:focus-visible {
+fieldset > button[data-bs-theme="dark"]:focus,
+fieldset > button[data-bs-theme="dark"]:hover,
+fieldset > button[data-bs-theme="dark"]:focus-visible {
+  border-color: var(--dark-bg);
   background-color: var(--dark-bg-third);
   box-shadow: 0 0 1rem rgba(173, 173, 173, 1);
 }
 
-.login-form > fieldset > button[data-bs-theme="dark"]:active,
-.login-form > fieldset > button[data-bs-theme="dark"]:active:focus-visible,
-.login-form > fieldset > button[data-bs-theme="dark"]:disabled {
+fieldset > button[data-bs-theme="dark"]:active,
+fieldset > button[data-bs-theme="dark"]:active:focus-visible,
+fieldset > button[data-bs-theme="dark"]:disabled {
   border-color: var(--dark-bg);
   background-color: var(--dark-bg-third);
   box-shadow: none;

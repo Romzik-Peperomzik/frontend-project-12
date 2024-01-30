@@ -10,6 +10,7 @@ import * as yup from 'yup';
 import SignupInputField from './SignupInputField';
 import routes from '../../routes';
 import useAuth from '../../hooks/useAuth';
+import useTheme from '../../hooks/useTheme';
 
 const SignupForm = () => {
   const { t } = useTranslation();
@@ -17,6 +18,7 @@ const SignupForm = () => {
   const [isSignupFailed, setSignupFailed] = useState(false);
   const inputRef = useRef();
   const navigate = useNavigate();
+  const { theme } = useTheme();
 
   const validationSchema = yup.object({
     username: yup.string()
@@ -61,7 +63,7 @@ const SignupForm = () => {
   }, [isSignupFailed]);
 
   return (
-    <Form onSubmit={formik.handleSubmit} className="w-50">
+    <Form onSubmit={formik.handleSubmit} className="w-50 signup-form">
       <h1 className="text-center mb-4">{t('forms.signupHeader')}</h1>
       <fieldset disabled={formik.isSubmitting}>
         <SignupInputField
@@ -96,6 +98,7 @@ const SignupForm = () => {
             ? 'primary'
             : 'outline-primary'}
           className="w-100 mb-3"
+          data-bs-theme={theme}
         >
           {t('controls.signup')}
         </Button>
