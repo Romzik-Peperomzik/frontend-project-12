@@ -1,6 +1,8 @@
 import React, { forwardRef } from 'react';
 import { Form } from 'react-bootstrap';
 
+import useTheme from '../../hooks/useTheme';
+
 const LoginInputField = forwardRef((props, ref) => {
   const {
     name, placeholder, type, formik, isAuthFailed, authFailedFeedback,
@@ -15,6 +17,8 @@ const LoginInputField = forwardRef((props, ref) => {
     ? 'form-floating mb-4'
     : 'form-floating mb-3';
 
+  const { theme } = useTheme();
+
   return (
     <Form.Group className={classNames} key={name}>
       <Form.Control
@@ -27,14 +31,14 @@ const LoginInputField = forwardRef((props, ref) => {
         value={formik.values[name]}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        variant="dark"
+        data-bs-theme={theme}
       />
 
-      <Form.Control.Feedback type="invalid" tooltip>
+      <Form.Control.Feedback type="invalid" tooltip data-bs-theme={theme}>
         {formik.errors[name] ? formik.errors[name] : authFailedError}
       </Form.Control.Feedback>
 
-      <Form.Label htmlFor={name}>
+      <Form.Label htmlFor={name} data-bs-theme={theme}>
         {placeholder}
       </Form.Label>
     </Form.Group>

@@ -32,5 +32,5 @@ a {
   text-decoration: none;
 }
 
-@import 'bsCustom';
-@import '~bootstrap/scss/bootstrap.scss';
+@import 'themeStyles.css';
+@import '~bootstrap/dist/css/bootstrap.min.css';

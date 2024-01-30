@@ -1,0 +1,134 @@
+.main-container[data-bs-theme="dark"] {
+  background-color: var(--dark-bg);
+}
+
+.main-container[data-bs-theme="dark"] > nav {
+  background-color: var(--dark-bg-secondary);
+}
+
+.form-control[data-bs-theme="dark"],
+.form-control[data-bs-theme="dark"]:focus,
+.form-control[data-bs-theme="dark"]:disabled {
+  color: var(--dark-text);
+  background-color: var(--dark-bg-third);
+  border-color: var(--dark-bg);
+}
+
+.form-control[data-bs-theme="dark"]:focus {
+  box-shadow: 0 0 1rem rgba(173, 173, 173, 1);
+}
+
+.login-form > fieldset > button[data-bs-theme="dark"] {
+  color: var(--dark-text);
+  border-color: var(--dark-bg);
+}
+
+.login-form > fieldset > button[data-bs-theme="dark"]:focus,
+.login-form > fieldset > button[data-bs-theme="dark"]:hover,
+.login-form > fieldset > button[data-bs-theme="dark"]:focus-visible {
+  background-color: var(--dark-bg-third);
+  box-shadow: 0 0 1rem rgba(173, 173, 173, 1);
+}
+
+.login-form > fieldset > button[data-bs-theme="dark"]:active,
+.login-form > fieldset > button[data-bs-theme="dark"]:active:focus-visible,
+.login-form > fieldset > button[data-bs-theme="dark"]:disabled {
+  border-color: var(--dark-bg);
+  background-color: var(--dark-bg-third);
+  box-shadow: none;
+}
+
+.footer-link[data-bs-theme="light"],
+.footer-link[data-bs-theme="light"]:hover {
+  color: var(--gray);
+}
+
+.footer-link[data-bs-theme="dark"],
+.footer-link[data-bs-theme="dark"]:hover {
+  color: var(--dark-text-link);
+}
+
+.card[data-bs-theme="dark"] {
+  background-color: var(--dark-bg-secondary);
+}
+
+.form-label[data-bs-theme="dark"] {
+  color: var(--dark-text);
+}
+
+.form-label[data-bs-theme="dark"]::after {
+  display: none;
+}
+
+.invalid-tooltip[data-bs-theme="dark"] {
+  background-color: var(--red-light);
+  background: var(--red-light);
+}
+
+.form-floating:has(.invalid-tooltip[data-bs-theme="dark"]) > .form-control.is-invalid {
+  border-color: var(--red-light);
+  box-shadow:  0 0 1rem rgba(220,53,69,.25);
+}
+
+.navbar-link[data-bs-theme="light"],
+.navbar-link[data-bs-theme="light"]:hover {
+  color: var(--light-text);
+}
+
+.navbar-link[data-bs-theme="dark"],
+.navbar-link[data-bs-theme="dark"]:hover {
+  color: var(--dark-text);
+}
+
+.navbar-link[data-bs-theme="dark"]:focus-visible {
+  outline: 2px solid gray;
+}
+
+.navbar > .container > div > .btn-group > input[value="light"] + label {
+  border-color: var(--gray-dark);
+  background-color: var(--dark-bg);
+}
+
+.navbar > .container > div > .btn-group > input[value="dark"] + label {
+  border-color: var(--gray-dark);
+  background-color: var(--gray-light);
+}
+
+.navbar > .container > div > .btn-group > label[data-bs-theme="dark"]:focus {
+  box-shadow: 0 0 1rem rgba(173, 173, 173, 1);
+}
+
+.navbar > .container > div > .btn-group > input[value="dark"] + label > svg {
+  fill: var(--dark-bg);
+}
+
+.navbar > .container > div > .btn-group-vertical > .btn-group[data-bs-theme="light"] > button {
+  border-color: var(--gray-dark);
+  background-color: var(--gray-light);
+  color: black;
+}
+
+.navbar > .container > div > .btn-group-vertical > .btn-group[data-bs-theme="dark"] > button {
+  border-color: var(--dark-bg-third);
+  background-color: var(--dark-bg);
+}
+
+.navbar > .container > div > .btn-group-vertical > .btn-group[data-bs-theme="dark"] > button:focus {
+  box-shadow: 0 0 1rem rgba(173, 173, 173, 1);
+}
+
+.navbar > .container > div > .btn-group-vertical > .btn-group[data-bs-theme="dark"] > .dropdown-menu.show {
+  border-color: var(--dark-bg-third);
+  background-color: var(--dark-bg-secondary);
+  
+}
+
+.navbar > .container > div > .btn-group-vertical > .btn-group[data-bs-theme="dark"] > .dropdown-menu > a:hover {
+  border-color: var(--dark-bg-secondary);
+  background-color: var(--dark-bg-third);
+}
+
+.navbar > .container > div > .btn-group-vertical > .btn-group[data-bs-theme="dark"] > .dropdown-menu > a:active {
+  border-color: var(--dark-bg-secondary);
+  background-color: var(--dark-bg);
+}

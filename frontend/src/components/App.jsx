@@ -13,7 +13,6 @@ import Signup from '../pages/signup/Signup';
 import MainNavbar from './MainNavbar';
 import RequireAuth from './RequireAuth';
 import routes from '../routes';
-import styles from '../styles.module.css';
 import useTheme from '../hooks/useTheme';
 
 const App = () => {
@@ -21,7 +20,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <div className={`d-flex flex-column h-100 ${styles[theme]}`}>
+      <div className="d-flex flex-column h-100 main-container" data-bs-theme={theme}>
         <MainNavbar />
         <Routes>
           <Route

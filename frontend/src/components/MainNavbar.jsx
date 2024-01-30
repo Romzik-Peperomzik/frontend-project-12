@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Button, Navbar, Container, DropdownButton, ButtonGroup, Dropdown, ToggleButton,
 } from 'react-bootstrap';
@@ -8,7 +8,6 @@ import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
 
 import useAuth from '../hooks/useAuth';
 import routes from '../routes';
-import styles from '../styles.module.css';
 import useTheme from '../hooks/useTheme';
 
 const MainNavbar = () => {
@@ -16,7 +15,6 @@ const MainNavbar = () => {
   const auth = useAuth();
   const navigate = useNavigate();
   const { theme, setDarkTheme, setLightTheme } = useTheme();
-  const [radioValue, setRadioValue] = useState(theme);
 
   const handleClick = () => {
     auth.logOut();
@@ -24,12 +22,13 @@ const MainNavbar = () => {
   };
 
   return (
-    <Navbar className={`shadow-sm ${styles[`navbar-${theme}`]}`}>
+    <Navbar className="shadow-sm" data-bs-theme={theme}>
       <Container>
         <Navbar.Brand>
           <Link
             to={routes.chatPagePath()}
-            className={`text-decoration-none ${styles[`navbar-link-${theme}`]}`}
+            className="text-decoration-none navbar-link"
+            data-bs-theme={theme}
           >
             {t('controls.navLogo')}
           </Link>
@@ -42,17 +41,15 @@ const MainNavbar = () => {
                   key={radio.value}
                   id={`radio-${idx}`}
                   type="radio"
-                  variant={radio.value === 'dark' ? 'secondary' : 'light'}
+                  data-bs-theme={theme}
                   name="radio"
                   value={radio.value}
-                  checked={radioValue === radio.value}
+                  checked={theme === radio.value}
                   onChange={(e) => {
                     if (e.currentTarget.value === 'light') {
                       setLightTheme();
-                      setRadioValue('light');
                     } else {
                       setDarkTheme();
-                      setRadioValue('dark');
                     }
                   }}
                 >
@@ -61,13 +58,13 @@ const MainNavbar = () => {
               ))}
           </ButtonGroup>
 
-          <ButtonGroup vertical className="pe-3">
+          <ButtonGroup vertical className="pe-3" data-bs-theme={theme}>
             <DropdownButton
               as={ButtonGroup}
               title={i18n.language}
               id="bg-vertical-dropdown-1"
               size="sm"
-              variant={theme === 'light' ? 'light' : 'secondary'}
+              data-bs-theme={theme}
             >
               <Dropdown.Item eventKey="1" onClick={() => i18n.changeLanguage('ru')}>
                 ru
@@ -80,9 +77,9 @@ const MainNavbar = () => {
 
           {auth.userData
             && (
-            <Button onClick={handleClick}>
-              {t('controls.navLogout')}
-            </Button>
+              <Button onClick={handleClick}>
+                {t('controls.navLogout')}
+              </Button>
             )}
         </div>
       </Container>

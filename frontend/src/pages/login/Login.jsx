@@ -8,15 +8,17 @@ import { useTranslation } from 'react-i18next';
 import routes from '../../routes';
 import imgLogin from '../../assets/login.jpeg';
 import LoginForm from './LoginForm';
+import useTheme from '../../hooks/useTheme';
 
 const Login = () => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
 
   return (
     <Container fluid className="h-100">
       <Row className="justify-content-center align-content-center h-100">
         <Col sm={12} md={8} lg={8} xxl={6}>
-          <Card className="shadow-sm">
+          <Card className="shadow-sm" data-bs-theme={theme}>
             <Card.Body as={Row} className="p-5">
               <Col
                 sm={12}
@@ -34,7 +36,7 @@ const Login = () => {
               <div className="text-center">
                 <span>{t('forms.loginFooterNoAcc')}</span>
                 {' '}
-                <Link to={routes.signupPagePath()}>
+                <Link to={routes.signupPagePath()} className="footer-link" data-bs-theme={theme}>
                   {t('controls.loginFooterRegLink')}
                 </Link>
               </div>
