@@ -13,6 +13,7 @@ import filter from 'leo-profanity';
 import useSocketApi from '../../../hooks/useSocketApi';
 import useAuth from '../../../hooks/useAuth';
 import svgArrow from '../../../assets/arrow.svg';
+import useTheme from '../../../hooks/useTheme';
 
 const MessageInputForm = () => {
   const { t } = useTranslation();
@@ -22,6 +23,7 @@ const MessageInputForm = () => {
   const inputRef = useRef();
   const currentChannelId = useSelector((state) => state.channels.currentChannelId);
   const socketApi = useSocketApi();
+  const { theme } = useTheme();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -30,10 +32,15 @@ const MessageInputForm = () => {
   const handleSubmitInputForm = (e) => {
     e.preventDefault();
     setDisable(!isDisable);
+    const currDate = new Date();
+    const minutes = currDate.getMinutes() < 9 ? `0${currDate.getMinutes()}` : currDate.getMinutes();
+    const seconds = currDate.getSeconds() < 9 ? `0${currDate.getSeconds()}` : currDate.getSeconds();
+    const date = `${currDate.getHours()}:${minutes}:${seconds} `;
     socketApi.newMessage({
       username: auth.userData.username,
       body: filter.clean(inputValue),
       channelId: currentChannelId,
+      date,
     })
       .then(() => {
         setInputValue('');
@@ -53,7 +60,7 @@ const MessageInputForm = () => {
   return (
     <div className="mt-auto px-5 py-3">
       <Form onSubmit={handleSubmitInputForm} noValidate className="py-1 border rounded-2">
-        <InputGroup>
+        <InputGroup className="chat-messages-input">
           <Form.Control
             placeholder={t('forms.messagesInputPlaceholder')}
             value={inputValue}
@@ -63,9 +70,10 @@ const MessageInputForm = () => {
             aria-describedby="basic-addon2"
             className="border-0 p-0 ps-2"
             disabled={isDisable}
+            data-bs-theme={theme}
           />
           <Button
-            variant="white"
+            data-bs-theme={theme}
             type="submit"
             className="btn-group-vertical border-0"
             disabled={!inputValue || isDisable}

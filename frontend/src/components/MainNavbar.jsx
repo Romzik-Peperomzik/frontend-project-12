@@ -77,7 +77,7 @@ const MainNavbar = () => {
 
           {auth.userData
             && (
-              <Button onClick={handleClick}>
+              <Button onClick={handleClick} data-bs-theme={theme}>
                 {t('controls.navLogout')}
               </Button>
             )}

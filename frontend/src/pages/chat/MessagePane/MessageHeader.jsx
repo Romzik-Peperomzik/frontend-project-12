@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { channelsSelectors } from '../../../slices/channelsSlice';
 import { messagesSelectors } from '../../../slices/messagesSlice';
+import useTheme from '../../../hooks/useTheme';
 
 const MessageHeader = () => {
   const { t } = useTranslation();
@@ -21,8 +22,10 @@ const MessageHeader = () => {
       : null;
   });
 
+  const { theme } = useTheme();
+
   return (
-    <div className="bg-light mb-4 p-3 shadow-sm small">
+    <div className="mb-4 p-3 small chat-messages-header" data-bs-theme={theme}>
       <p className="m-0"><b>{channelName}</b></p>
       {currentChannelMessages && (
         <span className="text-muted">

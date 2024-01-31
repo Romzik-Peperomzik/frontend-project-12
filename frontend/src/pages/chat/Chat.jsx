@@ -14,6 +14,7 @@ import getModal from '../../components/modals';
 import useAuth from '../../hooks/useAuth';
 import fetchData from '../../slices/fetchThunk';
 import routes from '../../routes';
+import useTheme from '../../hooks/useTheme';
 
 const Chat = () => {
   const { t } = useTranslation();
@@ -21,6 +22,7 @@ const Chat = () => {
   const dispatch = useDispatch();
   const authHeader = auth.getAuthHeader();
   const navigate = useNavigate();
+  const { theme } = useTheme();
 
   useEffect(() => {
     dispatch(fetchData(authHeader))
@@ -40,12 +42,12 @@ const Chat = () => {
 
   return (
     <Container className="my-4 overflow-hidden rounded shadow h-100">
-      <Row className="bg-white h-100">
-        <Col xs={4} md={2} className="pt-5 px-0 border-end bg-light">
+      <Row className="chat-window h-100" data-bs-theme={theme}>
+        <Col xs={4} md={2} className="pt-5 px-0 border-end channels-pane" data-bs-theme={theme}>
           <ChannelHeader />
           <ChannelNavigation />
         </Col>
-        <Col xs={8} md={10} className="p-0 d-flex flex-column h-100">
+        <Col xs={8} md={10} className="p-0 d-flex flex-column h-100 messages-pane" data-bs-theme={theme}>
           <MessageHeader />
           <MessageBody />
           <MessageInputForm />

@@ -23,17 +23,23 @@ fieldset > button[data-bs-theme="dark"] {
   border-color: var(--dark-bg);
 }
 
-fieldset > button[data-bs-theme="dark"]:focus,
-fieldset > button[data-bs-theme="dark"]:hover,
-fieldset > button[data-bs-theme="dark"]:focus-visible {
+.login-form > fieldset > button[data-bs-theme="dark"]:focus,
+.login-form > fieldset > button[data-bs-theme="dark"]:hover,
+.login-form > fieldset > button[data-bs-theme="dark"]:focus-visible,
+.signup-form > fieldset > button[data-bs-theme="dark"]:focus,
+.signup-form > fieldset > button[data-bs-theme="dark"]:hover,
+.signup-form > fieldset > button[data-bs-theme="dark"]:focus-visible {
   border-color: var(--dark-bg);
   background-color: var(--dark-bg-third);
   box-shadow: 0 0 1rem rgba(173, 173, 173, 1);
 }
 
-fieldset > button[data-bs-theme="dark"]:active,
-fieldset > button[data-bs-theme="dark"]:active:focus-visible,
-fieldset > button[data-bs-theme="dark"]:disabled {
+.login-form > fieldset > button[data-bs-theme="dark"]:active,
+.login-form > fieldset > button[data-bs-theme="dark"]:active:focus-visible,
+.login-form > fieldset > button[data-bs-theme="dark"]:disabled,
+.signup-form > fieldset > button[data-bs-theme="dark"]:active,
+.signup-form > fieldset > button[data-bs-theme="dark"]:active:focus-visible,
+.signup-form > fieldset > button[data-bs-theme="dark"]:disabled {
   border-color: var(--dark-bg);
   background-color: var(--dark-bg-third);
   box-shadow: none;
@@ -132,4 +138,156 @@ fieldset > button[data-bs-theme="dark"]:disabled {
 .navbar > .container > div > .btn-group-vertical > .btn-group[data-bs-theme="dark"] > .dropdown-menu > a:active {
   border-color: var(--dark-bg-secondary);
   background-color: var(--dark-bg);
+}
+
+.navbar > .container > div > button[data-bs-theme="dark"] {
+  border-color: var(--dark-bg-secondary);
+  background-color: var(--dark-bg);
+}
+
+.navbar > .container > div > button[data-bs-theme="dark"]:focus {
+  box-shadow: 0 0 1rem rgba(173, 173, 173, 1);
+}
+
+.chat-window[data-bs-theme="light"] {
+  background-color: rgba(var(--bs-white-rgb), 1);
+}
+
+.chat-window[data-bs-theme="dark"] {
+  background-color: var(--dark-bg);
+}
+
+.channels-pane[data-bs-theme="light"],
+.messages-pane[data-bs-theme="light"] {
+  background-color: rgba(var(--bs-white-rgb), 1);
+}
+
+.channels-pane[data-bs-theme="dark"],
+.messages-pane[data-bs-theme="dark"] {
+  background-color: var(--dark-bg-secondary);
+}
+
+.channels-pane[data-bs-theme="dark"] {
+  border-right: var(--bs-border-width) var(--bs-border-style) var(--gray-dark) !important;
+}
+
+.chat-messages[data-bs-theme="dark"] {
+  color: white;
+}
+
+.chat-messages-header[data-bs-theme="light"] {
+  box-shadow: var(--bs-box-shadow-sm);
+}
+
+.chat-messages-header[data-bs-theme="dark"] {
+  color: white;
+  box-shadow: 1px 1px 4px 1px rgba(192, 192, 192, 0.2);
+}
+
+.chat-channels-header[data-bs-theme="dark"] {
+  color: white;
+}
+
+.chat-channels-header[data-bs-theme="light"] > button {
+  border-color: white;
+  background-color: white;
+}
+
+.chat-channels-header[data-bs-theme="dark"] > button {
+  fill: white;
+  border-color: var(--dark-bg-secondary);
+  background-color: var(--dark-bg-secondary);
+}
+
+.channels-pane > .nav > .nav-item > button[data-bs-theme="light"],
+.channels-pane > .nav > .nav-item > .dropdown > button[data-bs-theme="light"] {
+  color: var(--light-text);
+  border-color: white;
+  background-color: white;
+}
+
+.channels-pane > .nav > .nav-item > button[data-bs-theme="dark"],
+.channels-pane > .nav > .nav-item > .dropdown > button[data-bs-theme="dark"] {
+  fill: white;
+  border-color: var(--dark-bg-secondary);
+  background-color: var(--dark-bg-secondary);
+}
+
+.channels-pane > .nav > .nav-item > button[data-bs-theme="dark"]:focus-visible,
+.channels-pane > .nav > .nav-item > .dropdown > button[data-bs-theme="dark"]:focus-visible {
+  outline: 0;
+  box-shadow: 1px 1px 4px 5px rgba(192, 192, 192, 0.2);
+}
+
+.channels-pane > .nav > .nav-item > button[data-bs-theme="light"][data-bs-theme-variant="main"],
+.channels-pane > .nav > .nav-item > .dropdown > button[data-bs-theme="light"][data-bs-theme-variant="main"] {
+  border-color: var(--light-bg-third);
+  background-color: var(--light-bg-third);
+}
+
+.channels-pane > .nav > .nav-item > button[data-bs-theme="dark"][data-bs-theme-variant="main"],
+.channels-pane > .nav > .nav-item > .dropdown > button[data-bs-theme="dark"][data-bs-theme-variant="main"] {
+  border-color: var(--dark-bg);
+  background-color: var(--dark-bg);
+}
+
+.channels-pane > .nav > .nav-item > button[data-bs-theme="light"]:hover,
+.channels-pane > .nav > .nav-item > .dropdown > button[data-bs-theme="light"]:hover {
+  border-color: var(--light-bg);
+  background-color: var(--light-bg);
+}
+
+.channels-pane > .nav > .nav-item > button[data-bs-theme="dark"]:hover,
+.channels-pane > .nav > .nav-item > .dropdown > button[data-bs-theme="dark"]:hover {
+  border-color: var(--dark-bg-third);
+  background-color: var(--dark-bg-third);
+}
+
+.channels-pane > .nav > .nav-item > .dropdown > button.dropdown-toggle[data-bs-theme="dark"]:hover {
+  border-color: var(--dark-bg-third);
+  background-color: var(--dark-bg-third);
+}
+
+.channels-pane > .nav > .nav-item > .dropdown > div[data-bs-theme="dark"] {
+  border-color: var(--dark-bg-third);
+  background-color: var(--dark-bg-third);
+}
+
+.channels-pane > .nav > .nav-item > .dropdown > div[data-bs-theme="dark"] > a[data-bs-theme="dark"]:hover {
+  border-color: var(--dark-bg);
+  background-color: var(--dark-bg);
+}
+
+.channels-pane > .nav > .nav-item > .dropdown > div[data-bs-theme="dark"] > a[data-bs-theme="dark"]:focus-visible {
+  border-color: var(--dark-bg);
+  background-color: var(--dark-bg);
+  outline: 0;
+  box-shadow: 1px 1px 4px 5px rgba(192, 192, 192, 0.2);
+}
+
+.chat-messages-input > input[data-bs-theme="dark"]:focus-visible {
+  box-shadow: 1px 1px 4px 5px rgba(192, 192, 192, 0.2);
+}
+
+.chat-messages-input > button[data-bs-theme="light"] {
+  background-color: rgba(192, 192, 192, 0.0);
+}
+
+.chat-messages-input > button[data-bs-theme="dark"] {
+  background-color: var(--dark-bg-third);
+}
+
+.chat-messages-input > button[data-bs-theme="light"]:hover {
+  border-color: var(--dark-bg);
+  background-color: rgba(192, 192, 192, 1.0);
+}
+
+.chat-messages-input > button[data-bs-theme="dark"]:hover {
+  background-color: var(--dark-bg);
+}
+
+.chat-messages-input > button[data-bs-theme="dark"]:focus-visible {
+  outline: 0;
+  box-shadow: 1px 1px 4px 5px rgba(192, 192, 192, 0.2);
+  background-color: var(--dark-bg-third);
 }

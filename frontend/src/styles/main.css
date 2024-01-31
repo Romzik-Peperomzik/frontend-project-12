@@ -1,7 +1,8 @@
 :root {
   --light-text: #3B434E;
-  --light-bg: #f8f9fa;
-  --light-bg-secondary: white;
+  --light-bg: #c2c2c2;
+  --light-bg-secondary: #f8f9fa;
+  --light-bg-third: rgb(161, 161, 161);
   --dark-text: #f8f9fa;
   --dark-text-link: #A4A4A4;
   --dark-text-link-hover: #EBEBEB;
