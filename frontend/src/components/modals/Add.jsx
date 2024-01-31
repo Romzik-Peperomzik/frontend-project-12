@@ -10,6 +10,7 @@ import * as yup from 'yup';
 import useSocketApi from '../../hooks/useSocketApi';
 import { hideModal } from '../../slices/modalSlice';
 import { channelsSelectors, setCurrentChannelId } from '../../slices/channelsSlice';
+import useTheme from '../../hooks/useTheme';
 
 const Add = () => {
   const { t } = useTranslation();
@@ -25,6 +26,7 @@ const Add = () => {
       .max(20, t('feedback.validationMin3Max20'))
       .required(t('feedback.validationRequired')),
   });
+  const { theme } = useTheme();
 
   const handleCloseModal = () => dispatch(hideModal());
 
@@ -55,11 +57,11 @@ const Add = () => {
 
   return (
     <Modal show centered onHide={handleCloseModal}>
-      <Modal.Header closeButton>
+      <Modal.Header closeButton data-bs-theme={theme}>
         <Modal.Title>{t('modals.addTitle')}</Modal.Title>
       </Modal.Header>
 
-      <Modal.Body>
+      <Modal.Body data-bs-theme={theme}>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group className="position-relative">
             <Form.Control
@@ -72,27 +74,37 @@ const Add = () => {
               isInvalid={!formik.isValid}
               ref={inputRef}
               disabled={formik.isSubmitting}
+              data-bs-theme={theme}
             />
             {formik.errors.name
               && (
-              <Form.Control.Feedback type="invalid" tooltip>
-                {formik.errors.name}
-              </Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid" tooltip data-bs-theme={theme}>
+                  {formik.errors.name}
+                </Form.Control.Feedback>
               )}
 
-            <Form.Label htmlFor="name" className="visually-hidden">
+            <Form.Label htmlFor="name" className="visually-hidden" data-bs-theme={theme}>
               {t('modals.inputPlaceholder')}
             </Form.Label>
           </Form.Group>
         </Form>
       </Modal.Body>
 
-      <Modal.Footer>
+      <Modal.Footer data-bs-theme={theme}>
         <fieldset disabled={formik.isSubmitting}>
-          <Button variant="secondary" onClick={handleCloseModal} className="me-2">
+          <Button
+            onClick={handleCloseModal}
+            className="me-2"
+            data-bs-theme={theme}
+            data-bs-theme-variant="secondary"
+          >
             {t('modals.close')}
           </Button>
-          <Button variant="primary" onClick={formik.handleSubmit}>
+          <Button
+            onClick={formik.handleSubmit}
+            data-bs-theme={theme}
+            data-bs-theme-variant="primary"
+          >
             {t('modals.save')}
           </Button>
         </fieldset>

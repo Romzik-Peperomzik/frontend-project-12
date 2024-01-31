@@ -291,3 +291,58 @@ fieldset > button[data-bs-theme="dark"] {
   box-shadow: 1px 1px 4px 5px rgba(192, 192, 192, 0.2);
   background-color: var(--dark-bg-third);
 }
+
+.modal-header[data-bs-theme="dark"],
+.modal-body[data-bs-theme="dark"],
+.modal-footer[data-bs-theme="dark"] {
+  background-color: var(--dark-bg-third);
+  color: white;
+}
+
+.modal-footer[data-bs-theme="dark"] > fieldset > button[data-bs-theme="dark"][data-bs-theme-variant="primary"] {
+  background-color: var(--dark-bg-third);
+}
+
+.modal-footer[data-bs-theme="dark"] > fieldset > button[data-bs-theme="dark"][data-bs-theme-variant="secondary"] {
+  background-color: var(--dark-bg-secondary);
+}
+
+.modal-footer[data-bs-theme="light"] > fieldset > button[data-bs-theme="light"][data-bs-theme-variant="secondary"] {
+  border-color: var(--light-bg-third);
+  background-color: var(--light-bg-third);
+}
+
+.modal-footer[data-bs-theme="dark"] > fieldset > button[data-bs-theme="dark"][data-bs-theme-variant="danger"] {
+  background-color: var(--red-light);
+}
+
+.modal-footer[data-bs-theme="light"] > fieldset > button[data-bs-theme="light"][data-bs-theme-variant="danger"] {
+  border-color: var(--red);
+  background-color: var(--red);
+}
+
+.modal-footer[data-bs-theme="dark"] > fieldset > button[data-bs-theme="dark"][data-bs-theme-variant="primary"]:hover,
+.modal-footer[data-bs-theme="dark"] > fieldset > button[data-bs-theme="dark"][data-bs-theme-variant="secondary"]:hover,
+.modal-footer[data-bs-theme="dark"] > fieldset > button[data-bs-theme="dark"][data-bs-theme-variant="danger"]:hover,
+.modal-footer[data-bs-theme="dark"] > fieldset > button[data-bs-theme="dark"][data-bs-theme-variant="primary"]:focus-visible,
+.modal-footer[data-bs-theme="dark"] > fieldset > button[data-bs-theme="dark"][data-bs-theme-variant="secondary"]:focus-visible,
+.modal-footer[data-bs-theme="dark"] > fieldset > button[data-bs-theme="dark"][data-bs-theme-variant="danger"]:focus-visible,
+.modal-footer[data-bs-theme="dark"] > fieldset > button[data-bs-theme="dark"][data-bs-theme-variant="primary"]:disabled,
+.modal-footer[data-bs-theme="dark"] > fieldset > button[data-bs-theme="dark"][data-bs-theme-variant="secondary"]:disabled,
+.modal-footer[data-bs-theme="dark"] > fieldset > button[data-bs-theme="dark"][data-bs-theme-variant="danger"]:disabled {
+  border-color: var(--light-bg-secondary);
+  box-shadow: 0px 0px 4px 5px rgba(192, 192, 192, 0.2);
+}
+
+.modal-footer[data-bs-theme="light"] > fieldset > button[data-bs-theme="light"][data-bs-theme-variant="primary"]:hover,
+.modal-footer[data-bs-theme="light"] > fieldset > button[data-bs-theme="light"][data-bs-theme-variant="secondary"]:hover,
+.modal-footer[data-bs-theme="light"] > fieldset > button[data-bs-theme="light"][data-bs-theme-variant="danger"]:hover,
+.modal-footer[data-bs-theme="light"] > fieldset > button[data-bs-theme="light"][data-bs-theme-variant="primary"]:focus-visible,
+.modal-footer[data-bs-theme="light"] > fieldset > button[data-bs-theme="light"][data-bs-theme-variant="secondary"]:focus-visible,
+.modal-footer[data-bs-theme="light"] > fieldset > button[data-bs-theme="light"][data-bs-theme-variant="danger"]:focus-visible,
+.modal-footer[data-bs-theme="light"] > fieldset > button[data-bs-theme="light"][data-bs-theme-variant="primary"]:disabled,
+.modal-footer[data-bs-theme="light"] > fieldset > button[data-bs-theme="light"][data-bs-theme-variant="secondary"]:disabled,
+.modal-footer[data-bs-theme="light"] > fieldset > button[data-bs-theme="light"][data-bs-theme-variant="danger"]:disabled {
+  border-color: var(--gray);
+  box-shadow: 0px 0px 4px 5px rgba(0, 68, 255, 0.2);
+}

@@ -4,6 +4,6 @@ jobs:
   linter-checking:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2  
-      - run: make install
-      - run: make lint-frontend
+      - uses: actions/checkout@v4
+      - run: npm ci
+      - run: lint-frontend

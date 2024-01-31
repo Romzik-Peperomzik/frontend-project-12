@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import useSocketApi from '../../hooks/useSocketApi';
 import { hideModal } from '../../slices/modalSlice';
+import useTheme from '../../hooks/useTheme';
 
 const Remove = () => {
   const { t } = useTranslation();
@@ -14,6 +15,7 @@ const Remove = () => {
   const socketApi = useSocketApi();
   const [isDisable, setDisable] = useState(false);
   const buttonRef = useRef();
+  const { theme } = useTheme();
 
   const handleCloseModal = () => dispatch(hideModal());
 
@@ -40,23 +42,36 @@ const Remove = () => {
 
   return (
     <Modal show centered onHide={handleCloseModal}>
-      <Modal.Header closeButton>
+      <Modal.Header closeButton data-bs-theme={theme}>
         <Modal.Title>{t('modals.removeTitle')}</Modal.Title>
       </Modal.Header>
 
-      <Modal.Body>
+      <Modal.Body data-bs-theme={theme}>
         <p>
           {t('modals.removeReadOnlyText', { name: currentModalItem.name })}
         </p>
       </Modal.Body>
 
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleCloseModal} disabled={isDisable}>
-          {t('modals.close')}
-        </Button>
-        <Button variant="danger" onClick={handleClick} ref={buttonRef} disabled={isDisable}>
-          {t('modals.remove')}
-        </Button>
+      <Modal.Footer data-bs-theme={theme}>
+        <fieldset disabled={isDisable}>
+          <Button
+            variant="secondary"
+            onClick={handleCloseModal}
+            className="me-2"
+            data-bs-theme={theme}
+            data-bs-theme-variant="secondary"
+          >
+            {t('modals.close')}
+          </Button>
+          <Button
+            onClick={handleClick}
+            ref={buttonRef}
+            data-bs-theme={theme}
+            data-bs-theme-variant="danger"
+          >
+            {t('modals.remove')}
+          </Button>
+        </fieldset>
       </Modal.Footer>
     </Modal>
   );

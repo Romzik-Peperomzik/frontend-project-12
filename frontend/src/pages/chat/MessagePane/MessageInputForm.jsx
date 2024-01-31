@@ -33,8 +33,8 @@ const MessageInputForm = () => {
     e.preventDefault();
     setDisable(!isDisable);
     const currDate = new Date();
-    const minutes = currDate.getMinutes() < 9 ? `0${currDate.getMinutes()}` : currDate.getMinutes();
-    const seconds = currDate.getSeconds() < 9 ? `0${currDate.getSeconds()}` : currDate.getSeconds();
+    const minutes = currDate.getMinutes() < 10 ? `0${currDate.getMinutes()}` : currDate.getMinutes();
+    const seconds = currDate.getSeconds() < 10 ? `0${currDate.getSeconds()}` : currDate.getSeconds();
     const date = `${currDate.getHours()}:${minutes}:${seconds} `;
     socketApi.newMessage({
       username: auth.userData.username,
